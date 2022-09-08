@@ -15,6 +15,8 @@ For styling we use [tailwindcss](https://tailwindcss.com/)
 
 - [PostCSS Language Support](https://marketplace.visualstudio.com/items?itemName=csstools.postcss)
 - [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) (turn on "Format on save" in vscode user settings and you may need to Ctrl+Shift+P, search for "Format document" and select Prettier as formatter when you try to run it for the first time)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 # Getting Started with Create React App
 
