@@ -25,10 +25,7 @@ const Example: React.FC = () => {
           })
         );
     });
-  }
-  , [
-
-  ]);
+  }, []);
 
   return (
     <div className="bg-white py-12">
