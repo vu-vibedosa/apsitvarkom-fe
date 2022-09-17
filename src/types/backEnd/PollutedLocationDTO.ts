@@ -7,29 +7,29 @@ export type PollutedLocationDTO = {
   /**
    * Property equivalent to @see {PollutedLocation.id}
    */
-  id?: string;
+  id: string;
   /**
    * Property equivalent to @see {PollutedLocation.location}
    */
-  location?: LocationDTO;
+  location: LocationDTO;
   /**
    * Property equivalent to @see {PollutedLocation.radius}
    */
-  radius?: number;
+  radius: number;
   /**
    * Property equivalent to @see {PollutedLocation.severity}
    */
-  severity?: string;
+  severity: string;
   /**
    * Property equivalent to @see {PollutedLocation.spotted}
    */
-  spotted?: string;
+  spotted: string;
   /**
    * Property equivalent to @see {PollutedLocation.progress}
    */
-  progress?: number;
+  progress: number;
   /**
    * Property equivalent to @see {PollutedLocation.notes}
    */
-  notes?: string;
+  notes: string;
 };
