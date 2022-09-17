@@ -1,13 +1,13 @@
 /**
  * Data Transfer Object for @type {Location}.
  */
-export type LocationDTO = {
+export type LocationDTO = Partial<{
   /**
    * Property equivalent to @see {Location.longitude}.
    */
-  longitude?: number;
+  longitude: number;
   /**
    * Property equivalent to @see {Location.latitude}.
    */
-  latitude?: number;
-};
+  latitude: number;
+}>;

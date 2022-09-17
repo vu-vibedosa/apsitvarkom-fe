@@ -3,7 +3,7 @@ import { LocationDTO } from "./LocationDTO";
 /**
  * Data Transfer Object for @type {PollutedLocation}.
  */
-export type PollutedLocationDTO = {
+export type PollutedLocationDTO = Partial<{
   /**
    * Property equivalent to @see {PollutedLocation.id}
    */
@@ -32,4 +32,4 @@ export type PollutedLocationDTO = {
    * Property equivalent to @see {PollutedLocation.notes}
    */
   notes: string;
-};
+}>;
