@@ -1,7 +1,9 @@
+import PollutedLocation, { severityLevels } from "../PollutedLocation";
+
 /**
  * Data Transfer Object for @type {PollutedLocation}.
  */
-export type PollutedLocationDTO = Partial<{
+type PollutedLocationDTO = Partial<{
   id: string;
   location: Partial<{
     longitude: number;
@@ -13,3 +15,20 @@ export type PollutedLocationDTO = Partial<{
   progress: number;
   notes: string;
 }>;
+
+export default PollutedLocationDTO;
+
+export const mapToPollutedLocation: (
+  from: PollutedLocationDTO
+) => PollutedLocation = (from) => ({
+  ...from,
+  spotted: from.spotted ? new Date(from.spotted) : undefined,
+  severity: severityLevels.find(
+    (level) =>
+      from.severity &&
+      // Case insensitive compare of strings
+      level.localeCompare(from.severity, undefined, {
+        sensitivity: "accent",
+      }) === 0
+  ),
+});
