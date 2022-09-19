@@ -1,35 +1,39 @@
-import { LocationDTO } from "./LocationDTO";
+import PollutedLocation, { severityLevels } from "../PollutedLocation";
 
 /**
  * Data Transfer Object for @type {PollutedLocation}.
  */
-export type PollutedLocationDTO = Partial<{
-  /**
-   * Property equivalent to @see {PollutedLocation.id}
-   */
+type PollutedLocationDTO = Partial<{
   id: string;
-  /**
-   * Property equivalent to @see {PollutedLocation.location}
-   */
-  location: LocationDTO;
-  /**
-   * Property equivalent to @see {PollutedLocation.radius}
-   */
+  location: Partial<{
+    longitude: number;
+    latitude: number;
+  }>;
   radius: number;
-  /**
-   * Property equivalent to @see {PollutedLocation.severity}
-   */
   severity: string;
-  /**
-   * Property equivalent to @see {PollutedLocation.spotted}
-   */
   spotted: string;
-  /**
-   * Property equivalent to @see {PollutedLocation.progress}
-   */
   progress: number;
-  /**
-   * Property equivalent to @see {PollutedLocation.notes}
-   */
   notes: string;
 }>;
+
+export default PollutedLocationDTO;
+
+export const mapToPollutedLocation: (
+  from: PollutedLocationDTO
+) => PollutedLocation = (from) => {
+  const dateObject = from.spotted ? new Date(from.spotted) : undefined;
+
+  return {
+    ...from,
+    spotted:
+      dateObject && !isNaN(dateObject.getTime()) ? dateObject : undefined,
+    severity: severityLevels.find(
+      (level) =>
+        from.severity &&
+        // Case insensitive compare of strings
+        level.localeCompare(from.severity, undefined, {
+          sensitivity: "accent",
+        }) === 0
+    ),
+  };
+};
