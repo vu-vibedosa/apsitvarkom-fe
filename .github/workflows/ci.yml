@@ -26,3 +26,4 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: ${{ steps.coverage.outputs.report }}
+      - run: npm run build --if-present
