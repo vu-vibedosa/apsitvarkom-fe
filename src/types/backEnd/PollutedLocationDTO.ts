@@ -20,15 +20,20 @@ export default PollutedLocationDTO;
 
 export const mapToPollutedLocation: (
   from: PollutedLocationDTO
-) => PollutedLocation = (from) => ({
-  ...from,
-  spotted: from.spotted ? new Date(from.spotted) : undefined,
-  severity: severityLevels.find(
-    (level) =>
-      from.severity &&
-      // Case insensitive compare of strings
-      level.localeCompare(from.severity, undefined, {
-        sensitivity: "accent",
-      }) === 0
-  ),
-});
+) => PollutedLocation = (from) => {
+  const dateObject = from.spotted ? new Date(from.spotted) : undefined;
+
+  return {
+    ...from,
+    spotted:
+      dateObject && !isNaN(dateObject.getTime()) ? dateObject : undefined,
+    severity: severityLevels.find(
+      (level) =>
+        from.severity &&
+        // Case insensitive compare of strings
+        level.localeCompare(from.severity, undefined, {
+          sensitivity: "accent",
+        }) === 0
+    ),
+  };
+};

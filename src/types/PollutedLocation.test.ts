@@ -8,7 +8,7 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
     expect(mapToPollutedLocationDTO(input)).toEqual({});
   });
 
-  test("Converts date", () => {
+  test("Converts spotted date", () => {
     const dateString = "2011-10-05T14:48:00.000Z";
     const input: PollutedLocation = {
       spotted: new Date(dateString),
@@ -25,12 +25,6 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
     severity: "moderate",
     notes: "Lorem ipsum",
   };
-
-  test("Missing nested object", () => {
-    const input: PollutedLocation = baseMock;
-
-    expect(mapToPollutedLocationDTO(input).location).toBeUndefined();
-  });
 
   test("Missing nested object's fields", () => {
     const input: PollutedLocation = {
