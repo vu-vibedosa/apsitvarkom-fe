@@ -21,7 +21,7 @@ jobs:
         id: coverage
         with:
           output: report-markdown
-          test-script: npm run test -- --watchAll=false --passWithNoTests
+          test-script: npm run test -- --watchAll=false
       - name: Publish coverage results as a PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
