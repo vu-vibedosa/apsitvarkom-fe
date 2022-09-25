@@ -17,7 +17,7 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run test -- --watchAll=false --ci --json --coverage --testLocationInResults --outputFile=report.json
-      - name: Run tests and collect coverage report
+      - name: Coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2
         id: coverage
         with:
