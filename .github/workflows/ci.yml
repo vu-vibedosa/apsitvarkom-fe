@@ -16,15 +16,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm ci
-      - run: npm run build --if-present
+      - run: npm run test -- --watchAll=false --ci --json --coverage --testLocationInResults --outputFile=report.json
       - name: Run tests and collect coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2
         id: coverage
         with:
           output: report-markdown
-          test-script: npm run test -- --watchAll=false
-          skip-step: install
+          skip-step: all
       - name: Publish coverage results as a PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          recreate: true
           message: ${{ steps.coverage.outputs.report }}
+      - run: npm run build --if-present
