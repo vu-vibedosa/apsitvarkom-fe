@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import getExample from "../backEndClient";
 
 // Define type of what will "come back" from the back end
-type ExampleModel = {
+export type ExampleModel = {
   text: string;
 };
 
@@ -14,17 +15,15 @@ const Example: React.FC = () => {
 
   // Make GET request to /example back end endpoint
   useEffect(() => {
-    fetch("/api/example").then((response) => {
-      const parseJson = response.json() as Promise<ExampleModel>;
-
-      parseJson
-        .then((response) => SetBeMessage(response))
-        .catch(() =>
-          SetBeMessage({
-            text: "Failed to fetch from back end. Is the back end running?",
-          })
-        );
-    });
+    getExample()
+      .then((response) => {
+        SetBeMessage(response.data);
+      })
+      .catch(() => {
+        SetBeMessage({
+          text: "Failed to fetch from back end. Is the back end running?",
+        });
+      });
   }, []);
 
   return (
