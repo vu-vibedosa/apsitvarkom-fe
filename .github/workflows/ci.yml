@@ -25,6 +25,7 @@ jobs:
           coverage-file: ./coverage/report.json
           base-coverage-file: ./coverage/report.json
           skip-step: all
+          annotations: none
       - name: Publish coverage results as a PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
