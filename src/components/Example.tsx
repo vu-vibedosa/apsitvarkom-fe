@@ -17,16 +17,13 @@ const Example: React.FC = () => {
   useEffect(() => {
     getExample()
       .then((response) => {
-        SetBeMessage({
-          text: response.data.text,
-        });
+        SetBeMessage(response.data);
       })
       .catch(() => {
         SetBeMessage({
           text: "Failed to fetch from back end. Is the back end running?",
         });
-      }),
-      [];
+      });
   }, []);
 
   return (
