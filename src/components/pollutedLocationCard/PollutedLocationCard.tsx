@@ -35,7 +35,10 @@ const PollutedLocationCard: React.FC<PollutedLocationType> = ({
                 {progress || 0}%
               </span>
               <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-1.5">
-                <div className="bg-blue-600 h-2.5 rounded-full w-2/3"></div>
+                <div
+                  className="bg-blue-600 h-2.5 rounded-full"
+                  style={{ width: progress + "%" }}
+                ></div>
               </div>
             </div>
           </div>
