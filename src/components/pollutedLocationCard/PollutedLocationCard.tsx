@@ -48,7 +48,7 @@ const PollutedLocationCard: React.FC<PollutedLocationType> = ({
           </div>
           <div className="w-1/5 content-end">
             <div className="flex items-stretch">
-              <div className="mt-1">{radius + "m." || 0}</div>
+              <div className="mt-1">{radius + "m." || 0 + "m."}</div>
               <RiLogoutCircleRFill size={35} />
             </div>
           </div>
