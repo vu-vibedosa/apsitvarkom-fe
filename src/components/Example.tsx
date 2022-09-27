@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import getExample from "../backEndClient";
+import { getExample } from "../backEndClient";
 
 // Define type of what will "come back" from the back end
 export type ExampleModel = {
