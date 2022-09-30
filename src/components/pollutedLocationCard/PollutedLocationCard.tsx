@@ -2,28 +2,19 @@ import React from "react";
 import { BsTrashFill } from "react-icons/bs";
 import { BsTrash } from "react-icons/bs";
 import { RiLogoutCircleRFill } from "react-icons/ri";
+import PollutedLocationDTO from "../../types/backEnd/PollutedLocationDTO";
 
-type PollutedLocationType = Partial<{
-  id: string;
-  title: string;
-  location: Partial<{
-    longitude: number;
-    latitude: number;
-  }>;
-  radius: number;
-  severity: string;
-  spotted: string;
-  progress: number;
-  notes: string;
-}>;
+type PollutedLocation = PollutedLocationDTO & {
+  title?: string;
+};
 
-const PollutedLocationCard: React.FC<PollutedLocationType> = ({
+const PollutedLocationCard: React.FC<PollutedLocation> = ({
   title,
   radius,
   progress,
 }) => {
   return (
-    <div className="mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4 sm:w-1/4 md:w-4/5 lg:w-1/4 px-2">
+    <div className="mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4 sm:w-1/4 md:w-4/5 lg:w-1/4 px-2 pb-2 pt-2">
       <div className="flex flex-col w-full">
         <div className="flex flex-row space-x-4">
           <div className="w-1/2 font-bold">

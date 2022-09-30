@@ -2,32 +2,23 @@ import React from "react";
 import Example from "./components/Example";
 import Layout from "./components/layout/Layout";
 import PollutedLocationCard from "./components/pollutedLocationCard/PollutedLocationCard";
+import PollutedLocationDTO from "./types/backEnd/PollutedLocationDTO";
 
-type PollutedLocationType = Partial<{
-  id?: string;
+type PollutedLocation = PollutedLocationDTO & {
   title?: string;
-  location: Partial<{
-    longitude?: number;
-    latitude?: number;
-  }>;
-  radius?: number;
-  severity?: string;
-  spotted?: string;
-  progress?: number;
-  notes?: string;
-}>;
+};
 
 const App: React.FC = () => {
-  const pollutedLocation: PollutedLocationType = {
-    id: "uid-420-...",
-    title: "Unknow Title",
+  const pollutedLocation: PollutedLocation = {
+    id: "a950ab10-d394-468b-b2ef-776135a65b96",
+    title: "Unknown Title",
     location: {
-      longitude: 15,
-      latitude: 18,
+      longitude: 121.151,
+      latitude: 121.151,
     },
     radius: 20,
     severity: "low",
-    spotted: "2022-08-05",
+    spotted: "2022-09-22T09:00:29.4542617Z",
     progress: 66,
     notes: "something should be written there :)",
   };
