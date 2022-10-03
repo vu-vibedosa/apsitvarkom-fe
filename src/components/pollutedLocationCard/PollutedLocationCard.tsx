@@ -2,13 +2,13 @@ import React from "react";
 import { BsTrashFill } from "react-icons/bs";
 import { BsTrash } from "react-icons/bs";
 import { RiLogoutCircleRFill } from "react-icons/ri";
-import PollutedLocationDTO from "../../types/backEnd/PollutedLocationDTO";
+import PollutedLocation from "../../types/PollutedLocation";
 
-type PollutedLocation = PollutedLocationDTO & {
+export type PollutedLocationType = PollutedLocation & {
   title?: string;
 };
 
-const PollutedLocationCard: React.FC<PollutedLocation> = ({
+const PollutedLocationCard: React.FC<PollutedLocationType> = ({
   title,
   radius,
   progress,
@@ -18,7 +18,7 @@ const PollutedLocationCard: React.FC<PollutedLocation> = ({
       <div className="flex flex-col w-full">
         <div className="flex flex-row space-x-4">
           <div className="w-1/2 font-bold">
-            <h1>{title || "Title is missing"}</h1>
+            <h2>{title || "Title is missing"}</h2>
           </div>
           <div className="w-1/2">
             <div className="flex justify-between mb-1">
@@ -28,7 +28,7 @@ const PollutedLocationCard: React.FC<PollutedLocation> = ({
               <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-1.5">
                 <div
                   className="bg-blue-600 h-2.5 rounded-full"
-                  style={{ width: progress + "%" }}
+                  style={{ width: progress || 0 + "%" }}
                 ></div>
               </div>
             </div>
