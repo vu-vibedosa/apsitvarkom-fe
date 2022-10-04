@@ -1,7 +1,7 @@
 import React from "react";
-import { BsTrashFill } from "react-icons/bs";
-import { BsTrash } from "react-icons/bs";
-import { RiLogoutCircleRFill } from "react-icons/ri";
+import { MdDelete } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineRadar } from "react-icons/md";
 import PollutedLocation from "../../types/PollutedLocation";
 
 export type PollutedLocationType = PollutedLocation & {
@@ -13,39 +13,31 @@ const PollutedLocationCard: React.FC<PollutedLocationType> = ({
   radius,
   progress,
 }) => {
+  const defaultIconSize = 35;
+
   return (
-    <div className="mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4 sm:w-1/4 md:w-4/5 lg:w-1/4 px-2 pb-2 pt-2">
-      <div className="flex flex-col w-full">
-        <div className="flex flex-row space-x-4">
-          <div className="w-1/2 font-bold">
-            <h2>{title || "Title is missing"}</h2>
-          </div>
-          <div className="w-1/2">
-            <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-blue-700 dark:text-white">
-                {progress || 0}%
-              </span>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-1.5">
-                <div
-                  className="bg-blue-600 h-2.5 rounded-full"
-                  style={{ width: progress || 0 + "%" }}
-                ></div>
-              </div>
-            </div>
+    <div className=" bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200">
+      <div className="flex justify-between items-center">
+        <h2>{title || "Title is missing"}</h2>
+        <div className="flex space-x-2 items-center">
+          <p className="text-sm text-blue-700">{progress || 0}%</p>
+          <div className=" bg-gray-200 rounded-full h-2.5 w-24">
+            <div
+              className="bg-blue-600 h-full rounded-full"
+              style={{ width: (progress || 0) + "%" }}
+            ></div>
           </div>
         </div>
-        <div className="flex flex-row justify-between mt-3">
-          <div className="flex flex-row justify-between">
-            <BsTrashFill size={35} />
-            <BsTrash size={35} />
-            <BsTrash size={35} />
-          </div>
-          <div className="w-1/5 content-end">
-            <div className="flex items-stretch">
-              <div className="mt-1">{radius + "m." || 0 + "m."}</div>
-              <RiLogoutCircleRFill size={35} />
-            </div>
-          </div>
+      </div>
+      <div className="flex justify-between items-center">
+        <div className="flex -space-x-2">
+          <MdDelete size={defaultIconSize} />
+          <MdDeleteOutline size={defaultIconSize} />
+          <MdDeleteOutline size={defaultIconSize} />
+        </div>
+        <div className="flex space-x-2 items-center">
+          <p className="text-sm">{(radius || 0) + " m."}</p>
+          <MdOutlineRadar size={defaultIconSize} />
         </div>
       </div>
     </div>
