@@ -2,7 +2,7 @@ import React from "react";
 import { MdDelete } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineRadar } from "react-icons/md";
-import PollutedLocation from "../../types/PollutedLocation";
+import PollutedLocation, { severityLevels } from "../../types/PollutedLocation";
 
 export type PollutedLocationType = PollutedLocation & {
   title?: string;
@@ -12,13 +12,19 @@ const PollutedLocationCard: React.FC<PollutedLocationType> = ({
   title,
   radius,
   progress,
+  severity,
 }) => {
   const defaultIconSize = 35;
+
+  const filledTrashIcons: number =
+    (severityLevels.findIndex((x) => x === severity) || 0) + 1;
+
+  const emptyTrashIcons: number = severityLevels.length - filledTrashIcons;
 
   return (
     <div className=" bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200">
       <div className="flex justify-between items-center">
-        <h2>{title || "Title is missing"}</h2>
+        <h2 className="text-lg">{title || "Title is missing"}</h2>
         <div className="flex space-x-2 items-center">
           <p className="text-sm text-blue-700">{progress || 0}%</p>
           <div className=" bg-gray-200 rounded-full h-2.5 w-24">
@@ -31,9 +37,12 @@ const PollutedLocationCard: React.FC<PollutedLocationType> = ({
       </div>
       <div className="flex justify-between items-center">
         <div className="flex -space-x-2">
-          <MdDelete size={defaultIconSize} />
-          <MdDeleteOutline size={defaultIconSize} />
-          <MdDeleteOutline size={defaultIconSize} />
+          {[...Array(filledTrashIcons)].map((index) => (
+            <MdDelete size={defaultIconSize} key={index} />
+          ))}
+          {[...Array(emptyTrashIcons)].map((index) => (
+            <MdDeleteOutline size={defaultIconSize} key={index} />
+          ))}
         </div>
         <div className="flex space-x-2 items-center">
           <p className="text-sm">{(radius || 0) + " m."}</p>
