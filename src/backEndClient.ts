@@ -7,5 +7,5 @@ export const getExample = () => {
 };
 
 export const getAllPollutedLocations = () => {
-  return axios.get<PollutedLocationDTO>("/api/PollutedLocation/All");
+  return axios.get<Array<PollutedLocationDTO>>("/api/PollutedLocation/All");
 };
