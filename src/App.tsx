@@ -2,26 +2,25 @@ import React, { useEffect, useState } from "react";
 import Example from "./components/Example";
 import Layout from "./components/layout/Layout";
 import PollutedLocationCard from "./components/pollutedLocationCard/PollutedLocationCard";
-import type { PollutedLocationType } from "./components/pollutedLocationCard/PollutedLocationCard";
 import { getAllPollutedLocations } from "./backEndClient";
+import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
+import PollutedLocation from "./types/PollutedLocation";
 
 const App: React.FC = () => {
-  const [pollutedLocations, SetPollutedLocations] = useState<
-    PollutedLocationType[]
+  const [pollutedLocations, setPollutedLocations] = useState<
+    PollutedLocation[]
   >([]);
 
   useEffect(() => {
     getAllPollutedLocations()
       .then((response) =>
-        SetPollutedLocations(
-          response.data.map(
-            (loc) => ({ ...loc, title: "Temp" } as PollutedLocationType)
-          )
+        setPollutedLocations(
+          response.data.map((loc) => mapToPollutedLocation(loc))
         )
       )
       .catch((e) => {
         console.error(e);
-        SetPollutedLocations([]);
+        setPollutedLocations([]);
       });
   }, []);
 
