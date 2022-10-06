@@ -15,7 +15,7 @@ const App: React.FC = () => {
     getAllPollutedLocations()
       .then((response) =>
         setPollutedLocations(
-          response.data.map((loc) => mapToPollutedLocation(loc))
+          response.data.map((locationDTO) => mapToPollutedLocation(locationDTO))
         )
       )
       .catch((e) => {
@@ -28,8 +28,8 @@ const App: React.FC = () => {
     <Layout>
       <Example />
       <div className="space-y-4 max-w-xl">
-        {pollutedLocations.map((pl) => (
-          <PollutedLocationCard {...pl} key={pl.id} />
+        {pollutedLocations.map((location) => (
+          <PollutedLocationCard {...location} key={location.id} />
         ))}
       </div>
     </Layout>
