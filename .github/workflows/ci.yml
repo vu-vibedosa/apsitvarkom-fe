@@ -31,4 +31,4 @@ jobs:
         with:
           recreate: true
           message: ${{ steps.coverage.outputs.report }}
-      - run: npm run build --if-present
+      - run: npm run build:local --if-present

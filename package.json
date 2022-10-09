@@ -2,7 +2,6 @@
   "name": "apsitvarkom-fe",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5125",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +11,7 @@
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "dotenv-cli": "^6.0.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
@@ -22,10 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "dotenv -e .env.local react-scripts start",
+    "build:local": "dotenv -e .env.local react-scripts build",
+    "build:dev": "dotenv -e .env.development react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "pre-commit": "lint-staged",
     "prepare": "husky install"
   },
