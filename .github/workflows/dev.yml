@@ -1,0 +1,74 @@
+name: Dev deployment
+
+on:
+  push:
+    branches: ["dev"]
+
+env:
+  PROJECT_ID: apsitvarkom-dev
+  LOCATION: us-east1
+  REPOSITORY: docker-apsitvarkom-dev
+  IMAGE: apsitvarkom-fe
+
+jobs:
+  build-test-publish-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - run: npm ci
+      - run: npm run test -- --watchAll=false --ci
+      - run: npm run build:dev --if-present
+
+      - id: auth
+        name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: "${{ secrets.DELIVERY_SERVICE_ACCOUNT }}"
+          token_format: "access_token"
+
+      - name: Login to Artifact Registry
+        uses: docker/login-action@v1
+        with:
+          registry: "${{ env.LOCATION }}-docker.pkg.dev"
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
+
+      - name: Build Docker image and push to Google Artifact Registry
+        uses: docker/build-push-action@v3
+        with:
+          context: ./
+          push: true
+          tags: "${{ env.LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:latest"
+
+      - uses: "docker://us-docker.pkg.dev/gcr-cleaner/gcr-cleaner/gcr-cleaner-cli"
+        with:
+          args: >-
+            -repo="${{ env.LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-test-publish-push
+    environment:
+      name: dev
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: "${{ secrets.DELIVERY_SERVICE_ACCOUNT }}"
+
+      - id: deploy
+        name: Deploy to Cloud Run
+        uses: "google-github-actions/deploy-cloudrun@v0"
+        with:
+          service: ${{ env.IMAGE }}
+          image: "${{ env.LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:latest"
+          region: ${{ env.LOCATION }}
+          flags: --allow-unauthenticated --port=80

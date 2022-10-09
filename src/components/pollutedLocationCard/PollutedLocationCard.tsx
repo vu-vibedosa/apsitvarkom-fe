@@ -32,10 +32,10 @@ const PollutedLocationCard: React.FC<PollutedLocation> = ({
       </div>
       <div className="flex justify-between items-center">
         <div className="flex -space-x-2">
-          {[...Array(filledTrashIcons)].map((index) => (
+          {[...Array(filledTrashIcons)].map((_, index) => (
             <MdDelete size={defaultIconSize} key={index} />
           ))}
-          {[...Array(emptyTrashIcons)].map((index) => (
+          {[...Array(emptyTrashIcons)].map((_, index) => (
             <MdDeleteOutline size={defaultIconSize} key={index} />
           ))}
         </div>
