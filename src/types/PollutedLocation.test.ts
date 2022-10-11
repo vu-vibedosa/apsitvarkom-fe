@@ -29,10 +29,10 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
   test("Missing nested object's fields", () => {
     const input: PollutedLocation = {
       ...baseMock,
-      location: {},
+      coordinates: {},
     };
 
-    expect(mapToPollutedLocationDTO(input).location).toStrictEqual({});
+    expect(mapToPollutedLocationDTO(input).coordinates).toStrictEqual({});
   });
 
   test("Full object", () => {
@@ -40,7 +40,7 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
     const input: PollutedLocation = {
       ...baseMock,
       spotted: new Date(dateString),
-      location: {
+      coordinates: {
         latitude: 1,
         longitude: 2,
       },
