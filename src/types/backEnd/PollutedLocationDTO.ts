@@ -5,7 +5,7 @@ import PollutedLocation, { severityLevels } from "../PollutedLocation";
  */
 type PollutedLocationDTO = Partial<{
   id: string;
-  location: Partial<{
+  coordinates: Partial<{
     longitude: number;
     latitude: number;
   }>;

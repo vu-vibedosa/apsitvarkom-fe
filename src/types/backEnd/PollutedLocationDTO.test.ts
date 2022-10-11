@@ -56,10 +56,10 @@ describe("Mapping from PollutedLocationDTO to PollutedLocation", () => {
 
   test("Missing nested object's fields", () => {
     const input: PollutedLocationDTO = {
-      location: {},
+      coordinates: {},
     };
 
-    expect(mapToPollutedLocation(input).location).toStrictEqual({});
+    expect(mapToPollutedLocation(input).coordinates).toStrictEqual({});
   });
 });
 

@@ -4,7 +4,7 @@ export const severityLevels = ["low", "moderate", "high"] as const;
 
 type PollutedLocation = Partial<{
   id: string;
-  location: Partial<{
+  coordinates: Partial<{
     longitude: number;
     latitude: number;
   }>;
