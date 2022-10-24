@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Example from "./components/Example";
 import Layout from "./components/layout/Layout";
 import PollutedLocationCard from "./components/pollutedLocationCard/PollutedLocationCard";
 import { getAllPollutedLocations } from "./backEndClient";
@@ -26,7 +25,6 @@ const App: React.FC = () => {
 
   return (
     <Layout>
-      <Example />
       <div className="space-y-4 max-w-xl">
         {pollutedLocations.map((location) => (
           <PollutedLocationCard {...location} key={location.id} />
