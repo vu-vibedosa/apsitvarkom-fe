@@ -4,34 +4,60 @@ import PollutedLocationCard from "./components/pollutedLocationCard/PollutedLoca
 import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
 import PollutedLocation from "./types/PollutedLocation";
+import { ApiRequest } from "./types/backEnd/ApiRequest";
 
 const App: React.FC = () => {
   const [pollutedLocations, setPollutedLocations] = useState<
-    PollutedLocation[]
-  >([]);
+    ApiRequest<PollutedLocation[]>
+  >({ status: "loading" });
 
   useEffect(() => {
     getAllPollutedLocations()
       .then((response) =>
-        setPollutedLocations(
-          response.data.map((locationDTO) => mapToPollutedLocation(locationDTO))
-        )
+        setPollutedLocations({
+          status: "success",
+          data: response.data.map((locationDTO) =>
+            mapToPollutedLocation(locationDTO)
+          ),
+        })
       )
       .catch((e) => {
         console.error(e);
-        setPollutedLocations([]);
+        setPollutedLocations({ status: "error" });
       });
   }, []);
 
-  return (
-    <Layout>
-      <div className="space-y-4 max-w-xl">
-        {pollutedLocations.map((location) => (
-          <PollutedLocationCard {...location} key={location.id} />
-        ))}
-      </div>
-    </Layout>
-  );
+  switch (pollutedLocations.status) {
+    case "success": {
+      return (
+        <Layout>
+          <div className="space-y-4 max-w-xl">
+            {pollutedLocations.data.map((location) => (
+              <PollutedLocationCard {...location} key={location.id} />
+            ))}
+          </div>
+        </Layout>
+      );
+    }
+    case "loading": {
+      return (
+        <Layout>
+          <div className="space-y-4 max-w-xl">
+            <p>Loading</p>
+          </div>
+        </Layout>
+      );
+    }
+    case "error": {
+      return (
+        <Layout>
+          <div className="space-y-4 max-w-xl">
+            <p>Error</p>
+          </div>
+        </Layout>
+      );
+    }
+  }
 };
 
 export default App;
