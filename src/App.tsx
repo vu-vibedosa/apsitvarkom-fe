@@ -27,37 +27,29 @@ const App: React.FC = () => {
       });
   }, []);
 
-  switch (pollutedLocations.status) {
+  return (
+    <Layout>
+      <div className="space-y-4 max-w-xl">
+        {processStatus(pollutedLocations)}
+      </div>
+    </Layout>
+  );
+};
+
+function processStatus(response: ApiRequest<PollutedLocation[]>) {
+  switch (response.status) {
     case "success": {
-      return (
-        <Layout>
-          <div className="space-y-4 max-w-xl">
-            {pollutedLocations.data.map((location) => (
-              <PollutedLocationCard {...location} key={location.id} />
-            ))}
-          </div>
-        </Layout>
-      );
+      return response.data.map((location) => (
+        <PollutedLocationCard {...location} key={location.id} />
+      ));
     }
     case "loading": {
-      return (
-        <Layout>
-          <div className="space-y-4 max-w-xl">
-            <p>Loading</p>
-          </div>
-        </Layout>
-      );
+      return <p>Loading</p>;
     }
     case "error": {
-      return (
-        <Layout>
-          <div className="space-y-4 max-w-xl">
-            <p>Error</p>
-          </div>
-        </Layout>
-      );
+      return <p>Error</p>;
     }
   }
-};
+}
 
 export default App;
