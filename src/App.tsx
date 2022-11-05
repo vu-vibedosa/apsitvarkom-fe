@@ -36,7 +36,7 @@ const App: React.FC = () => {
   );
 };
 
-function processStatus(response: ApiRequest<PollutedLocation[]>) {
+const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
   switch (response.status) {
     case "success": {
       return response.data.map((location) => (
@@ -50,6 +50,6 @@ function processStatus(response: ApiRequest<PollutedLocation[]>) {
       return <p>Error</p>;
     }
   }
-}
+};
 
 export default App;
