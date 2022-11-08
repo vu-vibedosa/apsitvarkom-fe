@@ -5,6 +5,7 @@ import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
 import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
+import Map from "./components/map/Map";
 
 const App: React.FC = () => {
   const [pollutedLocations, setPollutedLocations] = useState<
@@ -27,21 +28,34 @@ const App: React.FC = () => {
       });
   }, []);
 
-  return (
-    <Layout>
-      <div className="space-y-4 max-w-xl">
-        {processStatus(pollutedLocations)}
-      </div>
-    </Layout>
-  );
+  return <Layout>{processStatus(pollutedLocations)}</Layout>;
 };
 
 const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
   switch (response.status) {
     case "success": {
-      return response.data.map((location) => (
-        <PollutedLocationCard {...location} key={location.id} />
-      ));
+      return (
+        <>
+          <Map
+            markers={response.data
+              .filter((location) => location.coordinates)
+              .map((location) => ({
+                coordinates: {
+                  lat: location.coordinates?.latitude || 0,
+                  lng: location.coordinates?.longitude || 0,
+                },
+                id: location.id || "",
+              }))}
+          />
+          <div className="space-y-4 max-w-xl overflow-y-auto">
+            {response.data.map((location) => (
+              <>
+                <PollutedLocationCard {...location} key={location.id} />
+              </>
+            ))}
+          </div>
+        </>
+      );
     }
     case "loading": {
       return <p>Loading</p>;
