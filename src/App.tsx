@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
-import PollutedLocationCard from "./components/pollutedLocationCard/PollutedLocationCard";
+import PollutedCardList from "./components/pollutedLocations/PollutedCardList";
 import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
 import PollutedLocation from "./types/PollutedLocation";
@@ -47,13 +47,7 @@ const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
                 id: location.id || "",
               }))}
           />
-          <div className="space-y-4 max-w-xl overflow-y-auto">
-            {response.data.map((location) => (
-              <>
-                <PollutedLocationCard {...location} key={location.id} />
-              </>
-            ))}
-          </div>
+          {PollutedCardList(response.data)}
         </>
       );
     }
