@@ -1,14 +1,29 @@
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { ApiRequest } from "../../types/backEnd/ApiRequest";
+import PollutedLocation from "../../types/PollutedLocation";
 
 interface Props {
-  markers?: {
-    coordinates: google.maps.LatLngLiteral;
-    id: string;
-  }[];
+  locationsRequest: ApiRequest<PollutedLocation[]>;
 }
 
-const Map: React.FC<Props> = ({ markers }) => {
+const Map: React.FC<Props> = ({ locationsRequest }) => {
+  const markers = useMemo(
+    () =>
+      locationsRequest.status === "success"
+        ? locationsRequest.data
+            .filter((location) => location.coordinates)
+            .map((location) => ({
+              coordinates: {
+                lat: location.coordinates?.latitude || 0,
+                lng: location.coordinates?.longitude || 0,
+              },
+              id: location.id || "",
+            }))
+        : undefined,
+    [locationsRequest]
+  );
+
   const vilniusCoordinates: google.maps.LatLngLiteral = {
     lat: 54.6872,
     lng: 25.2797,

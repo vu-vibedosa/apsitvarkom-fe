@@ -30,33 +30,10 @@ const App: React.FC = () => {
 
   return (
     <Layout>
-      {processStatus(pollutedLocations)}
+      <Map locationsRequest={pollutedLocations} />
       <PollutedLocationList locationsRequest={pollutedLocations} />
     </Layout>
   );
-};
-
-const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
-  switch (response.status) {
-    case "success": {
-      return (
-        <Map
-          markers={response.data
-            .filter((location) => location.coordinates)
-            .map((location) => ({
-              coordinates: {
-                lat: location.coordinates?.latitude || 0,
-                lng: location.coordinates?.longitude || 0,
-              },
-              id: location.id || "",
-            }))}
-        />
-      );
-    }
-    case "loading":
-    case "error":
-      return <Map />;
-  }
 };
 
 export default App;
