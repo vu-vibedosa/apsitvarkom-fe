@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
-import PollutedCardList from "./components/pollutedLocations/PollutedCardList";
+import PollutedLocationList from "./components/pollutedLocations/PollutedLocationList";
 import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
 import PollutedLocation from "./types/PollutedLocation";
@@ -47,7 +47,7 @@ const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
                 id: location.id || "",
               }))}
           />
-          <PollutedCardList locations={response.data} />
+          <PollutedLocationList locations={response.data} />
         </>
       );
     }
