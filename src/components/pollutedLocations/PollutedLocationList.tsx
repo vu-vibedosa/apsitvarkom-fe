@@ -15,7 +15,7 @@ const PollutedLocationList: React.FC<Props> = ({ locationsRequest }) => {
     switch (locationsRequest.status) {
       case "success":
         return (
-          <div className="space-y-4 h-full overflow-y-auto">
+          <div className="space-y-4 h-full">
             {locationsRequest.data.map((location) => (
               <PollutedLocationCard {...location} key={location.id} />
             ))}
@@ -46,7 +46,9 @@ const PollutedLocationList: React.FC<Props> = ({ locationsRequest }) => {
   };
 
   return (
-    <div className="p-3 w-full h-full md:w-96 md:flex-none">{content()}</div>
+    <div className="p-3 w-full h-full md:w-96 md:flex-none overflow-y-auto">
+      {content()}
+    </div>
   );
 };
 
