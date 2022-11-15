@@ -47,7 +47,7 @@ const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
                 id: location.id || "",
               }))}
           />
-          {PollutedCardList(response.data)}
+          <PollutedCardList locations={response.data} />
         </>
       );
     }

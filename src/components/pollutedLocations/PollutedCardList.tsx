@@ -1,14 +1,17 @@
+import React from "react";
 import PollutedLocation from "../../types/PollutedLocation";
 import PollutedLocationCard from "./PollutedLocationCard";
 
-const PollutedCardList = (list: PollutedLocation[]) => {
+interface Props {
+  locations: PollutedLocation[];
+}
+
+const PollutedCardList: React.FC<Props> = ({ locations }) => {
   return (
     <div className="space-y-4 max-w-xl overflow-y-auto">
       <div className="w-96 md:w-full">
-        {list.map((location) => (
-          <>
-            <PollutedLocationCard {...location} key={location.id} />
-          </>
+        {locations.map((location) => (
+          <PollutedLocationCard {...location} key={location.id} />
         ))}
       </div>
     </div>
