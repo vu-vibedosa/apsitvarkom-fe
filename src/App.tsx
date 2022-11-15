@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
-import PollutedCardList from "./components/pollutedLocations/PollutedCardList";
+import PollutedLocationList from "./components/pollutedLocations/PollutedLocationList";
 import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
 import PollutedLocation from "./types/PollutedLocation";
@@ -28,36 +28,12 @@ const App: React.FC = () => {
       });
   }, []);
 
-  return <Layout>{processStatus(pollutedLocations)}</Layout>;
-};
-
-const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
-  switch (response.status) {
-    case "success": {
-      return (
-        <>
-          <Map
-            markers={response.data
-              .filter((location) => location.coordinates)
-              .map((location) => ({
-                coordinates: {
-                  lat: location.coordinates?.latitude || 0,
-                  lng: location.coordinates?.longitude || 0,
-                },
-                id: location.id || "",
-              }))}
-          />
-          <PollutedCardList locations={response.data} />
-        </>
-      );
-    }
-    case "loading": {
-      return <p>Loading</p>;
-    }
-    case "error": {
-      return <p>Error</p>;
-    }
-  }
+  return (
+    <Layout>
+      <Map locationsRequest={pollutedLocations} />
+      <PollutedLocationList locationsRequest={pollutedLocations} />
+    </Layout>
+  );
 };
 
 export default App;
