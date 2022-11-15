@@ -53,12 +53,9 @@ const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
         />
       );
     }
-    case "loading": {
-      return <p>Loading</p>;
-    }
-    case "error": {
-      return <p>Error</p>;
-    }
+    case "loading":
+    case "error":
+      return <Map />;
   }
 };
 
