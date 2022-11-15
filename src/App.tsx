@@ -28,27 +28,29 @@ const App: React.FC = () => {
       });
   }, []);
 
-  return <Layout>{processStatus(pollutedLocations)}</Layout>;
+  return (
+    <Layout>
+      {processStatus(pollutedLocations)}
+      <PollutedLocationList locationsRequest={pollutedLocations} />
+    </Layout>
+  );
 };
 
 const processStatus = (response: ApiRequest<PollutedLocation[]>) => {
   switch (response.status) {
     case "success": {
       return (
-        <>
-          <Map
-            markers={response.data
-              .filter((location) => location.coordinates)
-              .map((location) => ({
-                coordinates: {
-                  lat: location.coordinates?.latitude || 0,
-                  lng: location.coordinates?.longitude || 0,
-                },
-                id: location.id || "",
-              }))}
-          />
-          <PollutedLocationList locations={response.data} />
-        </>
+        <Map
+          markers={response.data
+            .filter((location) => location.coordinates)
+            .map((location) => ({
+              coordinates: {
+                lat: location.coordinates?.latitude || 0,
+                lng: location.coordinates?.longitude || 0,
+              },
+              id: location.id || "",
+            }))}
+        />
       );
     }
     case "loading": {

@@ -27,7 +27,7 @@ const Map: React.FC<Props> = ({ markers }) => {
 
   const renderMap = () => (
     <GoogleMap
-      mapContainerClassName="w-full h-1/2 md:h-full"
+      mapContainerClassName="w-full h-1/2 md:h-full flex-none md:flex-1"
       options={{
         disableDefaultUI: true,
         clickableIcons: false,
