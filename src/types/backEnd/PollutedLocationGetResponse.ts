@@ -1,13 +1,12 @@
 import PollutedLocation, { severityLevels } from "../PollutedLocation";
 
-/**
- * Data Transfer Object for @type {PollutedLocation}.
- */
-type PollutedLocationDTO = Partial<{
+type PollutedLocationGetRequest = Partial<{
   id: string;
-  coordinates: Partial<{
-    longitude: number;
-    latitude: number;
+  location: Partial<{
+    coordinates: Partial<{
+      longitude: number;
+      latitude: number;
+    }>;
   }>;
   radius: number;
   severity: string;
@@ -16,10 +15,10 @@ type PollutedLocationDTO = Partial<{
   notes: string;
 }>;
 
-export default PollutedLocationDTO;
+export default PollutedLocationGetRequest;
 
 export const mapToPollutedLocation: (
-  from: PollutedLocationDTO
+  from: PollutedLocationGetRequest
 ) => PollutedLocation = (from) => {
   const dateObject = from.spotted ? new Date(from.spotted) : undefined;
 

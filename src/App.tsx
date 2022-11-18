@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
 import PollutedLocationList from "./components/pollutedLocations/PollutedLocationList";
 import { getAllPollutedLocations } from "./backEndClient";
-import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
+import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationGetResponse";
 import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map from "./components/map/Map";

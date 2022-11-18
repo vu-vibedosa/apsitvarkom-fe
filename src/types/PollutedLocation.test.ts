@@ -1,4 +1,4 @@
-import PollutedLocationDTO from "./backEnd/PollutedLocationDTO";
+import PollutedLocationGetRequest from "./backEnd/PollutedLocationGetResponse";
 import PollutedLocation, { mapToPollutedLocationDTO } from "./PollutedLocation";
 
 describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
@@ -29,10 +29,10 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
   test("Missing nested object's fields", () => {
     const input: PollutedLocation = {
       ...baseMock,
-      coordinates: {},
+      location: {},
     };
 
-    expect(mapToPollutedLocationDTO(input).coordinates).toStrictEqual({});
+    expect(mapToPollutedLocationDTO(input).location).toStrictEqual({});
   });
 
   test("Full object", () => {
@@ -40,13 +40,15 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
     const input: PollutedLocation = {
       ...baseMock,
       spotted: new Date(dateString),
-      coordinates: {
-        latitude: 1,
-        longitude: 2,
+      location: {
+        coordinates: {
+          latitude: 1,
+          longitude: 2,
+        },
       },
     };
 
-    const expectedDTO: PollutedLocationDTO = {
+    const expectedDTO: PollutedLocationGetRequest = {
       ...input,
       spotted: dateString,
     };
