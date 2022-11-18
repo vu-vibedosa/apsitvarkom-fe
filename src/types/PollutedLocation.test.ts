@@ -1,11 +1,13 @@
 import PollutedLocationGetRequest from "./backEnd/PollutedLocationGetResponse";
-import PollutedLocation, { mapToPollutedLocationDTO } from "./PollutedLocation";
+import PollutedLocation, {
+  mapToPollutedLocationGetRequest,
+} from "./PollutedLocation";
 
-describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
+describe("Mapping from PollutedLocation to PollutedLocationGetRequest", () => {
   test("Empty object", () => {
     const input: PollutedLocation = {};
 
-    expect(mapToPollutedLocationDTO(input)).toEqual({});
+    expect(mapToPollutedLocationGetRequest(input)).toEqual({});
   });
 
   test("Converts spotted date", () => {
@@ -14,7 +16,7 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
       spotted: new Date(dateString),
     };
 
-    expect(mapToPollutedLocationDTO(input).spotted).toEqual(dateString);
+    expect(mapToPollutedLocationGetRequest(input).spotted).toEqual(dateString);
   });
 
   const baseMock: Partial<PollutedLocation> = {
@@ -32,7 +34,7 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
       location: {},
     };
 
-    expect(mapToPollutedLocationDTO(input).location).toStrictEqual({});
+    expect(mapToPollutedLocationGetRequest(input).location).toStrictEqual({});
   });
 
   test("Full object", () => {
@@ -48,12 +50,12 @@ describe("Mapping from PollutedLocation to PollutedLocationDTO", () => {
       },
     };
 
-    const expectedDTO: PollutedLocationGetRequest = {
+    const expectedGetRequest: PollutedLocationGetRequest = {
       ...input,
       spotted: dateString,
     };
 
-    expect(mapToPollutedLocationDTO(input)).toEqual(expectedDTO);
+    expect(mapToPollutedLocationGetRequest(input)).toEqual(expectedGetRequest);
   });
 });
 

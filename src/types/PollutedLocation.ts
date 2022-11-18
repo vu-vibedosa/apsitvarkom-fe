@@ -19,7 +19,7 @@ type PollutedLocation = Partial<{
 
 export default PollutedLocation;
 
-export const mapToPollutedLocationDTO: (
+export const mapToPollutedLocationGetRequest: (
   from: PollutedLocation
 ) => PollutedLocationGetRequest = (from) => ({
   ...from,

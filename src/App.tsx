@@ -17,8 +17,8 @@ const App: React.FC = () => {
       .then((response) =>
         setPollutedLocations({
           status: "success",
-          data: response.data.map((locationDTO) =>
-            mapToPollutedLocation(locationDTO)
+          data: response.data.map((locationGetRequest) =>
+            mapToPollutedLocation(locationGetRequest)
           ),
         })
       )

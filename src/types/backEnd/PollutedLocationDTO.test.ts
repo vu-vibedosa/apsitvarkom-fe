@@ -3,7 +3,7 @@ import PollutedLocationGetRequest, {
   mapToPollutedLocation,
 } from "./PollutedLocationGetResponse";
 
-describe("Mapping from PollutedLocationDTO to PollutedLocation", () => {
+describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
   test("Empty object", () => {
     const input: PollutedLocationGetRequest = {};
 
