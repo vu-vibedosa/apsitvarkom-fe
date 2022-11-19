@@ -12,13 +12,17 @@ const Map: React.FC<Props> = ({ locationsRequest }) => {
     () =>
       locationsRequest.status === "success"
         ? locationsRequest.data
-            .filter((location) => location.coordinates)
-            .map((location) => ({
+            .filter(
+              (pollutedLocation) =>
+                pollutedLocation.location?.coordinates?.latitude &&
+                pollutedLocation.location?.coordinates?.longitude
+            )
+            .map((pollutedLocation) => ({
               coordinates: {
-                lat: location.coordinates?.latitude || 0,
-                lng: location.coordinates?.longitude || 0,
+                lat: pollutedLocation?.location?.coordinates?.latitude || 0,
+                lng: pollutedLocation?.location?.coordinates?.longitude || 0,
               },
-              id: location.id || "",
+              id: pollutedLocation.id || "",
             }))
         : undefined,
     [locationsRequest]
