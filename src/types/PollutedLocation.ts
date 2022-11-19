@@ -1,5 +1,3 @@
-import PollutedLocationGetRequest from "./backEnd/PollutedLocationGetResponse";
-
 export const severityLevels = ["low", "moderate", "high"] as const;
 
 type PollutedLocation = Partial<{
@@ -18,10 +16,3 @@ type PollutedLocation = Partial<{
 }>;
 
 export default PollutedLocation;
-
-export const mapToPollutedLocationGetRequest: (
-  from: PollutedLocation
-) => PollutedLocationGetRequest = (from) => ({
-  ...from,
-  spotted: from.spotted?.toISOString(),
-});

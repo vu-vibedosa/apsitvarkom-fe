@@ -1,8 +1,8 @@
 import axios from "axios";
-import PollutedLocationGetRequest from "./types/backEnd/PollutedLocationGetResponse";
+import PollutedLocationResponse from "./types/backEnd/PollutedLocationResponse";
 
 export const getAllPollutedLocations = () => {
-  return axios.get<PollutedLocationGetRequest[]>(
+  return axios.get<PollutedLocationResponse[]>(
     process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/All"
   );
 };

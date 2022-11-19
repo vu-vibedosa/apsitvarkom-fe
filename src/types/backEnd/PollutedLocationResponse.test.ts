@@ -1,18 +1,18 @@
 import { severityLevels } from "../PollutedLocation";
-import PollutedLocationGetRequest, {
+import PollutedLocationResponse, {
   mapToPollutedLocation,
-} from "./PollutedLocationGetResponse";
+} from "./PollutedLocationResponse";
 
-describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
+describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
   test("Empty object", () => {
-    const input: PollutedLocationGetRequest = {};
+    const input: PollutedLocationResponse = {};
 
     expect(mapToPollutedLocation(input)).toEqual({});
   });
 
   test("Valid spotted date", () => {
     const dateString = "2022-09-19T20:18:01.050Z";
-    const input: PollutedLocationGetRequest = {
+    const input: PollutedLocationResponse = {
       spotted: dateString,
     };
 
@@ -23,7 +23,7 @@ describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
 
   test("Invalid spotted date", () => {
     const dateString = "this-is-not-a-date";
-    const input: PollutedLocationGetRequest = {
+    const input: PollutedLocationResponse = {
       spotted: dateString,
     };
 
@@ -31,7 +31,7 @@ describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
   });
 
   test("Invalid severity", () => {
-    const input: PollutedLocationGetRequest = {
+    const input: PollutedLocationResponse = {
       severity: "foo",
     };
 
@@ -39,7 +39,7 @@ describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
   });
 
   test("Valid severity", () => {
-    const input: PollutedLocationGetRequest = {
+    const input: PollutedLocationResponse = {
       severity: severityLevels[0],
     };
 
@@ -47,7 +47,7 @@ describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
   });
 
   test("Valid severity case insensitive", () => {
-    const input: PollutedLocationGetRequest = {
+    const input: PollutedLocationResponse = {
       severity: severityLevels[1].toUpperCase(),
     };
 
@@ -55,7 +55,7 @@ describe("Mapping from PollutedLocationGetRequest to PollutedLocation", () => {
   });
 
   test("Missing nested object's fields", () => {
-    const input: PollutedLocationGetRequest = {
+    const input: PollutedLocationResponse = {
       location: {},
     };
 

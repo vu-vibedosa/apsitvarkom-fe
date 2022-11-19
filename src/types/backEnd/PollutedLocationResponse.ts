@@ -1,6 +1,6 @@
 import PollutedLocation, { severityLevels } from "../PollutedLocation";
 
-type PollutedLocationGetRequest = Partial<{
+type PollutedLocationResponse = Partial<{
   id: string;
   location: Partial<{
     coordinates: Partial<{
@@ -15,10 +15,10 @@ type PollutedLocationGetRequest = Partial<{
   notes: string;
 }>;
 
-export default PollutedLocationGetRequest;
+export default PollutedLocationResponse;
 
 export const mapToPollutedLocation: (
-  from: PollutedLocationGetRequest
+  from: PollutedLocationResponse
 ) => PollutedLocation = (from) => {
   const dateObject = from.spotted ? new Date(from.spotted) : undefined;
 
