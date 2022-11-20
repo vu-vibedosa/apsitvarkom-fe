@@ -51,7 +51,7 @@ const PollutedLocationCard: React.FC<Props> = ({
         const lng = pollutedLocation.location?.coordinates?.longitude;
         if (lat && lng) googleMap?.panTo({ lat, lng });
       }}
-      className="cursor-pointer md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
+      className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
     />
   );
 };
@@ -124,26 +124,37 @@ const CardLayout: React.FC<{
   radiusIcon,
   onClick,
   className = "",
-}) => (
-  <div
-    className={`bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200 ${className}`}
-    onClick={() => onClick?.()}
-  >
-    <div className="flex justify-between items-center space-x-2">
-      {title}
-      <div className="flex space-x-2 items-center">
-        {progressText}
-        {progressBar}
+}) => {
+  const content = (
+    <div
+      className={`bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200 ${className}`}
+    >
+      <div className="flex justify-between items-center space-x-2">
+        {title}
+        <div className="flex space-x-2 items-center">
+          {progressText}
+          {progressBar}
+        </div>
+      </div>
+      <div className="flex justify-between items-center space-x-2">
+        <div className="flex -space-x-2">{severity}</div>
+        <div className="flex space-x-2 items-center">
+          {radiusText}
+          {radiusIcon}
+        </div>
       </div>
     </div>
-    <div className="flex justify-between items-center space-x-2">
-      <div className="flex -space-x-2">{severity}</div>
-      <div className="flex space-x-2 items-center">
-        {radiusText}
-        {radiusIcon}
-      </div>
-    </div>
-  </div>
-);
+  );
+
+  if (onClick) {
+    return (
+      <button className="w-full" onClick={() => onClick()}>
+        {content}
+      </button>
+    );
+  }
+
+  return content;
+};
 
 export default PollutedLocationCard;
