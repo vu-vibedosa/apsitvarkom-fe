@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "./components/layout/Layout";
 import PollutedLocationList from "./components/pollutedLocations/PollutedLocationList";
 import { getAllPollutedLocations } from "./backEndClient";
@@ -8,6 +8,8 @@ import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map from "./components/map/Map";
 
 const App: React.FC = () => {
+  const googleMapRef = useRef<google.maps.Map | null>(null);
+
   const [pollutedLocations, setPollutedLocations] = useState<
     ApiRequest<PollutedLocation[]>
   >({ status: "loading" });
@@ -30,8 +32,11 @@ const App: React.FC = () => {
 
   return (
     <Layout>
-      <Map locationsRequest={pollutedLocations} />
-      <PollutedLocationList locationsRequest={pollutedLocations} />
+      <Map locationsRequest={pollutedLocations} mapRef={googleMapRef} />
+      <PollutedLocationList
+        locationsRequest={pollutedLocations}
+        googleMap={googleMapRef.current}
+      />
     </Layout>
   );
 };
