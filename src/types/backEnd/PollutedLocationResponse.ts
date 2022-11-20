@@ -3,6 +3,7 @@ import PollutedLocation, { severityLevels } from "../PollutedLocation";
 type PollutedLocationResponse = Partial<{
   id: string;
   location: Partial<{
+    title: string;
     coordinates: Partial<{
       longitude: number;
       latitude: number;

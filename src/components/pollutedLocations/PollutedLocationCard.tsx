@@ -15,7 +15,7 @@ const PollutedLocationCard: React.FC<Props> = ({
   pollutedLocation,
   googleMap,
 }) => {
-  const { radius, progress, severity } = pollutedLocation;
+  const { location, radius, progress, severity } = pollutedLocation;
 
   const filledTrashIcons: number =
     (severityLevels.findIndex((x) => x === severity) || 0) + 1;
@@ -24,7 +24,9 @@ const PollutedLocationCard: React.FC<Props> = ({
 
   return (
     <CardLayout
-      title={<h2 className="text-lg">{"Title is missing"}</h2>}
+      title={
+        <h2 className="text-lg">{location?.title || "Title is missing"}</h2>
+      }
       progressText={<p className="text-sm text-blue-700">{progress || 0}%</p>}
       progressBar={
         <div className=" bg-gray-200 rounded-full h-2.5 w-24">
