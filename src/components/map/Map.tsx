@@ -1,24 +1,29 @@
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { ApiRequest } from "../../types/backEnd/ApiRequest";
 import PollutedLocation from "../../types/PollutedLocation";
 
 interface Props {
   locationsRequest: ApiRequest<PollutedLocation[]>;
+  mapRef: React.MutableRefObject<google.maps.Map | null>;
 }
 
-const Map: React.FC<Props> = ({ locationsRequest }) => {
+const Map: React.FC<Props> = ({ locationsRequest, mapRef }) => {
   const markers = useMemo(
     () =>
       locationsRequest.status === "success"
         ? locationsRequest.data
-            .filter((location) => location.coordinates)
-            .map((location) => ({
+            .filter(
+              (pollutedLocation) =>
+                pollutedLocation.location?.coordinates?.latitude &&
+                pollutedLocation.location?.coordinates?.longitude
+            )
+            .map((pollutedLocation) => ({
               coordinates: {
-                lat: location.coordinates?.latitude || 0,
-                lng: location.coordinates?.longitude || 0,
+                lat: pollutedLocation?.location?.coordinates?.latitude || 0,
+                lng: pollutedLocation?.location?.coordinates?.longitude || 0,
               },
-              id: location.id || "",
+              id: pollutedLocation.id || "",
             }))
         : undefined,
     [locationsRequest]
@@ -39,8 +44,6 @@ const Map: React.FC<Props> = ({ locationsRequest }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
-
-  const mapRef = useRef<google.maps.Map | null>(null);
 
   const [center, setCenter] =
     useState<google.maps.LatLngLiteral>(vilniusCoordinates);

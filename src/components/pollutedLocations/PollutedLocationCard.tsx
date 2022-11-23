@@ -6,11 +6,17 @@ import PollutedLocation, { severityLevels } from "../../types/PollutedLocation";
 
 const defaultIconSize = 35;
 
-const PollutedLocationCard: React.FC<PollutedLocation> = ({
-  radius,
-  progress,
-  severity,
+interface Props {
+  pollutedLocation: PollutedLocation;
+  googleMap: google.maps.Map | null;
+}
+
+const PollutedLocationCard: React.FC<Props> = ({
+  pollutedLocation,
+  googleMap,
 }) => {
+  const { location, radius, progress, severity } = pollutedLocation;
+
   const filledTrashIcons: number =
     (severityLevels.findIndex((x) => x === severity) || 0) + 1;
 
@@ -18,7 +24,9 @@ const PollutedLocationCard: React.FC<PollutedLocation> = ({
 
   return (
     <CardLayout
-      title={<h2 className="text-lg">{"Title is missing"}</h2>}
+      title={
+        <h2 className="text-lg">{location?.title || "Title is missing"}</h2>
+      }
       progressText={<p className="text-sm text-blue-700">{progress || 0}%</p>}
       progressBar={
         <div className=" bg-gray-200 rounded-full h-2.5 w-24">
@@ -40,6 +48,12 @@ const PollutedLocationCard: React.FC<PollutedLocation> = ({
       }
       radiusText={<p className="text-sm">{(radius || 0) + " m."}</p>}
       radiusIcon={<MdOutlineRadar size={defaultIconSize} />}
+      onClick={() => {
+        const lat = pollutedLocation.location?.coordinates?.latitude;
+        const lng = pollutedLocation.location?.coordinates?.longitude;
+        if (lat && lng) googleMap?.panTo({ lat, lng });
+      }}
+      className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
     />
   );
 };
@@ -101,6 +115,8 @@ const CardLayout: React.FC<{
   severity: React.ReactNode;
   radiusText: React.ReactNode;
   radiusIcon: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
 }> = ({
   title,
   progressText,
@@ -108,23 +124,39 @@ const CardLayout: React.FC<{
   severity,
   radiusText,
   radiusIcon,
-}) => (
-  <div className="bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200">
-    <div className="flex justify-between items-center space-x-2">
-      {title}
-      <div className="flex space-x-2 items-center">
-        {progressText}
-        {progressBar}
+  onClick,
+  className = "",
+}) => {
+  const content = (
+    <div
+      className={`bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200 ${className}`}
+    >
+      <div className="flex justify-between items-center space-x-2">
+        {title}
+        <div className="flex space-x-2 items-center">
+          {progressText}
+          {progressBar}
+        </div>
+      </div>
+      <div className="flex justify-between items-center space-x-2">
+        <div className="flex -space-x-2">{severity}</div>
+        <div className="flex space-x-2 items-center">
+          {radiusText}
+          {radiusIcon}
+        </div>
       </div>
     </div>
-    <div className="flex justify-between items-center space-x-2">
-      <div className="flex -space-x-2">{severity}</div>
-      <div className="flex space-x-2 items-center">
-        {radiusText}
-        {radiusIcon}
-      </div>
-    </div>
-  </div>
-);
+  );
+
+  if (onClick) {
+    return (
+      <button className="w-full" onClick={() => onClick()}>
+        {content}
+      </button>
+    );
+  }
+
+  return content;
+};
 
 export default PollutedLocationCard;

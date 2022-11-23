@@ -9,16 +9,24 @@ import { Link } from "react-router-dom";
 
 interface Props {
   locationsRequest: ApiRequest<PollutedLocation[]>;
+  googleMap: google.maps.Map | null;
 }
 
-const PollutedLocationList: React.FC<Props> = ({ locationsRequest }) => {
+const PollutedLocationList: React.FC<Props> = ({
+  locationsRequest,
+  googleMap,
+}) => {
   const content = () => {
     switch (locationsRequest.status) {
       case "success":
         return (
           <div className="space-y-4 h-5/6 overflow-y-auto">
             {locationsRequest.data.map((location) => (
-              <PollutedLocationCard {...location} key={location.id} />
+              <PollutedLocationCard
+                pollutedLocation={location}
+                googleMap={googleMap}
+                key={location.id}
+              />
             ))}
           </div>
         );
@@ -47,7 +55,7 @@ const PollutedLocationList: React.FC<Props> = ({ locationsRequest }) => {
   };
 
   return (
-    <div className="p-3 w-full h-full md:w-96 md:flex-none overflow-y-auto">
+    <div className="p-4 w-full h-full md:w-96 md:flex-none overflow-y-auto">
       {content()}
       <hr />
       <div className="p-2 w-full h-1/6">

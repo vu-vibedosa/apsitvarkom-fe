@@ -1,12 +1,13 @@
-import PollutedLocationDTO from "./backEnd/PollutedLocationDTO";
-
 export const severityLevels = ["low", "moderate", "high"] as const;
 
 type PollutedLocation = Partial<{
   id: string;
-  coordinates: Partial<{
-    longitude: number;
-    latitude: number;
+  location: Partial<{
+    title: string;
+    coordinates: Partial<{
+      longitude: number;
+      latitude: number;
+    }>;
   }>;
   radius: number;
   severity: typeof severityLevels[number]; // One of severityLevels values
@@ -16,10 +17,3 @@ type PollutedLocation = Partial<{
 }>;
 
 export default PollutedLocation;
-
-export const mapToPollutedLocationDTO: (
-  from: PollutedLocation
-) => PollutedLocationDTO = (from) => ({
-  ...from,
-  spotted: from.spotted?.toISOString(),
-});
