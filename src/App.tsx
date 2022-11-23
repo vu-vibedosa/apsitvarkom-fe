@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
-import PollutedLocationList from "./components/pollutedLocations/PollutedLocationList";
 import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationDTO";
 import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map from "./components/map/Map";
+import SidebarWrapper from "./components/sidebar/Sidebar";
+import { BrowserRouter } from "react-router-dom";
 
 const App: React.FC = () => {
   const [pollutedLocations, setPollutedLocations] = useState<
@@ -31,7 +32,9 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Map locationsRequest={pollutedLocations} />
-      <PollutedLocationList locationsRequest={pollutedLocations} />
+      <BrowserRouter>
+        <SidebarWrapper locationsRequest={pollutedLocations} />
+      </BrowserRouter>
     </Layout>
   );
 };
