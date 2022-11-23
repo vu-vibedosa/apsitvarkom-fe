@@ -55,13 +55,13 @@ const PollutedLocationList: React.FC<Props> = ({
   };
 
   return (
-    <div className="p-4 w-full h-full md:w-96 md:flex-none overflow-y-auto">
+    <div className="p-2 w-full h-full md:w-96 md:flex-none overflow-y-auto">
       {content()}
       <hr />
-      <div className="p-2 w-full h-1/6">
-        <div className="p-2 flex w-full justify-center">
-          <Link to={"/form"} className="p-1 w-full">
-            <button className="p-1 w-full bg-green-200 hover:bg-green-300 text-black font-semibold py-2 px-4 border rounded">
+      <div className="flex justify-center items-center p-2 w-full h-1/6">
+        <div className="p-2 flex w-full justify-center items-center">
+          <Link to={"/form"} className="p-1 w-full align-items-bottom">
+            <button className="align bottom p-1 w-full bg-green-200 hover:bg-green-300 text-black font-semibold py-2 px-4 border rounded">
               Create a Form
             </button>
           </Link>
