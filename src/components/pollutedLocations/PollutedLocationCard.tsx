@@ -8,7 +8,7 @@ const defaultIconSize = 35;
 
 interface Props {
   pollutedLocation: PollutedLocation;
-  googleMap: google.maps.Map | null;
+  googleMap: React.MutableRefObject<google.maps.Map | null>;
 }
 
 const PollutedLocationCard: React.FC<Props> = ({
@@ -52,7 +52,7 @@ const PollutedLocationCard: React.FC<Props> = ({
         const lat = pollutedLocation.location?.coordinates?.latitude;
         const lng = pollutedLocation.location?.coordinates?.longitude;
         if (lat && lng) {
-          googleMap?.panTo({ lat, lng });
+          googleMap?.current?.panTo({ lat, lng });
         }
       }}
       className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"

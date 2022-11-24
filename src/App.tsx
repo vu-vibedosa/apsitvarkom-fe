@@ -33,10 +33,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Map locationsRequest={pollutedLocations} mapRef={googleMapRef} />
-      <SideBar
-        locationsRequest={pollutedLocations}
-        googleMap={googleMapRef.current}
-      />
+      <SideBar locationsRequest={pollutedLocations} googleMap={googleMapRef} />
     </Layout>
   );
 };

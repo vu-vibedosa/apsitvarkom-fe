@@ -8,7 +8,7 @@ import { MdErrorOutline } from "react-icons/md";
 
 export interface PollutedLocationListProps {
   locationsRequest: ApiRequest<PollutedLocation[]>;
-  googleMap: google.maps.Map | null;
+  googleMap: React.MutableRefObject<google.maps.Map | null>;
 }
 
 const PollutedLocationList: React.FC<PollutedLocationListProps> = ({
