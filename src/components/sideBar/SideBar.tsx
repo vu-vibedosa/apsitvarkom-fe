@@ -18,9 +18,23 @@ const SideBar: React.FC<PollutedLocationListProps> = (
   const controls = () => {
     switch (mode) {
       case "list":
-        return <button onClick={() => setMode("form")}>Report new</button>;
+        return (
+          <button
+            className="w-full bg-transparent hover:bg-green-500 text-green-700 font-medium hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
+            onClick={() => setMode("form")}
+          >
+            Report new
+          </button>
+        );
       case "form":
-        return <button onClick={() => setMode("list")}>Back to list</button>;
+        return (
+          <button
+            className="w-full bg-transparent hover:bg-gray-500 text-gray-700 font-medium hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
+            onClick={() => setMode("list")}
+          >
+            Back to list
+          </button>
+        );
     }
   };
 
