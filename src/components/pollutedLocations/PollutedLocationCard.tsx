@@ -51,7 +51,9 @@ const PollutedLocationCard: React.FC<Props> = ({
       onClick={() => {
         const lat = pollutedLocation.location?.coordinates?.latitude;
         const lng = pollutedLocation.location?.coordinates?.longitude;
-        if (lat && lng) googleMap?.panTo({ lat, lng });
+        if (lat && lng) {
+          googleMap?.panTo({ lat, lng });
+        }
       }}
       className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
     />
@@ -150,7 +152,7 @@ const CardLayout: React.FC<{
 
   if (onClick) {
     return (
-      <button className="w-full" onClick={() => onClick()}>
+      <button className="w-full text-left" onClick={() => onClick()}>
         {content}
       </button>
     );

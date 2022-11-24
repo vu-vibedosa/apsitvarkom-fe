@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Layout from "./components/layout/Layout";
-import PollutedLocationList from "./components/pollutedLocations/PollutedLocationList";
 import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationResponse";
 import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map from "./components/map/Map";
+import SideBar from "./components/sideBar/SideBar";
 
 const App: React.FC = () => {
   const googleMapRef = useRef<google.maps.Map | null>(null);
@@ -33,7 +33,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Map locationsRequest={pollutedLocations} mapRef={googleMapRef} />
-      <PollutedLocationList
+      <SideBar
         locationsRequest={pollutedLocations}
         googleMap={googleMapRef.current}
       />
