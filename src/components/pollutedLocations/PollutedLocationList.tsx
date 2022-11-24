@@ -6,12 +6,12 @@ import PollutedLocationCard, {
 } from "./PollutedLocationCard";
 import { MdErrorOutline } from "react-icons/md";
 
-interface Props {
+export interface PollutedLocationListProps {
   locationsRequest: ApiRequest<PollutedLocation[]>;
-  googleMap: google.maps.Map | null;
+  googleMap: React.MutableRefObject<google.maps.Map | null>;
 }
 
-const PollutedLocationList: React.FC<Props> = ({
+const PollutedLocationList: React.FC<PollutedLocationListProps> = ({
   locationsRequest,
   googleMap,
 }) => {
@@ -53,11 +53,7 @@ const PollutedLocationList: React.FC<Props> = ({
     }
   };
 
-  return (
-    <div className="p-4 w-full h-full md:w-96 md:flex-none overflow-y-auto">
-      {content()}
-    </div>
-  );
+  return content();
 };
 
 export default PollutedLocationList;

@@ -71,7 +71,7 @@ const Map: React.FC<Props> = ({ locationsRequest, mapRef }) => {
   const renderedMap = useMemo(
     () => (
       <GoogleMap
-        mapContainerClassName="w-full h-1/2 md:h-full flex-none md:flex-1"
+        mapContainerClassName="w-full h-1/3 md:h-full flex-none md:flex-1"
         onLoad={handleOnLoad}
         onUnmount={handleOnUnmount}
         onCenterChanged={() => {
