@@ -20,7 +20,7 @@ const SideBar: React.FC<PollutedLocationListProps> = (
       case "list":
         return (
           <button
-            className="w-full bg-transparent hover:bg-green-500 text-green-700 font-medium hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
+            className="w-full bg-transparent md:hover:bg-green-500 text-green-700 font-medium md:hover:text-white py-2 px-4 border border-green-500 md:hover:border-transparent rounded"
             onClick={() => setMode("form")}
           >
             Report new
@@ -29,7 +29,7 @@ const SideBar: React.FC<PollutedLocationListProps> = (
       case "form":
         return (
           <button
-            className="w-full bg-transparent hover:bg-gray-500 text-gray-700 font-medium hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded"
+            className="w-full bg-transparent md:hover:bg-gray-500 text-gray-700 font-medium md:hover:text-white py-2 px-4 border border-gray-500 md:hover:border-transparent rounded"
             onClick={() => setMode("list")}
           >
             Back to list
