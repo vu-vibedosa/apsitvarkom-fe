@@ -11,6 +11,11 @@ interface Props {
   showCenterMarker: boolean;
 }
 
+export const vilniusCoordinates: google.maps.LatLngLiteral = {
+  lat: 54.6872,
+  lng: 25.2797,
+};
+
 const Map: React.FC<Props> = ({
   locationsRequest,
   mapRef,

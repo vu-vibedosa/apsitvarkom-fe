@@ -4,21 +4,16 @@ import { getAllPollutedLocations } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationResponse";
 import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
-import Map from "./components/map/Map";
-import SideBar, { sideBarModes } from "./components/sideBar/SideBar";
+import Map, { vilniusCoordinates } from "./components/map/Map";
+import SideBar from "./components/sideBar/SideBar";
 
 const App: React.FC = () => {
   const googleMapRef = useRef<google.maps.Map | null>(null);
 
-  const vilniusCoordinates: google.maps.LatLngLiteral = {
-    lat: 54.6872,
-    lng: 25.2797,
-  };
   const [mapCenter, setMapCenter] =
     useState<google.maps.LatLngLiteral>(vilniusCoordinates);
 
-  const [sideBarMode, setSideBarMode] =
-    useState<typeof sideBarModes[number]>("list");
+  const [showCenterMarker, setShowCenterMarker] = useState<boolean>(false);
 
   const [pollutedLocations, setPollutedLocations] = useState<
     ApiRequest<PollutedLocation[]>
@@ -47,14 +42,13 @@ const App: React.FC = () => {
         mapRef={googleMapRef}
         center={mapCenter}
         setCenter={(newCenter) => setMapCenter(newCenter)}
-        showCenterMarker={sideBarMode === "form"}
+        showCenterMarker={showCenterMarker}
       />
       <SideBar
         locationsRequest={pollutedLocations}
         googleMap={googleMapRef}
         coordinates={mapCenter}
-        currentMode={sideBarMode}
-        setCurrentMode={(newSideBarMode) => setSideBarMode(newSideBarMode)}
+        setShowCenterMarker={(newValue) => setShowCenterMarker(newValue)}
       />
     </Layout>
   );

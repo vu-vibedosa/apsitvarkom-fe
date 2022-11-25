@@ -8,19 +8,16 @@ import PollutedLocationList, {
 
 export const sideBarModes = ["list", "form"] as const;
 
-interface Props {
-  currentMode: typeof sideBarModes[number];
-  setCurrentMode: (newCurrentMode: typeof sideBarModes[number]) => void;
-}
-
 const SideBar: React.FC<
-  PollutedLocationListProps & PollutedLocationFormProps & Props
+  PollutedLocationListProps & PollutedLocationFormProps
 > = (props) => {
+  const [currentMode, setCurrentMode] =
+    useState<typeof sideBarModes[number]>("list");
+
   const modeComponents: Record<typeof sideBarModes[number], React.ReactNode> = {
     list: <PollutedLocationList {...props} />,
     form: <PollutedLocationForm {...props} />,
   };
-  const { currentMode, setCurrentMode } = props;
 
   const controls = () => {
     switch (currentMode) {
