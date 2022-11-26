@@ -11,4 +11,8 @@ const isNumber: (newValue: number) => string | undefined = (newValue) => {
   return !isNaN(newValue) ? undefined : `Value must be a number`;
 };
 
-export { minNumber, isNumber };
+const isInteger: (newValue: number) => string | undefined = (newValue) => {
+  return Number.isInteger(newValue) ? undefined : `Value must be an integer`;
+};
+
+export { minNumber, isNumber, isInteger };

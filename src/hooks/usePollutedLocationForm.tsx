@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { createPollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
-import PollutedLocationCreateRequest from "../types/backEnd/PollutedLocationCreateRequest";
+import {
+  PollutedLocationCreateForm,
+  toPollutedLocationCreateRequest,
+} from "../types/backEnd/PollutedLocationCreateRequest";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import PollutedLocation, { severityLevels } from "../types/PollutedLocation";
-import { isNumber, minNumber } from "../utils/validationFunctions";
+import { validate } from "../types/Validated";
+import { isInteger, minNumber } from "../utils/validationFunctions";
 
 export interface PollutedLocationFormProps {
   coordinates: google.maps.LatLngLiteral;
@@ -15,23 +19,27 @@ const usePollutedLocationForm = ({
   coordinates,
   setShowCenterMarker,
 }: PollutedLocationFormProps) => {
-  const [createRequestData, setCreateRequestData] =
-    useState<PollutedLocationCreateRequest>({
-      radius: {
-        value: 5,
-        validationFunctions: [
-          (newValue) => isNumber(newValue),
-          (newValue) => minNumber(newValue, 1),
-        ],
+  const [formData, setFormData] = useState<PollutedLocationCreateForm>({
+    radius: {
+      value: 5,
+      errors: [],
+      validationFunctions: [
+        (newValue) => isInteger(newValue),
+        (newValue) => minNumber(newValue, 1),
+      ],
+    },
+    severity: "low",
+    location: {
+      coordinates: {
+        latitude: coordinates.lat,
+        longitude: coordinates.lng,
       },
-      severity: "low",
-      location: {
-        coordinates: {
-          latitude: coordinates.lat,
-          longitude: coordinates.lng,
-        },
-      },
-    });
+    },
+  });
+
+  const isFormValid = () => {
+    return formData.radius.errors.length === 0;
+  };
 
   const [request, setRequest] = useState<
     ApiRequest<PollutedLocation> | undefined
@@ -46,7 +54,7 @@ const usePollutedLocationForm = ({
   }, []);
 
   useEffect(() => {
-    setCreateRequestData((previousState) => ({
+    setFormData((previousState) => ({
       ...previousState,
       location: {
         ...previousState.location,
@@ -63,28 +71,23 @@ const usePollutedLocationForm = ({
 
     if (!newValue) return;
 
-    setCreateRequestData((previousState) => ({
+    setFormData((previousState) => ({
       ...previousState,
       severity: newValue,
     }));
   };
 
   const handleRadiusOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = +e.target.value;
-
-    const errors: string[] = [];
-    createRequestData.radius.validationFunctions.forEach((validation) => {
-      const error = validation(newValue);
-      if (error !== undefined) errors.push(error);
-    });
-
-    setCreateRequestData((previousState) => ({
+    setFormData((previousState) => ({
       ...previousState,
-      radius: {
-        ...previousState.radius,
-        value: newValue,
-        errors: errors,
-      },
+      radius: validate(formData.radius, +e.target.value),
+    }));
+  };
+
+  const handleNotesOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData((previousState) => ({
+      ...previousState,
+      notes: e.target.value === "" ? undefined : e.target.value,
     }));
   };
 
@@ -94,7 +97,9 @@ const usePollutedLocationForm = ({
     });
     setShowCenterMarker(false);
 
-    createPollutedLocation(createRequestData)
+    const requestData = toPollutedLocationCreateRequest(formData);
+
+    createPollutedLocation(requestData)
       .then((response) => {
         setRequest({
           status: "success",
@@ -109,11 +114,13 @@ const usePollutedLocationForm = ({
   };
 
   return {
-    createRequestData,
+    formData,
     request,
     handleSeverityOnChange,
     handleRadiusOnChange,
+    handleNotesOnChange,
     handleSubmit,
+    isFormValid,
   };
 };
 

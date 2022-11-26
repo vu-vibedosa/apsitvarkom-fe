@@ -6,11 +6,13 @@ import { severityLevels } from "../../types/PollutedLocation";
 
 const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
   const {
-    createRequestData,
+    formData,
     request,
     handleSeverityOnChange,
     handleSubmit,
     handleRadiusOnChange,
+    handleNotesOnChange,
+    isFormValid,
   } = usePollutedLocationForm(props);
 
   if (request) {
@@ -34,7 +36,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
                 readOnly
                 disabled
                 className="rounded-md border-gray-300 bg-gray-200 shadow-sm text-sm w-full"
-                value={createRequestData.location.coordinates.latitude}
+                value={formData.location.coordinates.latitude}
               />
             </div>
             <div className="space-y-1">
@@ -46,7 +48,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
                 readOnly
                 disabled
                 className="rounded-md border-gray-300 bg-gray-200 shadow-sm text-sm w-full"
-                value={createRequestData.location.coordinates.longitude}
+                value={formData.location.coordinates.longitude}
               />
             </div>
           </div>
@@ -58,14 +60,18 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
             <input
               type="number"
               className={`rounded-md ${
-                createRequestData.radius.errors &&
-                createRequestData.radius.errors.length > 0
+                formData.radius.errors.length > 0
                   ? "border-red-600"
                   : "border-gray-300"
               }  shadow-sm text-sm w-full`}
-              value={createRequestData.radius.value}
+              value={formData.radius.value}
               onChange={handleRadiusOnChange}
             />
+            {formData.radius.errors.map((error) => (
+              <p className="mt-2 text-sm text-red-600" key={error}>
+                {error}
+              </p>
+            ))}
           </div>
 
           <div className="space-y-1">
@@ -73,7 +79,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
               Severity
             </label>
             <select
-              value={createRequestData.severity}
+              value={formData.severity}
               onChange={handleSeverityOnChange}
               className="rounded-md border-gray-300 w-full"
             >
@@ -93,16 +99,20 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
             <textarea
               className="rounded-md border-gray-300 text-sm min-h-[50px] w-full"
               placeholder="Optional"
-              value={createRequestData.notes}
+              value={formData.notes}
+              onChange={handleNotesOnChange}
             />
           </div>
         </form>
       </div>
       <button
+        disabled={!isFormValid()}
         onClick={() => handleSubmit()}
-        className="w-full bg-transparent md:hover:bg-green-500 text-green-700 font-medium md:hover:text-white py-2 px-4 border border-green-500 md:hover:border-transparent rounded"
+        className="w-full rounded font-medium py-2 px-4 border bg-transparent
+                  enabled:md:hover:bg-green-500 text-green-700 enabled:md:hover:text-white border-green-500 enabled:md:hover:border-transparent
+                  disabled:text-red-700 disabled:border-red-500"
       >
-        Submit
+        {isFormValid() ? "Submit" : "There are errors in the form"}
       </button>
     </div>
   );
