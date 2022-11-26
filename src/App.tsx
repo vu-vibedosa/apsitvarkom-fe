@@ -49,6 +49,16 @@ const App: React.FC = () => {
         googleMap={googleMapRef}
         coordinates={mapCenter}
         setShowCenterMarker={(newValue) => setShowCenterMarker(newValue)}
+        addCreatedPollutedLocation={(newLocation) => {
+          setPollutedLocations((prevState) => {
+            if (prevState.status !== "success") return prevState;
+
+            return {
+              ...prevState,
+              data: [...prevState.data, newLocation],
+            };
+          });
+        }}
       />
     </Layout>
   );

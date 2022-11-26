@@ -13,11 +13,13 @@ import { isInteger, minNumber } from "../utils/validationFunctions";
 export interface PollutedLocationFormProps {
   coordinates: google.maps.LatLngLiteral;
   setShowCenterMarker: (newValue: boolean) => void;
+  addCreatedPollutedLocation: (newLocation: PollutedLocation) => void;
 }
 
 const usePollutedLocationForm = ({
   coordinates,
   setShowCenterMarker,
+  addCreatedPollutedLocation,
 }: PollutedLocationFormProps) => {
   const [formData, setFormData] = useState<PollutedLocationCreateForm>({
     radius: {
@@ -101,9 +103,11 @@ const usePollutedLocationForm = ({
 
     createPollutedLocation(requestData)
       .then((response) => {
+        const createdPollutedLocation = mapToPollutedLocation(response.data);
+        addCreatedPollutedLocation(createdPollutedLocation);
         setRequest({
           status: "success",
-          data: mapToPollutedLocation(response.data),
+          data: createdPollutedLocation,
         });
       })
       .catch(() => {
