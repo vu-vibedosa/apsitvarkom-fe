@@ -47,6 +47,11 @@ const usePollutedLocationForm = ({
     ApiRequest<PollutedLocation> | undefined
   >();
 
+  const resetRequest = () => {
+    setRequest(undefined);
+    setShowCenterMarker(true);
+  };
+
   useEffect(() => {
     setShowCenterMarker(true);
 
@@ -120,6 +125,7 @@ const usePollutedLocationForm = ({
   return {
     formData,
     request,
+    resetRequest,
     handleSeverityOnChange,
     handleRadiusOnChange,
     handleNotesOnChange,

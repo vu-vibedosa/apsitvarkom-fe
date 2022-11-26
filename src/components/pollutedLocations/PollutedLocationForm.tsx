@@ -3,11 +3,13 @@ import usePollutedLocationForm, {
   PollutedLocationFormProps,
 } from "../../hooks/usePollutedLocationForm";
 import { severityLevels } from "../../types/PollutedLocation";
+import PollutedLocationFormResult from "./PollutedLocationFormResult";
 
 const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
   const {
     formData,
     request,
+    resetRequest,
     handleSeverityOnChange,
     handleSubmit,
     handleRadiusOnChange,
@@ -16,7 +18,12 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
   } = usePollutedLocationForm(props);
 
   if (request) {
-    return <div>{request.status}</div>;
+    return (
+      <PollutedLocationFormResult
+        request={request}
+        resetRequest={resetRequest}
+      />
+    );
   }
 
   return (
