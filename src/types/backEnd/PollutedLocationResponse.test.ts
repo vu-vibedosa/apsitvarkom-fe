@@ -90,12 +90,20 @@ describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
     );
   });
 
-  test("Empty events array", () => {
+  test("Undefined events", () => {
     const input: PollutedLocationResponse = {
       events: undefined,
     };
 
     expect(mapToPollutedLocation(input).events).toBeUndefined();
+  });
+
+  test("Empty events array", () => {
+    const input: PollutedLocationResponse = {
+      events: [],
+    };
+
+    expect(mapToPollutedLocation(input).events).toStrictEqual([]);
   });
 });
 
