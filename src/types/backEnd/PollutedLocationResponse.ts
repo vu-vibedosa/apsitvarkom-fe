@@ -39,6 +39,7 @@ export const mapToPollutedLocation: (
           sensitivity: "accent",
         }) === 0
     ),
-    events: (from.events ?? []).map(mapToTidyingEvent),
+    events:
+      from.events == undefined ? undefined : from.events.map(mapToTidyingEvent),
   };
 };

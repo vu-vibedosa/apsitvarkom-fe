@@ -95,7 +95,7 @@ describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
       events: undefined,
     };
 
-    expect(mapToPollutedLocation(input).events).toStrictEqual([]);
+    expect(mapToPollutedLocation(input).events).toBeUndefined();
   });
 });
 
