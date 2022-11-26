@@ -1,4 +1,5 @@
 import { severityLevels } from "../PollutedLocation";
+import Validated from "../Validated";
 
 type PollutedLocationCreateRequest = {
   location: {
@@ -7,7 +8,7 @@ type PollutedLocationCreateRequest = {
       latitude: number;
     };
   };
-  radius: number;
+  radius: Validated<number>;
   severity: typeof severityLevels[number];
   notes?: string;
 };

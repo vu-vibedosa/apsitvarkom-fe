@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import PollutedLocationForm, {
-  PollutedLocationFormProps,
-} from "../pollutedLocations/PollutedLocationForm";
+import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
+import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
 import PollutedLocationList, {
   PollutedLocationListProps,
 } from "../pollutedLocations/PollutedLocationList";
