@@ -5,26 +5,24 @@ import PollutedLocationList, {
   PollutedLocationListProps,
 } from "../pollutedLocations/PollutedLocationList";
 
-export const sideBarModes = ["list", "form"] as const;
-
 const SideBar: React.FC<
   PollutedLocationListProps & PollutedLocationFormProps
 > = (props) => {
-  const [currentMode, setCurrentMode] =
-    useState<typeof sideBarModes[number]>("list");
+  const [mode, setMode] = useState<typeof modes[number]>("list");
 
-  const modeComponents: Record<typeof sideBarModes[number], React.ReactNode> = {
+  const modes = ["list", "form"] as const;
+  const modeComponents: Record<typeof modes[number], React.ReactNode> = {
     list: <PollutedLocationList {...props} />,
     form: <PollutedLocationForm {...props} />,
   };
 
   const controls = () => {
-    switch (currentMode) {
+    switch (mode) {
       case "list":
         return (
           <button
             className="w-full bg-transparent md:hover:bg-green-500 text-green-700 font-medium md:hover:text-white py-2 px-4 border border-green-500 md:hover:border-transparent rounded"
-            onClick={() => setCurrentMode("form")}
+            onClick={() => setMode("form")}
           >
             Report new
           </button>
@@ -33,7 +31,7 @@ const SideBar: React.FC<
         return (
           <button
             className="w-full bg-transparent md:hover:bg-gray-500 text-gray-700 font-medium md:hover:text-white py-2 px-4 border border-gray-500 md:hover:border-transparent rounded"
-            onClick={() => setCurrentMode("list")}
+            onClick={() => setMode("list")}
           >
             Back to list
           </button>
@@ -44,7 +42,7 @@ const SideBar: React.FC<
   return (
     <div className="h-2/3 md:h-full flex flex-col flex-1 md:flex-none">
       <div className="w-full md:w-96 flex-1 overflow-y-auto">
-        <div className="p-4 h-full">{modeComponents[currentMode]}</div>
+        <div className="p-4 h-full">{modeComponents[mode]}</div>
       </div>
       <div className="p-4 flex-none">{controls()}</div>
     </div>
