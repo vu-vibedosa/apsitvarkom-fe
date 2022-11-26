@@ -81,8 +81,8 @@ describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
     const mappedLocationEvents = mapToPollutedLocation(input).events ?? [];
     expect(mappedLocationEvents[0].id).toEqual(inst1.id);
     expect(mappedLocationEvents[0].notes).toEqual(inst1.notes);
-    expect(mappedLocationEvents[0].startTime?.toISOString).toBeUndefined();
-    expect(mappedLocationEvents[1].startTime?.toISOString).toEqual(
+    expect(mappedLocationEvents[0].startTime?.toISOString()).toBeUndefined();
+    expect(mappedLocationEvents[1].startTime?.toISOString()).toEqual(
       inst2.startTime
     );
     expect(mappedLocationEvents[1].pollutedLocationId).toEqual(
