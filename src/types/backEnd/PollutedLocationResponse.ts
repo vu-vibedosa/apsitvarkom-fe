@@ -1,7 +1,7 @@
 import PollutedLocation, { severityLevels } from "../PollutedLocation";
-import TidyingEventResponse, {
-  mapToTidyingEvent,
-} from "./TidyingEventResponse";
+import CleaningEventResponse, {
+  mapToCleaningEvent,
+} from "./CleaningEventResponse";
 
 type PollutedLocationResponse = Partial<{
   id: string;
@@ -17,7 +17,7 @@ type PollutedLocationResponse = Partial<{
   spotted: string;
   progress: number;
   notes: string;
-  events: TidyingEventResponse[];
+  events: CleaningEventResponse[];
 }>;
 
 export default PollutedLocationResponse;
@@ -40,6 +40,8 @@ export const mapToPollutedLocation: (
         }) === 0
     ),
     events:
-      from.events == undefined ? undefined : from.events.map(mapToTidyingEvent),
+      from.events == undefined
+        ? undefined
+        : from.events.map(mapToCleaningEvent),
   };
 };

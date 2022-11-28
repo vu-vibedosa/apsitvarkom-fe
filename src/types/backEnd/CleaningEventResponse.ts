@@ -1,17 +1,17 @@
-import TidyingEvent from "../TidyingEvent";
+import CleaningEvent from "../CleaningEvent";
 
-type TidyingEventResponse = Partial<{
+type CleaningEventResponse = Partial<{
   id: string;
   pollutedLocationId: string;
   startTime: string;
   notes: string;
 }>;
 
-export default TidyingEventResponse;
+export default CleaningEventResponse;
 
-export const mapToTidyingEvent: (from: TidyingEventResponse) => TidyingEvent = (
-  from
-) => {
+export const mapToCleaningEvent: (
+  from: CleaningEventResponse
+) => CleaningEvent = (from) => {
   const dateObject = from.startTime ? new Date(from.startTime) : undefined;
 
   return {

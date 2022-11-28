@@ -2,7 +2,7 @@ import { severityLevels } from "../PollutedLocation";
 import PollutedLocationResponse, {
   mapToPollutedLocation,
 } from "./PollutedLocationResponse";
-import TidyingEventResponse from "./TidyingEventResponse";
+import CleaningEventResponse from "./CleaningEventResponse";
 
 describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
   test("Empty object", () => {
@@ -64,12 +64,12 @@ describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
   });
 
   test("Several valid event instances", () => {
-    const inst1: TidyingEventResponse = {
+    const inst1: CleaningEventResponse = {
       startTime: "this-is-not-a-date-format",
       id: "123",
       notes: "abc",
     };
-    const inst2: TidyingEventResponse = {
+    const inst2: CleaningEventResponse = {
       startTime: "2022-09-19T20:18:01.050Z",
       pollutedLocationId: "456",
     };

@@ -1,4 +1,4 @@
-import TidyingEvent from "./TidyingEvent";
+import CleaningEvent from "./CleaningEvent";
 
 export const severityLevels = ["low", "moderate", "high"] as const;
 
@@ -16,7 +16,7 @@ type PollutedLocation = Partial<{
   spotted: Date;
   progress: number;
   notes: string;
-  events: TidyingEvent[];
+  events: CleaningEvent[];
 }>;
 
 export default PollutedLocation;

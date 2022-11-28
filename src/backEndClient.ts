@@ -1,6 +1,6 @@
 import axios from "axios";
 import PollutedLocationResponse from "./types/backEnd/PollutedLocationResponse";
-import TidyingEventResponse from "./types/backEnd/TidyingEventResponse";
+import CleaningEventResponse from "./types/backEnd/CleaningEventResponse";
 
 export const getAllPollutedLocations = () => {
   return axios.get<PollutedLocationResponse[]>(
@@ -8,8 +8,8 @@ export const getAllPollutedLocations = () => {
   );
 };
 
-export const getAllTidyingEvents = () => {
-  return axios.get<TidyingEventResponse[]>(
-    process.env.REACT_APP_BACK_END_URL + "/api/TidyingEvent/All"
+export const getAllCleaningEvents = () => {
+  return axios.get<CleaningEventResponse[]>(
+    process.env.REACT_APP_BACK_END_URL + "/api/CleaningEvent/All"
   );
 };
