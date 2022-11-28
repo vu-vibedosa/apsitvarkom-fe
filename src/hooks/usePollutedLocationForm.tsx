@@ -27,7 +27,7 @@ const usePollutedLocationForm = ({
       errors: [],
       validationFunctions: [
         (newValue) => isInteger(newValue),
-        (newValue) => minNumber(newValue, 1),
+        (newValue) => (newValue ? minNumber(newValue, 1) : undefined),
       ],
     },
     severity: "low",
@@ -87,7 +87,10 @@ const usePollutedLocationForm = ({
   const handleRadiusOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((previousState) => ({
       ...previousState,
-      radius: validate(formData.radius, +e.target.value),
+      radius: validate(
+        formData.radius,
+        e.target.value === "" ? undefined : +e.target.value
+      ),
     }));
   };
 

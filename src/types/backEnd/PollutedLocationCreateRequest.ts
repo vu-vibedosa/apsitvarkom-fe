@@ -8,7 +8,7 @@ export type PollutedLocationCreateForm = {
       latitude: number;
     };
   };
-  radius: Validated<number>;
+  radius: Validated<number | undefined>;
   severity: typeof severityLevels[number];
   notes?: string;
 };
@@ -30,7 +30,7 @@ export const toPollutedLocationCreateRequest: (
 ) => PollutedLocationCreateRequest = (form) => {
   return {
     ...form,
-    radius: form.radius.value,
+    radius: form.radius.value || 1,
   };
 };
 
