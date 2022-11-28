@@ -1,19 +1,20 @@
 import React, { useState } from "react";
+import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
 import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
 import PollutedLocationList, {
   PollutedLocationListProps,
 } from "../pollutedLocations/PollutedLocationList";
 
-const SideBar: React.FC<PollutedLocationListProps> = (
-  pollutedLocationListProps
-) => {
+const SideBar: React.FC<
+  PollutedLocationListProps & PollutedLocationFormProps
+> = (props) => {
+  const [mode, setMode] = useState<typeof modes[number]>("list");
+
   const modes = ["list", "form"] as const;
   const modeComponents: Record<typeof modes[number], React.ReactNode> = {
-    list: <PollutedLocationList {...pollutedLocationListProps} />,
-    form: <PollutedLocationForm />,
+    list: <PollutedLocationList {...props} />,
+    form: <PollutedLocationForm {...props} />,
   };
-
-  const [mode, setMode] = useState<typeof modes[number]>("list");
 
   const controls = () => {
     switch (mode) {
@@ -41,9 +42,9 @@ const SideBar: React.FC<PollutedLocationListProps> = (
   return (
     <div className="h-2/3 md:h-full flex flex-col flex-1 md:flex-none">
       <div className="w-full md:w-96 flex-1 overflow-y-auto">
-        <div className="m-4">{modeComponents[mode]}</div>
+        <div className="p-4 h-full">{modeComponents[mode]}</div>
       </div>
-      <div className="px-4 py-8 flex-none">{controls()}</div>
+      <div className="p-4 flex-none">{controls()}</div>
     </div>
   );
 };
