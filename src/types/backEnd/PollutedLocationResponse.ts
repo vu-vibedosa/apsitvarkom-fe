@@ -1,4 +1,7 @@
 import PollutedLocation, { severityLevels } from "../PollutedLocation";
+import CleaningEventResponse, {
+  mapToCleaningEvent,
+} from "./CleaningEventResponse";
 
 type PollutedLocationResponse = Partial<{
   id: string;
@@ -14,6 +17,7 @@ type PollutedLocationResponse = Partial<{
   spotted: string;
   progress: number;
   notes: string;
+  events: CleaningEventResponse[];
 }>;
 
 export default PollutedLocationResponse;
@@ -35,5 +39,6 @@ export const mapToPollutedLocation: (
           sensitivity: "accent",
         }) === 0
     ),
+    events: from.events?.map(mapToCleaningEvent),
   };
 };

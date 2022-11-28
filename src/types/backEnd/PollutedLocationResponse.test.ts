@@ -2,6 +2,7 @@ import { severityLevels } from "../PollutedLocation";
 import PollutedLocationResponse, {
   mapToPollutedLocation,
 } from "./PollutedLocationResponse";
+import CleaningEventResponse from "./CleaningEventResponse";
 
 describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
   test("Empty object", () => {
@@ -60,6 +61,49 @@ describe("Mapping from PollutedLocationResponse to PollutedLocation", () => {
     };
 
     expect(mapToPollutedLocation(input).location).toStrictEqual({});
+  });
+
+  test("Several valid event instances", () => {
+    const inst1: CleaningEventResponse = {
+      startTime: "this-is-not-a-date-format",
+      id: "123",
+      notes: "abc",
+    };
+    const inst2: CleaningEventResponse = {
+      startTime: "2022-09-19T20:18:01.050Z",
+      pollutedLocationId: "456",
+    };
+
+    const input: PollutedLocationResponse = {
+      events: [inst1, inst2],
+    };
+
+    const mappedLocationEvents = mapToPollutedLocation(input).events ?? [];
+    expect(mappedLocationEvents[0].id).toEqual(inst1.id);
+    expect(mappedLocationEvents[0].notes).toEqual(inst1.notes);
+    expect(mappedLocationEvents[0].startTime?.toISOString()).toBeUndefined();
+    expect(mappedLocationEvents[1].startTime?.toISOString()).toEqual(
+      inst2.startTime
+    );
+    expect(mappedLocationEvents[1].pollutedLocationId).toEqual(
+      inst2.pollutedLocationId
+    );
+  });
+
+  test("Undefined events", () => {
+    const input: PollutedLocationResponse = {
+      events: undefined,
+    };
+
+    expect(mapToPollutedLocation(input).events).toBeUndefined();
+  });
+
+  test("Empty events array", () => {
+    const input: PollutedLocationResponse = {
+      events: [],
+    };
+
+    expect(mapToPollutedLocation(input).events).toStrictEqual([]);
   });
 });
 
