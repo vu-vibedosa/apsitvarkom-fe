@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Trans } from "react-i18next";
 import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
 import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
 import PollutedLocationList, {
@@ -24,7 +25,7 @@ const SideBar: React.FC<
             className="w-full bg-transparent md:hover:bg-green-500 text-green-700 font-medium md:hover:text-white py-2 px-4 border border-green-500 md:hover:border-transparent rounded"
             onClick={() => setMode("form")}
           >
-            Report new
+            <Trans i18nKey={"reportNew"}>Report new</Trans>
           </button>
         );
       case "form":
