@@ -15,21 +15,30 @@ const minNumber: (
 };
 
 const isNumber: (
-  newValue: number | undefined,
+  newValue: number,
   t: TFunction
 ) => DefaultTFuncReturn | undefined = (newValue, t) => {
-  return newValue && !isNaN(newValue)
+  return !isNaN(newValue)
     ? undefined
     : t("validationIsNumber", "Value must be a number");
 };
 
 const isInteger: (
-  newValue: number | undefined,
+  newValue: number,
   t: TFunction
 ) => DefaultTFuncReturn | undefined = (newValue, t) => {
-  return newValue && Number.isInteger(newValue)
+  return Number.isInteger(newValue)
     ? undefined
     : t("validationIsInteger", "Value must be an integer");
 };
 
-export { minNumber, isNumber, isInteger };
+const isRequired: (
+  newValue: unknown | undefined,
+  t: TFunction
+) => DefaultTFuncReturn | undefined = (newValue, t) => {
+  return newValue !== undefined
+    ? undefined
+    : t("validationIsRequired", "Value is required");
+};
+
+export { minNumber, isNumber, isInteger, isRequired };

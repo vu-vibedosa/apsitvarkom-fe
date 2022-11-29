@@ -20,5 +20,6 @@
   "severityModerate": "Vidutinis",
   "validationIsInteger": "Reikšmė turi būti sveikasis skaičius",
   "validationIsNumber": "Reikšmė turi būti skaičius",
+  "validationIsRequired": "Value is required",
   "validationMinNumber": "Reikšmė turi būti didesne arba lygi {{minValue}}"
 }

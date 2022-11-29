@@ -9,7 +9,7 @@ import {
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import PollutedLocation, { severityLevels } from "../types/PollutedLocation";
 import { validate } from "../types/Validated";
-import { isInteger, minNumber } from "../utils/validationFunctions";
+import { isInteger, isRequired, minNumber } from "../utils/validationFunctions";
 
 export interface PollutedLocationFormProps {
   coordinates: google.maps.LatLngLiteral;
@@ -29,8 +29,11 @@ const usePollutedLocationForm = ({
       value: 5,
       errors: [],
       validationFunctions: [
-        (newValue, t) => isInteger(newValue, t),
-        (newValue, t) => (newValue ? minNumber(newValue, t, 1) : undefined),
+        (newValue, t) => isRequired(newValue, t),
+        (newValue, t) =>
+          newValue !== undefined ? isInteger(newValue, t) : undefined,
+        (newValue, t) =>
+          newValue !== undefined ? minNumber(newValue, t, 1) : undefined,
       ],
     },
     severity: "low",
