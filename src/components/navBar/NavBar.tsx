@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
   );
 
   return (
-    <nav className="bg-white">
+    <nav className="bg-white border-b-2 border-gray-300">
       <div className="flex flex-row justify-between items-center mx-2 md:mx-6 my-3">
         <div className="flex flex-row items-center space-x-1 md:space-x-4">
           <MdOutlineCleaningServices className="h-8 md:h-12 w-auto text-gray-800" />

@@ -7,6 +7,7 @@
   "longitude": "Longitude",
   "meters": "meters",
   "notes": "Notes",
+  "optional": "Optional",
   "pleaseWait": "Please wait",
   "pollutedLocationCreate": "Report new location",
   "pollutedLocationCreateError": "Failed to report a new polluted location",

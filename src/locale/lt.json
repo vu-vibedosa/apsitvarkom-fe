@@ -7,6 +7,7 @@
   "longitude": "Ilguma",
   "meters": "metrai",
   "notes": "Užrašai",
+  "optional": "Neprivaloma",
   "pleaseWait": "Lukterėkite",
   "pollutedLocationCreate": "Pridėti naują užterštą vietą",
   "pollutedLocationCreateError": "Nepavyko pridėti naujos užterštos vietos",

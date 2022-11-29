@@ -109,7 +109,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
             </label>
             <textarea
               className="rounded-md border-gray-300 text-sm min-h-[50px] w-full"
-              placeholder="Optional"
+              placeholder={t("optional", "Optional").toString()}
               value={formData.notes}
               onChange={handleNotesOnChange}
             />
