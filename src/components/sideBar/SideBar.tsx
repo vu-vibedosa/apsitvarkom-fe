@@ -1,4 +1,3 @@
-import i18next from "i18next";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
@@ -36,7 +35,7 @@ const SideBar: React.FC<
             className="w-full bg-transparent md:hover:bg-gray-500 text-gray-700 font-medium md:hover:text-white py-2 px-4 border border-gray-500 md:hover:border-transparent rounded"
             onClick={() => setMode("list")}
           >
-            Back to list
+            {t("backToList", "Back to list")}
           </button>
         );
     }

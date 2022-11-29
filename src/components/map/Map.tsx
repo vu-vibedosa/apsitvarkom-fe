@@ -1,4 +1,5 @@
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
+import i18next from "i18next";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { ApiRequest } from "../../types/backEnd/ApiRequest";
 import PollutedLocation from "../../types/PollutedLocation";
@@ -55,6 +56,7 @@ const Map: React.FC<Props> = ({
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    language: i18next.language,
   });
 
   const handleOnLoad = useCallback((map: google.maps.Map) => {

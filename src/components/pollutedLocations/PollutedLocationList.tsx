@@ -5,6 +5,7 @@ import PollutedLocationCard, {
   PollutedLocationCardLoading,
 } from "./PollutedLocationCard";
 import { MdErrorOutline } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 export interface PollutedLocationListProps {
   locationsRequest: ApiRequest<PollutedLocation[]>;
@@ -15,6 +16,8 @@ const PollutedLocationList: React.FC<PollutedLocationListProps> = ({
   locationsRequest,
   googleMap,
 }) => {
+  const { t } = useTranslation();
+
   const content = () => {
     switch (locationsRequest.status) {
       case "success":
@@ -45,8 +48,13 @@ const PollutedLocationList: React.FC<PollutedLocationListProps> = ({
               <div className="text-xl">
                 <MdErrorOutline />
               </div>
-              <div>Error</div>
-              <div>Failed to load polluted locations</div>
+              <div>{t("error", "Error")}</div>
+              <div>
+                {t(
+                  "pollutedLocationLoadError",
+                  "Failed to load polluted locations"
+                )}
+              </div>
             </div>
           </div>
         );

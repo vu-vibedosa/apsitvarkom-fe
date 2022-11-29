@@ -1,8 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import usePollutedLocationForm, {
   PollutedLocationFormProps,
 } from "../../hooks/usePollutedLocationForm";
-import { severityLevels } from "../../types/PollutedLocation";
+import {
+  severityLevels,
+  severityLevelsLocalized,
+} from "../../types/PollutedLocation";
 import PollutedLocationFormResult from "./PollutedLocationFormResult";
 
 const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
@@ -26,17 +30,19 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
     );
   }
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col justify-between h-full">
       <div>
         <h2 className="font-medium text-lg text-center my-5">
-          Report new location
+          {t("pollutedLocationCreate", "Report new location")}
         </h2>
         <form className="flex flex-col space-y-5 w-full" noValidate>
           <div className="flex flex-row space-x-2">
             <div className="space-y-1">
               <label className="block text-sm font-medium text-gray-700">
-                Latitude
+                {t("latitude", "Latitude")}
               </label>
               <input
                 type={"text"}
@@ -48,7 +54,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
             </div>
             <div className="space-y-1">
               <label className="block text-sm font-medium text-gray-700">
-                Longitude
+                {t("longitude", "Longitude")}
               </label>
               <input
                 type={"text"}
@@ -62,7 +68,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
 
           <div className="space-y-1">
             <label className="block text-sm font-medium text-gray-700">
-              Radius (meters)
+              {t("radius", "Radius") + " (" + t("meters", "meters") + ")"}
             </label>
             <input
               type="number"
@@ -83,7 +89,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
 
           <div className="space-y-1">
             <label className="block text-sm font-medium text-gray-700">
-              Severity
+              {t("severity", "Severity")}
             </label>
             <select
               value={formData.severity}
@@ -92,8 +98,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
             >
               {severityLevels.map((severityLevel) => (
                 <option value={severityLevel} key={severityLevel}>
-                  {severityLevel.charAt(0).toUpperCase() +
-                    severityLevel.slice(1)}
+                  {severityLevelsLocalized(t)[severityLevel]}
                 </option>
               ))}
             </select>
@@ -101,7 +106,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
 
           <div className="space-y-1">
             <label className="block text-sm font-medium text-gray-700">
-              Notes
+              {t("notes", "Notes")}
             </label>
             <textarea
               className="rounded-md border-gray-300 text-sm min-h-[50px] w-full"
@@ -119,7 +124,9 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
                   enabled:md:hover:bg-green-500 text-green-700 enabled:md:hover:text-white border-green-500 enabled:md:hover:border-transparent
                   disabled:text-red-700 disabled:border-red-500"
       >
-        {isFormValid() ? "Submit" : "There are errors in the form"}
+        {isFormValid()
+          ? t("formSubmit", "Submit")
+          : t("formErrors", "There are errors in the form")}
       </button>
     </div>
   );

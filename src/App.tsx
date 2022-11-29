@@ -6,7 +6,6 @@ import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map, { vilniusCoordinates } from "./components/map/Map";
 import SideBar from "./components/sideBar/SideBar";
-import i18next from "i18next";
 
 const App: React.FC = () => {
   const googleMapRef = useRef<google.maps.Map | null>(null);
@@ -21,7 +20,6 @@ const App: React.FC = () => {
   >({ status: "loading" });
 
   useEffect(() => {
-    i18next.changeLanguage("lt");
     getAllPollutedLocations()
       .then((response) =>
         setPollutedLocations({

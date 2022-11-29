@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createPollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
 import {
@@ -21,13 +22,15 @@ const usePollutedLocationForm = ({
   setShowCenterMarker,
   addCreatedPollutedLocation,
 }: PollutedLocationFormProps) => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState<PollutedLocationCreateForm>({
     radius: {
       value: 5,
       errors: [],
       validationFunctions: [
-        (newValue) => isInteger(newValue),
-        (newValue) => (newValue ? minNumber(newValue, 1) : undefined),
+        (newValue, t) => isInteger(newValue, t),
+        (newValue, t) => (newValue ? minNumber(newValue, t, 1) : undefined),
       ],
     },
     severity: "low",
@@ -89,7 +92,8 @@ const usePollutedLocationForm = ({
       ...previousState,
       radius: validate(
         formData.radius,
-        e.target.value === "" ? undefined : +e.target.value
+        e.target.value === "" ? undefined : +e.target.value,
+        t
       ),
     }));
   };

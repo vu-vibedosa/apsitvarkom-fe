@@ -1,3 +1,24 @@
 {
-  "reportNew": "Pridėti naują"
+  "backToList": "Atgal į sąrašą",
+  "error": "Klaida",
+  "formErrors": "Anketoje yra klaidų",
+  "formSubmit": "Pateikti",
+  "latitude": "Platuma",
+  "longitude": "Ilguma",
+  "meters": "metrai",
+  "notes": "Užrašai",
+  "pleaseWait": "Lukterėkite",
+  "pollutedLocationCreate": "Pridėti naują užterštą vietą",
+  "pollutedLocationCreateError": "Nepavyko pridėti naujos užterštos vietos",
+  "pollutedLocationCreateSuccess": "Nauja užteršta vieta pridėta sėkmingai!",
+  "pollutedLocationLoadError": "Nepavyko užkrauti užterštų vietų",
+  "radius": "Spindulys",
+  "reportNew": "Pridėkite naują",
+  "severity": "Užterštumas",
+  "severityHigh": "Aukštas",
+  "severityLow": "Žemas",
+  "severityModerate": "Vidutinis",
+  "validationIsInteger": "Reikšmė turi būti sveikasis skaičius",
+  "validationIsNumber": "Reikšmė turi būti skaičius",
+  "validationMinNumber": "Reikšmė turi būti didesne arba lygi {{minValue}}"
 }

@@ -1,13 +1,18 @@
+import { DefaultTFuncReturn, TFunction } from "i18next";
+
 type Validated<T> = {
   value: T;
-  errors: string[];
-  validationFunctions: ((newValue: T) => string | undefined)[];
+  errors: DefaultTFuncReturn[];
+  validationFunctions: ((
+    newValue: T,
+    t: TFunction
+  ) => DefaultTFuncReturn | undefined)[];
 };
 
-export const validate = <T>(field: Validated<T>, newValue: T) => {
-  const errors: string[] = [];
+export const validate = <T>(field: Validated<T>, newValue: T, t: TFunction) => {
+  const errors: DefaultTFuncReturn[] = [];
   field.validationFunctions.forEach((validation) => {
-    const error = validation(newValue);
+    const error = validation(newValue, t);
     if (error !== undefined) errors.push(error);
   });
 

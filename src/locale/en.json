@@ -1,3 +1,24 @@
 {
-  "reportNew": "Report new"
+  "backToList": "Back to list",
+  "error": "Error",
+  "formErrors": "There are errors in the form",
+  "formSubmit": "Submit",
+  "latitude": "Latitude",
+  "longitude": "Longitude",
+  "meters": "meters",
+  "notes": "Notes",
+  "pleaseWait": "Please wait",
+  "pollutedLocationCreate": "Report new location",
+  "pollutedLocationCreateError": "Failed to report a new polluted location",
+  "pollutedLocationCreateSuccess": "Location successfully added!",
+  "pollutedLocationLoadError": "Failed to load polluted locations",
+  "radius": "Radius",
+  "reportNew": "Report new",
+  "severity": "Severity",
+  "severityHigh": "High",
+  "severityLow": "Low",
+  "severityModerate": "Moderate",
+  "validationIsInteger": "Value must be an integer",
+  "validationIsNumber": "Value must be a number",
+  "validationMinNumber": "Value must be higher or equal to {{minValue}}"
 }
