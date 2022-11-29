@@ -1,5 +1,6 @@
+import i18next from "i18next";
 import React, { useState } from "react";
-import { Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
 import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
 import PollutedLocationList, {
@@ -9,6 +10,7 @@ import PollutedLocationList, {
 const SideBar: React.FC<
   PollutedLocationListProps & PollutedLocationFormProps
 > = (props) => {
+  const { t } = useTranslation();
   const [mode, setMode] = useState<typeof modes[number]>("list");
 
   const modes = ["list", "form"] as const;
@@ -25,7 +27,7 @@ const SideBar: React.FC<
             className="w-full bg-transparent md:hover:bg-green-500 text-green-700 font-medium md:hover:text-white py-2 px-4 border border-green-500 md:hover:border-transparent rounded"
             onClick={() => setMode("form")}
           >
-            <Trans i18nKey={"reportNew"}>Report new</Trans>
+            {t("reportNew", "Report new")}
           </button>
         );
       case "form":
