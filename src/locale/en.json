@@ -15,6 +15,7 @@
   "pollutedLocationLoadError": "Failed to load polluted locations",
   "radius": "Radius",
   "reportNew": "Report new",
+  "retry": "Retry",
   "severity": "Severity",
   "severityHigh": "High",
   "severityLow": "Low",

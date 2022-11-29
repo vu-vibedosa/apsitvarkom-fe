@@ -54,7 +54,7 @@ const PollutedLocationFormResult: React.FC<Props> = ({
               <div className="text-xl">
                 <MdErrorOutline />
               </div>
-              <div>Error</div>
+              <div>{t("error", "Error")}</div>
               <div>
                 {t(
                   "pollutedLocationCreateError",
@@ -66,7 +66,7 @@ const PollutedLocationFormResult: React.FC<Props> = ({
               className="w-full bg-transparent md:hover:bg-red-500 text-red-700 font-medium md:hover:text-white py-2 px-4 border border-red-500 md:hover:border-transparent rounded"
               onClick={() => resetRequest()}
             >
-              Retry
+              {t("retry", "Retry")}
             </button>
           </div>
         );
