@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { MdErrorOutline } from "react-icons/md";
 import { MdCheckCircleOutline } from "react-icons/md";
 import { MdOutlineChangeCircle } from "react-icons/md";
@@ -14,6 +15,8 @@ const PollutedLocationFormResult: React.FC<Props> = ({
   request,
   resetRequest,
 }) => {
+  const { t } = useTranslation();
+
   const content = () => {
     switch (request.status) {
       case "success":
@@ -23,7 +26,12 @@ const PollutedLocationFormResult: React.FC<Props> = ({
               <div className="text-xl">
                 <MdCheckCircleOutline />
               </div>
-              <div>Location successfully added!</div>
+              <div>
+                {t(
+                  "pollutedLocationCreateSuccess",
+                  "Location successfully added!"
+                )}
+              </div>
             </div>
           </div>
         );
@@ -34,7 +42,7 @@ const PollutedLocationFormResult: React.FC<Props> = ({
               <div className="text-2xl animate-spin">
                 <MdOutlineChangeCircle className="transform -scale-x-100" />
               </div>
-              <div>Loading</div>
+              <div>{t("pleaseWait", "Please wait")}</div>
             </div>
           </div>
         );
@@ -46,14 +54,19 @@ const PollutedLocationFormResult: React.FC<Props> = ({
               <div className="text-xl">
                 <MdErrorOutline />
               </div>
-              <div>Error</div>
-              <div>Failed to report a new polluted location</div>
+              <div>{t("error", "Error")}</div>
+              <div>
+                {t(
+                  "pollutedLocationCreateError",
+                  "Failed to report a new polluted location"
+                )}
+              </div>
             </div>
             <button
               className="w-full bg-transparent md:hover:bg-red-500 text-red-700 font-medium md:hover:text-white py-2 px-4 border border-red-500 md:hover:border-transparent rounded"
               onClick={() => resetRequest()}
             >
-              Retry
+              {t("retry", "Retry")}
             </button>
           </div>
         );

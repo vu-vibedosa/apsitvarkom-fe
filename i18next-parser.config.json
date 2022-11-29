@@ -1,0 +1,6 @@
+{
+  "locales": ["en", "lt"],
+  "resetDefaultValueLocale": "en",
+  "output": "src/locale/$LOCALE.json",
+  "sort": true
+}

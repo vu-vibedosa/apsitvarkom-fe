@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createPollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
 import {
@@ -8,7 +9,7 @@ import {
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import PollutedLocation, { severityLevels } from "../types/PollutedLocation";
 import { validate } from "../types/Validated";
-import { isInteger, minNumber } from "../utils/validationFunctions";
+import { isInteger, isRequired, minNumber } from "../utils/validationFunctions";
 
 export interface PollutedLocationFormProps {
   coordinates: google.maps.LatLngLiteral;
@@ -21,13 +22,18 @@ const usePollutedLocationForm = ({
   setShowCenterMarker,
   addCreatedPollutedLocation,
 }: PollutedLocationFormProps) => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState<PollutedLocationCreateForm>({
     radius: {
       value: 5,
       errors: [],
       validationFunctions: [
-        (newValue) => isInteger(newValue),
-        (newValue) => (newValue ? minNumber(newValue, 1) : undefined),
+        (newValue, t) => isRequired(newValue, t),
+        (newValue, t) =>
+          newValue !== undefined ? isInteger(newValue, t) : undefined,
+        (newValue, t) =>
+          newValue !== undefined ? minNumber(newValue, t, 1) : undefined,
       ],
     },
     severity: "low",
@@ -89,7 +95,8 @@ const usePollutedLocationForm = ({
       ...previousState,
       radius: validate(
         formData.radius,
-        e.target.value === "" ? undefined : +e.target.value
+        e.target.value === "" ? undefined : +e.target.value,
+        t
       ),
     }));
   };
