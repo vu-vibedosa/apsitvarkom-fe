@@ -1,5 +1,5 @@
 {
-  "backToList": "Back to list",
+  "backToList": "Atgal į sąrašą",
   "error": "Klaida",
   "formErrors": "Anketoje yra klaidų",
   "formSubmit": "Pateikti",
@@ -9,7 +9,7 @@
   "notes": "Užrašai",
   "optional": "Neprivaloma",
   "pleaseWait": "Luktelėkite",
-  "pollutedLocationCreate": "Report new location",
+  "pollutedLocationCreate": "Pridėti naują užterštą vietą",
   "pollutedLocationCreateError": "Nepavyko pridėti naujos užterštos vietos",
   "pollutedLocationCreateSuccess": "Nauja užteršta vieta pridėta sėkmingai!",
   "pollutedLocationLoadError": "Nepavyko užkrauti užterštų vietų",

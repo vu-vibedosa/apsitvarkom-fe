@@ -35,7 +35,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
     <div className="flex flex-col justify-between h-full">
       <div>
         <h2 className="font-medium text-lg text-center my-5">
-          {t("pollutedLocationCreate", "Report new location")}
+          {t("pollutedLocationCreate", "Report a new location")}
         </h2>
         <form className="flex flex-col space-y-5 w-full" noValidate>
           <div className="flex flex-row space-x-2">

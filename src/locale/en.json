@@ -1,5 +1,5 @@
 {
-  "backToList": "Back to list",
+  "backToList": "Back to the list",
   "error": "Error",
   "formErrors": "There are errors in the form",
   "formSubmit": "Submit",
@@ -9,7 +9,7 @@
   "notes": "Notes",
   "optional": "Optional",
   "pleaseWait": "Please wait",
-  "pollutedLocationCreate": "Report new location",
+  "pollutedLocationCreate": "Report a new location",
   "pollutedLocationCreateError": "Failed to report a new polluted location",
   "pollutedLocationCreateSuccess": "Location successfully added!",
   "pollutedLocationLoadError": "Failed to load polluted locations",
