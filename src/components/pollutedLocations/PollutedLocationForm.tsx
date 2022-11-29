@@ -20,6 +20,7 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
     handleNotesOnChange,
     isFormValid,
   } = usePollutedLocationForm(props);
+  const { t } = useTranslation();
 
   if (request) {
     return (
@@ -29,8 +30,6 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
       />
     );
   }
-
-  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col justify-between h-full">
