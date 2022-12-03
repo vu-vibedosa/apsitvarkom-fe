@@ -11,6 +11,12 @@ export const getAllPollutedLocations = () => {
   );
 };
 
+export const getAllPollutedLocationsOrdered = () => {
+  return axios.get<PollutedLocationResponse[]>(
+    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/All"
+  );
+};
+
 export const createPollutedLocation = (
   request: PollutedLocationCreateRequest
 ) => {

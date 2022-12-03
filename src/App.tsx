@@ -1,13 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import Layout from "./components/layout/Layout";
-import { getAllPollutedLocations } from "./backEndClient";
+import {
+  getAllPollutedLocations,
+  getAllPollutedLocationsOrdered,
+} from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationResponse";
 import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map, { vilniusCoordinates } from "./components/map/Map";
 import SideBar from "./components/sideBar/SideBar";
+import { useCurrentLocation } from "./location";
 
 const App: React.FC = () => {
+  const currentLocation = useCurrentLocation();
   const googleMapRef = useRef<google.maps.Map | null>(null);
 
   const [mapCenter, setMapCenter] =
@@ -20,7 +25,7 @@ const App: React.FC = () => {
   >({ status: "loading" });
 
   useEffect(() => {
-    getAllPollutedLocations()
+    getPollutedLocations()
       .then((response) =>
         setPollutedLocations({
           status: "success",
@@ -34,6 +39,14 @@ const App: React.FC = () => {
         setPollutedLocations({ status: "error" });
       });
   }, []);
+
+  const getPollutedLocations = () => {
+    if (!currentLocation) {
+      return getAllPollutedLocations();
+    } else {
+      return getAllPollutedLocationsOrdered();
+    }
+  };
 
   return (
     <Layout>
