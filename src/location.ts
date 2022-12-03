@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type Coordinates = Partial<{
+export type Coordinates = Partial<{
   longitude: number;
   latitude: number;
 }>;

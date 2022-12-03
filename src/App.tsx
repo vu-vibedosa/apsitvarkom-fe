@@ -44,7 +44,7 @@ const App: React.FC = () => {
     if (!currentLocation) {
       return getAllPollutedLocations();
     } else {
-      return getAllPollutedLocationsOrdered();
+      return getAllPollutedLocationsOrdered(currentLocation);
     }
   };
 
