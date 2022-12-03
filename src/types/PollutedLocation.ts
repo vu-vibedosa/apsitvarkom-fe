@@ -19,7 +19,10 @@ export const severityLevelsLocalized = (t: TFunction) => {
 type PollutedLocation = Partial<{
   id: string;
   location: Partial<{
-    title: string;
+    title: Partial<{
+      en: string;
+      lt: string;
+    }>;
     coordinates: Partial<{
       longitude: number;
       latitude: number;

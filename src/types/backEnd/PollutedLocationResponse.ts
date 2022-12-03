@@ -6,7 +6,10 @@ import CleaningEventResponse, {
 type PollutedLocationResponse = Partial<{
   id: string;
   location: Partial<{
-    title: string;
+    title: Partial<{
+      en: string;
+      lt: string;
+    }>;
     coordinates: Partial<{
       longitude: number;
       latitude: number;
