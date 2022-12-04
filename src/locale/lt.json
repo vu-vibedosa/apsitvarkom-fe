@@ -20,6 +20,7 @@
   "severityHigh": "Aukštas",
   "severityLow": "Žemas",
   "severityModerate": "Vidutinis",
+  "titleMissing": "Nežinoma vieta",
   "validationIsInteger": "Reikšmė turi būti sveikasis skaičius",
   "validationIsNumber": "Reikšmė turi būti skaičius",
   "validationIsRequired": "Reikšmė privaloma",

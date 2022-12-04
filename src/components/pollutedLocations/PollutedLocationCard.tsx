@@ -3,6 +3,9 @@ import { MdDelete } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineRadar } from "react-icons/md";
 import PollutedLocation, { severityLevels } from "../../types/PollutedLocation";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+import supportedLanguages from "../../languages";
 
 const defaultIconSize = 35;
 
@@ -15,17 +18,24 @@ const PollutedLocationCard: React.FC<Props> = ({
   pollutedLocation,
   googleMap,
 }) => {
+  const { t } = useTranslation();
   const { location, radius, progress, severity } = pollutedLocation;
 
   const filledTrashIcons: number =
     (severityLevels.findIndex((x) => x === severity) || 0) + 1;
 
   const emptyTrashIcons: number = severityLevels.length - filledTrashIcons;
+  const currentLanguage =
+    supportedLanguages.find((x) => x === i18next.language) ||
+    supportedLanguages[0];
 
   return (
     <CardLayout
       title={
-        <h2 className="text-lg">{location?.title || "Title is missing"}</h2>
+        <h2 className="text-lg">
+          {location?.title?.[currentLanguage] ||
+            t("titleMissing", "Title is missing")}
+        </h2>
       }
       progressText={<p className="text-sm text-blue-700">{progress || 0}%</p>}
       progressBar={

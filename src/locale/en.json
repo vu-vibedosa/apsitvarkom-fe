@@ -20,6 +20,7 @@
   "severityHigh": "High",
   "severityLow": "Low",
   "severityModerate": "Moderate",
+  "titleMissing": "Title is missing",
   "validationIsInteger": "Value must be an integer",
   "validationIsNumber": "Value must be a number",
   "validationIsRequired": "Value is required",
