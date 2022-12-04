@@ -7,10 +7,7 @@ import {
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationResponse";
 import PollutedLocation, { Coordinates } from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
-import Map, {
-  coordinatesToGoogle,
-  vilniusCoordinates,
-} from "./components/map/Map";
+import Map, { vilniusCoordinates } from "./components/map/Map";
 import SideBar from "./components/sideBar/SideBar";
 import useCurrentLocation from "./hooks/useCurrentLocation";
 import { AxiosError } from "axios";
@@ -59,9 +56,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!currentLocation) return;
-    if (!googleMapRef?.current) return;
 
-    googleMapRef.current.panTo(coordinatesToGoogle(currentLocation));
+    setMapCenter(currentLocation);
   }, [currentLocation]);
 
   return (

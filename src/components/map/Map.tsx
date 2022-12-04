@@ -120,7 +120,7 @@ const Map: React.FC<Props> = ({
           clickableIcons: false,
           zoom: zoom,
           maxZoom: 18,
-          center: coordinatesToGoogle(currentLocation || center),
+          center: coordinatesToGoogle(center),
           restriction: {
             latLngBounds: lithuaniaBounds,
           },
@@ -147,10 +147,7 @@ const Map: React.FC<Props> = ({
         )}
         {currentLocation && (
           <MarkerF
-            position={{
-              lat: currentLocation.latitude || 0,
-              lng: currentLocation.longitude || 0,
-            }}
+            position={coordinatesToGoogle(currentLocation)}
             icon={{
               url: personPin,
             }}
