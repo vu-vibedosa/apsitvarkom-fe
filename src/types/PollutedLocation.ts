@@ -1,4 +1,5 @@
 import { DefaultTFuncReturn, TFunction } from "i18next";
+import supportedLanguages from "../languages";
 import CleaningEvent from "./CleaningEvent";
 
 export const severityLevels = ["low", "moderate", "high"] as const;
@@ -19,10 +20,7 @@ export const severityLevelsLocalized = (t: TFunction) => {
 type PollutedLocation = Partial<{
   id: string;
   location: Partial<{
-    title: Partial<{
-      en: string;
-      lt: string;
-    }>;
+    title: Record<typeof supportedLanguages[number], string>;
     coordinates: Partial<{
       longitude: number;
       latitude: number;

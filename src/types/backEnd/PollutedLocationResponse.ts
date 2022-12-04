@@ -1,3 +1,4 @@
+import supportedLanguages from "../../languages";
 import PollutedLocation, { severityLevels } from "../PollutedLocation";
 import CleaningEventResponse, {
   mapToCleaningEvent,
@@ -6,10 +7,7 @@ import CleaningEventResponse, {
 type PollutedLocationResponse = Partial<{
   id: string;
   location: Partial<{
-    title: Partial<{
-      en: string;
-      lt: string;
-    }>;
+    title: Record<typeof supportedLanguages[number], string>;
     coordinates: Partial<{
       longitude: number;
       latitude: number;
