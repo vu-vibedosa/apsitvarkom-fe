@@ -7,12 +7,15 @@ import {
   toPollutedLocationCreateRequest,
 } from "../types/backEnd/PollutedLocationCreateRequest";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
-import PollutedLocation, { severityLevels } from "../types/PollutedLocation";
+import PollutedLocation, {
+  Coordinates,
+  severityLevels,
+} from "../types/PollutedLocation";
 import { validate } from "../types/Validated";
 import { isInteger, isRequired, minNumber } from "../utils/validationFunctions";
 
 export interface PollutedLocationFormProps {
-  coordinates: google.maps.LatLngLiteral;
+  coordinates: Coordinates;
   setShowCenterMarker: (newValue: boolean) => void;
   addCreatedPollutedLocation: (newLocation: PollutedLocation) => void;
 }
@@ -39,8 +42,8 @@ const usePollutedLocationForm = ({
     severity: "low",
     location: {
       coordinates: {
-        latitude: coordinates.lat,
-        longitude: coordinates.lng,
+        latitude: coordinates.latitude || 0,
+        longitude: coordinates.longitude || 0,
       },
     },
   });
@@ -72,8 +75,8 @@ const usePollutedLocationForm = ({
       location: {
         ...previousState.location,
         coordinates: {
-          latitude: coordinates.lat,
-          longitude: coordinates.lng,
+          latitude: coordinates.latitude || 0,
+          longitude: coordinates.longitude || 0,
         },
       },
     }));

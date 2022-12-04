@@ -17,14 +17,16 @@ export const severityLevelsLocalized = (t: TFunction) => {
   return translations;
 };
 
+export type Coordinates = Partial<{
+  longitude: number;
+  latitude: number;
+}>;
+
 type PollutedLocation = Partial<{
   id: string;
   location: Partial<{
     title: Record<typeof supportedLanguages[number], string>;
-    coordinates: Partial<{
-      longitude: number;
-      latitude: number;
-    }>;
+    coordinates: Coordinates;
   }>;
   radius: number;
   severity: typeof severityLevels[number]; // One of severityLevels values
