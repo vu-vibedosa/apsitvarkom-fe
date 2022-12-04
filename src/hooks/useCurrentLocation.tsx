@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-
-export type Coordinates = Partial<{
-  longitude: number;
-  latitude: number;
-}>;
+import { Coordinates } from "../types/PollutedLocation";
 
 const options = {
   enableHighAccuracy: false,
@@ -11,20 +7,13 @@ const options = {
   maximumAge: 1000 * 3600 * 1, // 1 hour
 };
 
-export const useCurrentLocation = () => {
+const useCurrentLocation = () => {
   // store location in state
   const [location, setLocation] = useState<Coordinates>();
 
   // Success handler for geolocation's `getCurrentPosition` method
-  const handleSuccess = (pos: {
-    coords: { latitude: number; longitude: number };
-  }) => {
-    const { latitude, longitude } = pos.coords;
-
-    setLocation({
-      latitude,
-      longitude,
-    });
+  const handleSuccess = (pos: { coords: Coordinates }) => {
+    setLocation(pos.coords);
   };
 
   useEffect(() => {
@@ -36,8 +25,16 @@ export const useCurrentLocation = () => {
     }
 
     // Call Geolocation API
-    geolocation.getCurrentPosition(handleSuccess, undefined, options);
+    geolocation.getCurrentPosition(
+      handleSuccess,
+      () => {
+        setLocation(undefined);
+      },
+      options
+    );
   }, [options]);
 
   return location;
 };
+
+export default useCurrentLocation;

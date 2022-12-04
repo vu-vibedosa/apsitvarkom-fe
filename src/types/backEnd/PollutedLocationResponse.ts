@@ -4,14 +4,16 @@ import CleaningEventResponse, {
   mapToCleaningEvent,
 } from "./CleaningEventResponse";
 
+type CoordinatesResponse = Partial<{
+  longitude: number;
+  latitude: number;
+}>;
+
 type PollutedLocationResponse = Partial<{
   id: string;
   location: Partial<{
     title: Record<typeof supportedLanguages[number], string>;
-    coordinates: Partial<{
-      longitude: number;
-      latitude: number;
-    }>;
+    coordinates: CoordinatesResponse;
   }>;
   radius: number;
   severity: string;

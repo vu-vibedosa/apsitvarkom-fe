@@ -9,7 +9,8 @@ import PollutedLocation from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
 import Map, { vilniusCoordinates } from "./components/map/Map";
 import SideBar from "./components/sideBar/SideBar";
-import { useCurrentLocation } from "./location";
+import useCurrentLocation from "./hooks/useCurrentLocation";
+import { AxiosError } from "axios";
 
 const App: React.FC = () => {
   const currentLocation = useCurrentLocation();
@@ -25,7 +26,13 @@ const App: React.FC = () => {
   >({ status: "loading" });
 
   useEffect(() => {
-    getPollutedLocations()
+    const controller = !currentLocation ? new AbortController() : undefined;
+
+    const axiosRequest = !currentLocation
+      ? getAllPollutedLocations(controller && { signal: controller.signal })
+      : getAllPollutedLocationsOrdered(currentLocation);
+
+    axiosRequest
       .then((response) =>
         setPollutedLocations({
           status: "success",
@@ -35,18 +42,18 @@ const App: React.FC = () => {
         })
       )
       .catch((e) => {
-        console.error(e);
+        if (e instanceof AxiosError && e.code === "ERR_CANCELED") {
+          // Do not change the state if the request was cancelled (by us)
+          return;
+        }
+
         setPollutedLocations({ status: "error" });
       });
-  }, []);
 
-  const getPollutedLocations = () => {
-    if (!currentLocation) {
-      return getAllPollutedLocations();
-    } else {
-      return getAllPollutedLocationsOrdered(currentLocation);
-    }
-  };
+    return () => {
+      controller?.abort();
+    };
+  }, [currentLocation]);
 
   return (
     <Layout>

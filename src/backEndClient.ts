@@ -1,14 +1,15 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import PollutedLocationCreateRequest from "./types/backEnd/PollutedLocationCreateRequest";
 import PollutedLocationResponse from "./types/backEnd/PollutedLocationResponse";
 import CleaningEventResponse from "./types/backEnd/CleaningEventResponse";
-import { Coordinates } from "./location";
+import { Coordinates } from "./types/PollutedLocation";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-export const getAllPollutedLocations = () => {
+export const getAllPollutedLocations = (config?: AxiosRequestConfig) => {
   return axios.get<PollutedLocationResponse[]>(
-    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/All"
+    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/All",
+    config
   );
 };
 
@@ -16,10 +17,7 @@ export const getAllPollutedLocationsOrdered = (coordinates: Coordinates) => {
   return axios.get<PollutedLocationResponse[]>(
     process.env.REACT_APP_BACK_END_URL +
       "/api/PollutedLocation/All/OrderedByDistance" +
-      "?Latitude=" +
-      coordinates.latitude +
-      "&Longitude=" +
-      coordinates.longitude
+      `?Latitude=${coordinates.latitude}&Longitude=${coordinates.longitude}`
   );
 };
 
