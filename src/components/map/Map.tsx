@@ -1,20 +1,31 @@
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { ApiRequest } from "../../types/backEnd/ApiRequest";
-import PollutedLocation from "../../types/PollutedLocation";
+import PollutedLocation, { Coordinates } from "../../types/PollutedLocation";
+import locationPin from "../../assets/location-pin.svg";
+import creationPin from "../../assets/creation-pin.svg";
+import personPin from "../../assets/person-pin.svg";
 
 interface Props {
   locationsRequest: ApiRequest<PollutedLocation[]>;
   mapRef: React.MutableRefObject<google.maps.Map | null>;
-  center: google.maps.LatLngLiteral;
-  setCenter: (newCenter: google.maps.LatLngLiteral) => void;
+  center: Coordinates;
+  setCenter: (newCenter: Coordinates) => void;
   showCenterMarker: boolean;
+  currentLocation?: Coordinates;
 }
 
-export const vilniusCoordinates: google.maps.LatLngLiteral = {
-  lat: 54.6872,
-  lng: 25.2797,
+export const vilniusCoordinates: Coordinates = {
+  latitude: 54.6872,
+  longitude: 25.2797,
 };
+
+export const coordinatesToGoogle: (
+  coordinates: Coordinates
+) => google.maps.LatLngLiteral = (coordinates) => ({
+  lat: coordinates.latitude || 0,
+  lng: coordinates.longitude || 0,
+});
 
 const Map: React.FC<Props> = ({
   locationsRequest,
@@ -22,6 +33,7 @@ const Map: React.FC<Props> = ({
   setCenter,
   center,
   showCenterMarker,
+  currentLocation,
 }) => {
   const centerMarkerRef = useRef<google.maps.Marker | null>(null);
   const [zoom, setZoom] = useState<number>(13);
@@ -70,8 +82,8 @@ const Map: React.FC<Props> = ({
       const newCenter = mapRef.current.getCenter();
       if (newCenter) {
         setCenter({
-          lat: newCenter.lat(),
-          lng: newCenter.lng(),
+          latitude: newCenter.lat(),
+          longitude: newCenter.lng(),
         });
         centerMarkerRef?.current?.setPosition(newCenter);
       }
@@ -108,25 +120,45 @@ const Map: React.FC<Props> = ({
           clickableIcons: false,
           zoom: zoom,
           maxZoom: 18,
-          center: center,
+          center: coordinatesToGoogle(currentLocation || center),
           restriction: {
             latLngBounds: lithuaniaBounds,
           },
         }}
       >
         {markers?.map((marker) => (
-          <MarkerF position={marker.coordinates} key={marker.id} />
+          <MarkerF
+            position={marker.coordinates}
+            key={marker.id}
+            icon={{
+              url: locationPin,
+            }}
+          />
         ))}
         {showCenterMarker && (
           <MarkerF
-            position={center}
+            position={coordinatesToGoogle(center)}
             onLoad={(marker) => (centerMarkerRef.current = marker)}
             onUnmount={() => (centerMarkerRef.current = null)}
+            icon={{
+              url: creationPin,
+            }}
+          />
+        )}
+        {currentLocation && (
+          <MarkerF
+            position={{
+              lat: currentLocation.latitude || 0,
+              lng: currentLocation.longitude || 0,
+            }}
+            icon={{
+              url: personPin,
+            }}
           />
         )}
       </GoogleMap>
     ),
-    [markers, showCenterMarker]
+    [markers, showCenterMarker, currentLocation]
   );
 
   if (loadError) return <p>Failed to load map</p>;

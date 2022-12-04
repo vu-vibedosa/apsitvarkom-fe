@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Coordinates } from "../types/PollutedLocation";
 
 const options = {
-  enableHighAccuracy: false,
+  enableHighAccuracy: true,
   timeout: 1000 * 60 * 1, // 1 min
   maximumAge: 1000 * 3600 * 1, // 1 hour
 };

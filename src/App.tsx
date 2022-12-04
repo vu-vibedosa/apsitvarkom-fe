@@ -5,9 +5,12 @@ import {
   getAllPollutedLocationsOrdered,
 } from "./backEndClient";
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationResponse";
-import PollutedLocation from "./types/PollutedLocation";
+import PollutedLocation, { Coordinates } from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
-import Map, { vilniusCoordinates } from "./components/map/Map";
+import Map, {
+  coordinatesToGoogle,
+  vilniusCoordinates,
+} from "./components/map/Map";
 import SideBar from "./components/sideBar/SideBar";
 import useCurrentLocation from "./hooks/useCurrentLocation";
 import { AxiosError } from "axios";
@@ -16,8 +19,7 @@ const App: React.FC = () => {
   const currentLocation = useCurrentLocation();
   const googleMapRef = useRef<google.maps.Map | null>(null);
 
-  const [mapCenter, setMapCenter] =
-    useState<google.maps.LatLngLiteral>(vilniusCoordinates);
+  const [mapCenter, setMapCenter] = useState<Coordinates>(vilniusCoordinates);
 
   const [showCenterMarker, setShowCenterMarker] = useState<boolean>(false);
 
@@ -55,6 +57,13 @@ const App: React.FC = () => {
     };
   }, [currentLocation]);
 
+  useEffect(() => {
+    if (!currentLocation) return;
+    if (!googleMapRef?.current) return;
+
+    googleMapRef.current.panTo(coordinatesToGoogle(currentLocation));
+  }, [currentLocation]);
+
   return (
     <Layout>
       <Map
@@ -63,6 +72,7 @@ const App: React.FC = () => {
         center={mapCenter}
         setCenter={(newCenter) => setMapCenter(newCenter)}
         showCenterMarker={showCenterMarker}
+        currentLocation={currentLocation}
       />
       <SideBar
         locationsRequest={pollutedLocations}
