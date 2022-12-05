@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
 import {
   getAllPollutedLocations,
@@ -7,14 +7,19 @@ import {
 import { mapToPollutedLocation } from "./types/backEnd/PollutedLocationResponse";
 import PollutedLocation, { Coordinates } from "./types/PollutedLocation";
 import { ApiRequest } from "./types/backEnd/ApiRequest";
-import Map, { vilniusCoordinates } from "./components/map/Map";
+import Map, {
+  coordinatesToGoogle,
+  vilniusCoordinates,
+} from "./components/map/Map";
 import SideBar from "./components/sideBar/SideBar";
 import useCurrentLocation from "./hooks/useCurrentLocation";
 import { AxiosError } from "axios";
 
 const App: React.FC = () => {
   const currentLocation = useCurrentLocation();
-  const googleMapRef = useRef<google.maps.Map | null>(null);
+  const [googleMap, setGoogleMap] = useState<google.maps.Map | undefined>(
+    undefined
+  );
 
   const [mapCenter, setMapCenter] = useState<Coordinates>(vilniusCoordinates);
 
@@ -56,34 +61,39 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!currentLocation) return;
-
-    setMapCenter(currentLocation);
-  }, [currentLocation]);
+    if (!googleMap) return;
+    googleMap.panTo(coordinatesToGoogle(currentLocation));
+  }, [currentLocation, googleMap]);
 
   return (
     <Layout>
       <Map
         locationsRequest={pollutedLocations}
-        mapRef={googleMapRef}
+        map={googleMap}
+        setMap={(newMap) => setGoogleMap(newMap)}
         center={mapCenter}
         setCenter={(newCenter) => setMapCenter(newCenter)}
         showCenterMarker={showCenterMarker}
         currentLocation={currentLocation}
       />
       <SideBar
-        locationsRequest={pollutedLocations}
-        googleMap={googleMapRef}
-        coordinates={mapCenter}
-        setShowCenterMarker={(newValue) => setShowCenterMarker(newValue)}
-        addCreatedPollutedLocation={(newLocation) => {
-          setPollutedLocations((prevState) => {
-            if (prevState.status !== "success") return prevState;
+        listProps={{
+          locationsRequest: pollutedLocations,
+          googleMap: googleMap,
+        }}
+        formProps={{
+          coordinates: mapCenter,
+          setShowCenterMarker: (newValue) => setShowCenterMarker(newValue),
+          addCreatedPollutedLocation: (newLocation) => {
+            setPollutedLocations((prevState) => {
+              if (prevState.status !== "success") return prevState;
 
-            return {
-              ...prevState,
-              data: [...prevState.data, newLocation],
-            };
-          });
+              return {
+                ...prevState,
+                data: [...prevState.data, newLocation],
+              };
+            });
+          },
         }}
       />
     </Layout>
