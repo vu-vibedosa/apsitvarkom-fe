@@ -8,7 +8,8 @@ import personPin from "../../assets/person-pin.svg";
 
 interface Props {
   locationsRequest: ApiRequest<PollutedLocation[]>;
-  mapRef: React.MutableRefObject<google.maps.Map | null>;
+  map: google.maps.Map | undefined;
+  setMap: (newMap: google.maps.Map | undefined) => void;
   center: Coordinates;
   setCenter: (newCenter: Coordinates) => void;
   showCenterMarker: boolean;
@@ -29,7 +30,8 @@ export const coordinatesToGoogle: (
 
 const Map: React.FC<Props> = ({
   locationsRequest,
-  mapRef,
+  map,
+  setMap,
   setCenter,
   center,
   showCenterMarker,
@@ -70,16 +72,19 @@ const Map: React.FC<Props> = ({
   });
 
   const handleOnLoad = useCallback((map: google.maps.Map) => {
-    mapRef.current = map;
+    console.log("map loaded");
+    setMap(map);
   }, []);
 
   const handleOnUnmount = useCallback(() => {
-    mapRef.current = null;
+    console.log("map unloaded");
+
+    setMap(undefined);
   }, []);
 
   const handleCenterChanged = useCallback(() => {
-    if (mapRef !== null && mapRef.current !== null) {
-      const newCenter = mapRef.current.getCenter();
+    if (map) {
+      const newCenter = map.getCenter();
       if (newCenter) {
         setCenter({
           latitude: newCenter.lat(),
@@ -88,16 +93,16 @@ const Map: React.FC<Props> = ({
         centerMarkerRef?.current?.setPosition(newCenter);
       }
     }
-  }, [mapRef]);
+  }, [map]);
 
   const handleZoomChanged = useCallback(() => {
-    if (mapRef !== null && mapRef.current !== null) {
-      const newZoom = mapRef.current.getZoom();
+    if (map) {
+      const newZoom = map.getZoom();
       if (newZoom) {
         setZoom(newZoom);
       }
     }
-  }, [mapRef]);
+  }, [map]);
 
   const renderedMap = useMemo(
     () => (
@@ -105,16 +110,8 @@ const Map: React.FC<Props> = ({
         mapContainerClassName="w-full h-1/3 md:h-full flex-none md:flex-1"
         onLoad={handleOnLoad}
         onUnmount={handleOnUnmount}
-        onCenterChanged={() => {
-          if (mapRef.current !== null) {
-            handleCenterChanged();
-          }
-        }}
-        onZoomChanged={() => {
-          if (mapRef.current !== null) {
-            handleZoomChanged();
-          }
-        }}
+        onCenterChanged={() => handleCenterChanged()}
+        onZoomChanged={() => handleZoomChanged()}
         options={{
           disableDefaultUI: true,
           clickableIcons: false,
@@ -155,7 +152,7 @@ const Map: React.FC<Props> = ({
         )}
       </GoogleMap>
     ),
-    [markers, showCenterMarker, currentLocation]
+    [markers, showCenterMarker, currentLocation, map]
   );
 
   if (loadError) return <p>Failed to load map</p>;

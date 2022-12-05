@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 export interface PollutedLocationListProps {
   locationsRequest: ApiRequest<PollutedLocation[]>;
-  googleMap: React.MutableRefObject<google.maps.Map | null>;
+  googleMap: google.maps.Map | undefined;
 }
 
 const PollutedLocationList: React.FC<PollutedLocationListProps> = ({
