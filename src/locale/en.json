@@ -1,6 +1,7 @@
 {
   "backToList": "Back to the list",
   "error": "Error",
+  "errorPageMessage": "Ran into a problem!",
   "formErrors": "There are errors in the form",
   "formSubmit": "Submit",
   "latitude": "Latitude",

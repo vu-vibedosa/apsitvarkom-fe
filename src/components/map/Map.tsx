@@ -72,13 +72,10 @@ const Map: React.FC<Props> = ({
   });
 
   const handleOnLoad = useCallback((map: google.maps.Map) => {
-    console.log("map loaded");
     setMap(map);
   }, []);
 
   const handleOnUnmount = useCallback(() => {
-    console.log("map unloaded");
-
     setMap(undefined);
   }, []);
 

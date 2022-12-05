@@ -1,6 +1,7 @@
 {
   "backToList": "Atgal į sąrašą",
   "error": "Klaida",
+  "errorPageMessage": "Iškilo bėda!",
   "formErrors": "Anketoje yra klaidų",
   "formSubmit": "Pateikti",
   "latitude": "Platuma",
