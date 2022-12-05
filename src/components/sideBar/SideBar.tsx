@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
 import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
@@ -6,16 +6,22 @@ import PollutedLocationList, {
   PollutedLocationListProps,
 } from "../pollutedLocations/PollutedLocationList";
 
-const SideBar: React.FC<
-  PollutedLocationListProps & PollutedLocationFormProps
-> = (props) => {
+interface Props {
+  listProps: PollutedLocationListProps;
+  formProps: PollutedLocationFormProps;
+}
+
+const SideBar: React.FC<Props> = ({ formProps, listProps }) => {
   const { t } = useTranslation();
   const [mode, setMode] = useState<typeof modes[number]>("list");
 
   const modes = ["list", "form"] as const;
   const modeComponents: Record<typeof modes[number], React.ReactNode> = {
-    list: <PollutedLocationList {...props} />,
-    form: <PollutedLocationForm {...props} />,
+    list: useMemo(
+      () => <PollutedLocationList {...listProps} />,
+      [listProps.locationsRequest, listProps.googleMap]
+    ),
+    form: useMemo(() => <PollutedLocationForm {...formProps} />, [formProps]),
   };
 
   const controls = () => {

@@ -71,19 +71,23 @@ const App: React.FC = () => {
         currentLocation={currentLocation}
       />
       <SideBar
-        locationsRequest={pollutedLocations}
-        googleMap={googleMapRef}
-        coordinates={mapCenter}
-        setShowCenterMarker={(newValue) => setShowCenterMarker(newValue)}
-        addCreatedPollutedLocation={(newLocation) => {
-          setPollutedLocations((prevState) => {
-            if (prevState.status !== "success") return prevState;
+        listProps={{
+          locationsRequest: pollutedLocations,
+          googleMap: googleMapRef,
+        }}
+        formProps={{
+          coordinates: mapCenter,
+          setShowCenterMarker: (newValue) => setShowCenterMarker(newValue),
+          addCreatedPollutedLocation: (newLocation) => {
+            setPollutedLocations((prevState) => {
+              if (prevState.status !== "success") return prevState;
 
-            return {
-              ...prevState,
-              data: [...prevState.data, newLocation],
-            };
-          });
+              return {
+                ...prevState,
+                data: [...prevState.data, newLocation],
+              };
+            });
+          },
         }}
       />
     </Layout>
