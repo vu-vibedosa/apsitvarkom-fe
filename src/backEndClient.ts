@@ -13,6 +13,12 @@ export const getAllPollutedLocations = (config?: AxiosRequestConfig) => {
   );
 };
 
+export const getPollutedLocation = (id: string) => {
+  return axios.get<PollutedLocationResponse>(
+    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation?Id=" + id
+  );
+};
+
 export const getAllPollutedLocationsOrdered = (coordinates: Coordinates) => {
   return axios.get<PollutedLocationResponse[]>(
     process.env.REACT_APP_BACK_END_URL +
