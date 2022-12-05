@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children }) => {
+const FullscreenLayout: React.FC<Props> = ({ children }) => {
   const height = use100vh();
   return (
     <div className="flex flex-col" style={{ height: height || "100vh" }}>
@@ -18,4 +18,4 @@ const Layout: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default FullscreenLayout;

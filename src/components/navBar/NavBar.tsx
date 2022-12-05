@@ -1,6 +1,7 @@
 import i18next from "i18next";
 import React, { useState } from "react";
 import { MdOutlineCleaningServices } from "react-icons/md";
+import { Link } from "react-router-dom";
 import supportedLanguages, { languageData } from "../../languages";
 
 const NavBar: React.FC = () => {
@@ -14,12 +15,15 @@ const NavBar: React.FC = () => {
   return (
     <nav className="bg-white border-b-2 border-gray-300">
       <div className="flex flex-row justify-between items-center mx-2 md:mx-6 my-3">
-        <div className="flex flex-row items-center space-x-1 md:space-x-4">
+        <Link
+          to={"/"}
+          className="flex flex-row items-center space-x-1 md:space-x-4"
+        >
           <MdOutlineCleaningServices className="h-8 md:h-12 w-auto text-gray-800" />
           <h1 className="font-semibold text-lg md:text-2xl text-gray-800">
             Apsitvarkom
           </h1>
-        </div>
+        </Link>
         <div>
           <select
             defaultValue={currentLanguage}

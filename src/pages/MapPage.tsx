@@ -4,7 +4,7 @@ import {
   getAllPollutedLocations,
   getAllPollutedLocationsOrdered,
 } from "../backEndClient";
-import Layout from "../components/layout/Layout";
+import FullscreenLayout from "../components/layout/FullscreenLayout";
 import { vilniusCoordinates, coordinatesToGoogle } from "../components/map/Map";
 import SideBar from "../components/sideBar/SideBar";
 import useCurrentLocation from "../hooks/useCurrentLocation";
@@ -64,7 +64,7 @@ const MapPage: React.FC = () => {
   }, [currentLocation, googleMap]);
 
   return (
-    <Layout>
+    <FullscreenLayout>
       <Map
         locationsRequest={pollutedLocations}
         map={googleMap}
@@ -94,7 +94,7 @@ const MapPage: React.FC = () => {
           },
         }}
       />
-    </Layout>
+    </FullscreenLayout>
   );
 };
 

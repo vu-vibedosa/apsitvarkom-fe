@@ -4,6 +4,7 @@ import { getPollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
 import PollutedLocation from "../types/PollutedLocation";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
+import NavBar from "../components/navBar/NavBar";
 
 const PollutedLocationPage: React.FC = () => {
   const { id } = useParams();
@@ -27,11 +28,14 @@ const PollutedLocationPage: React.FC = () => {
   }, [id]);
 
   return (
-    <div>
-      {request?.status === "success" && (
-        <div>{`Hello ${request.data.location?.title?.en}`}</div>
-      )}
-    </div>
+    <>
+      <NavBar />
+      <div className="container mx-auto">
+        {request?.status === "success" && (
+          <div>{`Hello ${request.data.location?.title?.en} ${request.data.location?.coordinates?.latitude}, ${request.data.location?.coordinates?.longitude}`}</div>
+        )}
+      </div>
+    </>
   );
 };
 
