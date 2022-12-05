@@ -1,10 +1,17 @@
-import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  MarkerF,
+  OverlayView,
+  OverlayViewF,
+  useLoadScript,
+} from "@react-google-maps/api";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { ApiRequest } from "../../types/backEnd/ApiRequest";
 import PollutedLocation, { Coordinates } from "../../types/PollutedLocation";
 import locationPin from "../../assets/location-pin.svg";
 import creationPin from "../../assets/creation-pin.svg";
 import personPin from "../../assets/person-pin.svg";
+import { Link } from "react-router-dom";
 
 interface Props {
   locationsRequest: ApiRequest<PollutedLocation[]>;
@@ -121,13 +128,20 @@ const Map: React.FC<Props> = ({
         }}
       >
         {markers?.map((marker) => (
-          <MarkerF
+          <OverlayViewF
             position={marker.coordinates}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             key={marker.id}
-            icon={{
-              url: locationPin,
-            }}
-          />
+          >
+            <div className="absolute bottom-full">
+              <Link
+                to={`/location/${marker.id}`}
+                className="block relative right-1/2"
+              >
+                <img src={locationPin} />
+              </Link>
+            </div>
+          </OverlayViewF>
         ))}
         {showCenterMarker && (
           <MarkerF
@@ -137,6 +151,7 @@ const Map: React.FC<Props> = ({
             icon={{
               url: creationPin,
             }}
+            cursor="auto"
           />
         )}
         {currentLocation && (
@@ -145,6 +160,7 @@ const Map: React.FC<Props> = ({
             icon={{
               url: personPin,
             }}
+            cursor="auto"
           />
         )}
       </GoogleMap>

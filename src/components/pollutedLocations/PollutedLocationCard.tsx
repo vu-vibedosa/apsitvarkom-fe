@@ -2,12 +2,10 @@ import React from "react";
 import { MdDelete } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineRadar } from "react-icons/md";
-import { MdOutlinePageview } from "react-icons/md";
 import PollutedLocation, { severityLevels } from "../../types/PollutedLocation";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import supportedLanguages from "../../languages";
-import { Link } from "react-router-dom";
 
 const defaultIconSize = 35;
 
@@ -68,14 +66,6 @@ const PollutedLocationCard: React.FC<Props> = ({
       }
       radiusText={<p className="text-sm">{(radius || 0) + " m."}</p>}
       radiusIcon={<MdOutlineRadar size={defaultIconSize} />}
-      button={
-        <Link
-          to={`/location/${pollutedLocation.id}`}
-          className="h-full text-2xl flex items-center md:hover:bg-blue-500 text-blue-700 font-medium md:hover:text-white py-2 px-4 border border-blue-500 md:hover:border-transparent rounded-lg"
-        >
-          <MdOutlinePageview />
-        </Link>
-      }
       onClick={panToLocation}
       className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
     />
@@ -128,9 +118,7 @@ export const PollutedLocationCardLoading: React.FC = () => {
           }}
         />
       }
-      button={
-        <div className="w-full h-full bg-slate-200 rounded animate-pulse" />
-      }
+      className="cursor-wait"
     />
   );
 };
@@ -142,7 +130,6 @@ const CardLayout: React.FC<{
   severity: React.ReactNode;
   radiusText: React.ReactNode;
   radiusIcon: React.ReactNode;
-  button: React.ReactNode;
   onClick?: () => void;
   className?: string;
 }> = ({
@@ -152,31 +139,27 @@ const CardLayout: React.FC<{
   severity,
   radiusText,
   radiusIcon,
-  button,
   onClick,
   className = "",
 }) => {
   const content = (
     <div
-      className={`bg-white rounded-xl shadow-lg border border-gray-200 flex justify-between ${className}`}
+      className={`p-4 space-y-5 bg-white rounded-xl shadow-lg border border-gray-200 ${className}`}
     >
-      <div className="p-4 space-y-5 w-full">
-        <div className="flex justify-between items-center space-x-2">
-          {title}
-          <div className="flex space-x-2 items-center">
-            {progressText}
-            {progressBar}
-          </div>
-        </div>
-        <div className="flex justify-between items-center space-x-2">
-          <div className="flex -space-x-2">{severity}</div>
-          <div className="flex space-x-2 items-center">
-            {radiusText}
-            {radiusIcon}
-          </div>
+      <div className="flex justify-between items-center space-x-2">
+        {title}
+        <div className="flex space-x-2 items-center">
+          {progressText}
+          {progressBar}
         </div>
       </div>
-      <div className="w-16 m-1">{button}</div>
+      <div className="flex justify-between items-center space-x-2">
+        <div className="flex -space-x-2">{severity}</div>
+        <div className="flex space-x-2 items-center">
+          {radiusText}
+          {radiusIcon}
+        </div>
+      </div>
     </div>
   );
 
