@@ -2,10 +2,12 @@ import React from "react";
 import { MdDelete } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineRadar } from "react-icons/md";
+import { MdOutlinePageview } from "react-icons/md";
 import PollutedLocation, { severityLevels } from "../../types/PollutedLocation";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import supportedLanguages from "../../languages";
+import { Link } from "react-router-dom";
 
 const defaultIconSize = 35;
 
@@ -29,6 +31,14 @@ const PollutedLocationCard: React.FC<Props> = ({
     supportedLanguages.find((x) => x === i18next.language) ||
     supportedLanguages[0];
 
+  const panToLocation = () => {
+    const lat = pollutedLocation.location?.coordinates?.latitude;
+    const lng = pollutedLocation.location?.coordinates?.longitude;
+    if (lat && lng) {
+      googleMap?.panTo({ lat, lng });
+    }
+  };
+
   return (
     <CardLayout
       title={
@@ -39,7 +49,7 @@ const PollutedLocationCard: React.FC<Props> = ({
       }
       progressText={<p className="text-sm text-blue-700">{progress || 0}%</p>}
       progressBar={
-        <div className=" bg-gray-200 rounded-full h-2.5 w-24">
+        <div className=" bg-gray-200 rounded-full h-2.5 w-16">
           <div
             className="bg-blue-600 h-full rounded-full"
             style={{ width: (progress || 0) + "%" }}
@@ -58,13 +68,15 @@ const PollutedLocationCard: React.FC<Props> = ({
       }
       radiusText={<p className="text-sm">{(radius || 0) + " m."}</p>}
       radiusIcon={<MdOutlineRadar size={defaultIconSize} />}
-      onClick={() => {
-        const lat = pollutedLocation.location?.coordinates?.latitude;
-        const lng = pollutedLocation.location?.coordinates?.longitude;
-        if (lat && lng) {
-          googleMap?.panTo({ lat, lng });
-        }
-      }}
+      button={
+        <Link
+          to={`/location/${pollutedLocation.id}`}
+          className="h-full text-2xl flex items-center md:hover:bg-blue-500 text-blue-700 font-medium md:hover:text-white py-2 px-4 border border-blue-500 md:hover:border-transparent rounded-lg"
+        >
+          <MdOutlinePageview />
+        </Link>
+      }
+      onClick={panToLocation}
       className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
     />
   );
@@ -93,7 +105,7 @@ export const PollutedLocationCardLoading: React.FC = () => {
         <div className="h-5 w-5 bg-slate-200 rounded animate-pulse" />
       }
       progressBar={
-        <div className="h-2.5 w-24 bg-slate-200 rounded animate-pulse" />
+        <div className="h-2.5 w-16 bg-slate-200 rounded animate-pulse" />
       }
       severity={
         <div
@@ -116,6 +128,9 @@ export const PollutedLocationCardLoading: React.FC = () => {
           }}
         />
       }
+      button={
+        <div className="w-full h-full bg-slate-200 rounded animate-pulse" />
+      }
     />
   );
 };
@@ -127,6 +142,7 @@ const CardLayout: React.FC<{
   severity: React.ReactNode;
   radiusText: React.ReactNode;
   radiusIcon: React.ReactNode;
+  button: React.ReactNode;
   onClick?: () => void;
   className?: string;
 }> = ({
@@ -136,27 +152,31 @@ const CardLayout: React.FC<{
   severity,
   radiusText,
   radiusIcon,
+  button,
   onClick,
   className = "",
 }) => {
   const content = (
     <div
-      className={`bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200 ${className}`}
+      className={`bg-white rounded-xl shadow-lg border border-gray-200 flex justify-between ${className}`}
     >
-      <div className="flex justify-between items-center space-x-2">
-        {title}
-        <div className="flex space-x-2 items-center">
-          {progressText}
-          {progressBar}
+      <div className="p-4 space-y-5 w-full">
+        <div className="flex justify-between items-center space-x-2">
+          {title}
+          <div className="flex space-x-2 items-center">
+            {progressText}
+            {progressBar}
+          </div>
+        </div>
+        <div className="flex justify-between items-center space-x-2">
+          <div className="flex -space-x-2">{severity}</div>
+          <div className="flex space-x-2 items-center">
+            {radiusText}
+            {radiusIcon}
+          </div>
         </div>
       </div>
-      <div className="flex justify-between items-center space-x-2">
-        <div className="flex -space-x-2">{severity}</div>
-        <div className="flex space-x-2 items-center">
-          {radiusText}
-          {radiusIcon}
-        </div>
-      </div>
+      <div className="w-16 m-1">{button}</div>
     </div>
   );
 

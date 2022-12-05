@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "locations/:id",
+    path: "location/:id",
     element: <PollutedLocationPage />,
     errorElement: <ErrorPage />,
   },
