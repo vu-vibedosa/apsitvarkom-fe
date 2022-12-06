@@ -5,6 +5,7 @@ import { ApiRequest } from "../types/backEnd/ApiRequest";
 import PollutedLocation from "../types/PollutedLocation";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import NavBar from "../components/navBar/NavBar";
+import PollutedLocationHeader from "../components/pollutedLocationPage/PollutedLocationHeader";
 
 const PollutedLocationPage: React.FC = () => {
   const { id } = useParams();
@@ -32,7 +33,7 @@ const PollutedLocationPage: React.FC = () => {
       <NavBar />
       <div className="container mx-auto">
         {request?.status === "success" && (
-          <div>{`Hello ${request.data.location?.title?.en} ${request.data.location?.coordinates?.latitude}, ${request.data.location?.coordinates?.longitude}`}</div>
+          <PollutedLocationHeader {...request.data} />
         )}
       </div>
     </>

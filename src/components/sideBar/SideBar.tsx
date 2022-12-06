@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
-import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
+import PollutedLocationForm from "../pollutedLocationsBar/PollutedLocationForm";
 import PollutedLocationList, {
   PollutedLocationListProps,
-} from "../pollutedLocations/PollutedLocationList";
+} from "../pollutedLocationsBar/PollutedLocationList";
 
 interface Props {
   listProps: PollutedLocationListProps;
