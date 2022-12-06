@@ -36,6 +36,12 @@ export const createPollutedLocation = (
   );
 };
 
+export const deletePollutedLocation = (id: string) => {
+  return axios.delete(
+    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/Delete?Id=" + id
+  );
+};
+
 export const getAllCleaningEvents = () => {
   return axios.get<CleaningEventResponse[]>(
     process.env.REACT_APP_BACK_END_URL + "/api/CleaningEvent/All"

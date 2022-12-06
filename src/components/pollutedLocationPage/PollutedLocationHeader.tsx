@@ -8,11 +8,15 @@ import {
   MdOutlineEdit,
   MdOutlineDirections,
 } from "react-icons/md";
+import { deletePollutedLocation } from "../../backEndClient";
+import { useNavigate } from "react-router-dom";
 
 const PollutedLocationHeader: React.FC<PollutedLocation> = ({
+  id,
   location,
   spotted,
 }) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const currentLanguage =
     supportedLanguages.find((x) => x === i18next.language) ||
@@ -40,6 +44,14 @@ const PollutedLocationHeader: React.FC<PollutedLocation> = ({
         <button
           type="button"
           className="px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-red-300 bg-white text-red-700 shadow-sm md:hover:bg-red-50"
+          onClick={async () => {
+            if (!id) return;
+
+            console.log("deleting", id);
+            await deletePollutedLocation(id);
+            console.log("navigating", id);
+            navigate("/");
+          }}
         >
           <MdOutlineDeleteForever className="text-xl mr-1" />
           {t("delete", "Delete")}
