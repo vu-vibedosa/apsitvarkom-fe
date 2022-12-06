@@ -1,15 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import usePollutedLocationForm, {
+import usePollutedLocationCreateForm, {
   PollutedLocationFormProps,
-} from "../../hooks/usePollutedLocationForm";
+} from "../../hooks/usePollutedLocationCreateForm";
 import {
   severityLevels,
   severityLevelsLocalized,
 } from "../../types/PollutedLocation";
-import PollutedLocationFormResult from "./PollutedLocationFormResult";
+import PollutedLocationCreateFormResult from "./PollutedLocationCreateFormResult";
 
-const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
+const PollutedLocationCreateForm: React.FC<PollutedLocationFormProps> = (
+  props
+) => {
   const {
     formData,
     request,
@@ -19,12 +21,12 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
     handleRadiusOnChange,
     handleNotesOnChange,
     isFormValid,
-  } = usePollutedLocationForm(props);
+  } = usePollutedLocationCreateForm(props);
   const { t } = useTranslation();
 
   if (request) {
     return (
-      <PollutedLocationFormResult
+      <PollutedLocationCreateFormResult
         request={request}
         resetRequest={resetRequest}
       />
@@ -131,4 +133,4 @@ const PollutedLocationForm: React.FC<PollutedLocationFormProps> = (props) => {
   );
 };
 
-export default PollutedLocationForm;
+export default PollutedLocationCreateForm;

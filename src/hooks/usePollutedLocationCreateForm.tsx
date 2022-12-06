@@ -20,7 +20,7 @@ export interface PollutedLocationFormProps {
   addCreatedPollutedLocation: (newLocation: PollutedLocation) => void;
 }
 
-const usePollutedLocationForm = ({
+const usePollutedLocationCreateForm = ({
   coordinates,
   setShowCenterMarker,
   addCreatedPollutedLocation,
@@ -147,4 +147,4 @@ const usePollutedLocationForm = ({
   };
 };
 
-export default usePollutedLocationForm;
+export default usePollutedLocationCreateForm;

@@ -11,7 +11,7 @@ interface Props {
   resetRequest: () => void;
 }
 
-const PollutedLocationFormResult: React.FC<Props> = ({
+const PollutedLocationCreateFormResult: React.FC<Props> = ({
   request,
   resetRequest,
 }) => {
@@ -76,4 +76,4 @@ const PollutedLocationFormResult: React.FC<Props> = ({
   return content();
 };
 
-export default PollutedLocationFormResult;
+export default PollutedLocationCreateFormResult;
