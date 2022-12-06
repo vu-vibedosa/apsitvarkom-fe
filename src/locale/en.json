@@ -18,6 +18,7 @@
   "pollutedLocationCreateError": "Failed to report a new polluted location",
   "pollutedLocationCreateSuccess": "Location successfully added!",
   "pollutedLocationLoadError": "Failed to load polluted locations",
+  "pollutedLocationLoadSingleError": "Failed to load the polluted location",
   "progress": "Progress",
   "radius": "Radius",
   "reportNew": "Report new",

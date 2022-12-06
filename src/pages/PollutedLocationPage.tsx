@@ -7,8 +7,11 @@ import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse
 import NavBar from "../components/navBar/NavBar";
 import PollutedLocationHeader from "../components/pollutedLocationPage/PollutedLocationHeader";
 import PollutedLocationDetails from "../components/pollutedLocationPage/PollutedLocationDetails";
+import { MdErrorOutline, MdOutlineChangeCircle } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const PollutedLocationPage: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [request, setRequest] = useState<ApiRequest<PollutedLocation>>({
     status: "loading",
@@ -39,10 +42,34 @@ const PollutedLocationPage: React.FC = () => {
           </>
         );
       case "loading":
-        return null;
+        return (
+          <div className="flex justify-center items-center my-4">
+            <div className="flex flex-col items-center text-slate-600 text-sm">
+              <div className="text-2xl animate-spin">
+                <MdOutlineChangeCircle className="transform -scale-x-100" />
+              </div>
+              <div>{t("pleaseWait", "Please wait")}</div>
+            </div>
+          </div>
+        );
       case "error":
       default:
-        return null;
+        return (
+          <div className="flex flex-col justify-between my-4">
+            <div className="grow flex flex-col justify-center items-center text-slate-600 text-sm">
+              <div className="text-xl">
+                <MdErrorOutline />
+              </div>
+              <div>{t("error", "Error")}</div>
+              <div>
+                {t(
+                  "pollutedLocationLoadSingleError",
+                  "Failed to load the polluted location"
+                )}
+              </div>
+            </div>
+          </div>
+        );
     }
   };
 

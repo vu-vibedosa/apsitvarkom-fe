@@ -18,6 +18,7 @@
   "pollutedLocationCreateError": "Nepavyko pridėti naujos užterštos vietos",
   "pollutedLocationCreateSuccess": "Nauja užteršta vieta pridėta sėkmingai!",
   "pollutedLocationLoadError": "Nepavyko užkrauti užterštų vietų",
+  "pollutedLocationLoadSingleError": "Nepavyko užkrauti užterštos vietos",
   "progress": "Progresas",
   "radius": "Spindulys",
   "reportNew": "Pridėkite naują",
