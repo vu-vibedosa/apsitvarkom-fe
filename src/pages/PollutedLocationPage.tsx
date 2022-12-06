@@ -49,7 +49,15 @@ const PollutedLocationPage: React.FC = () => {
                   setMode={(newMode) => setMode(newMode)}
                   {...request.data}
                 />
-                <PollutedLocationUpdateForm {...request.data} />
+                <PollutedLocationUpdateForm
+                  pollutedLocation={request.data}
+                  updatePage={(updatedPollutedLocation) =>
+                    setRequest({
+                      status: "success",
+                      data: updatedPollutedLocation,
+                    })
+                  }
+                />
               </>
             );
 

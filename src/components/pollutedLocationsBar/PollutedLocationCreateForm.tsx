@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import usePollutedLocationCreateForm, {
-  PollutedLocationFormProps,
+  PollutedLocationCreateFormProps,
 } from "../../hooks/usePollutedLocationCreateForm";
 import {
   severityLevels,
@@ -9,7 +9,7 @@ import {
 } from "../../types/PollutedLocation";
 import PollutedLocationCreateFormResult from "./PollutedLocationCreateFormResult";
 
-const PollutedLocationCreateForm: React.FC<PollutedLocationFormProps> = (
+const PollutedLocationCreateForm: React.FC<PollutedLocationCreateFormProps> = (
   props
 ) => {
   const {

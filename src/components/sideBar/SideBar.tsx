@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationCreateForm";
+import { PollutedLocationCreateFormProps } from "../../hooks/usePollutedLocationCreateForm";
 import PollutedLocationCreateForm from "../pollutedLocationsBar/PollutedLocationCreateForm";
 import PollutedLocationList, {
   PollutedLocationListProps,
@@ -8,7 +8,7 @@ import PollutedLocationList, {
 
 interface Props {
   listProps: PollutedLocationListProps;
-  formProps: PollutedLocationFormProps;
+  formProps: PollutedLocationCreateFormProps;
 }
 
 const SideBar: React.FC<Props> = ({ formProps, listProps }) => {

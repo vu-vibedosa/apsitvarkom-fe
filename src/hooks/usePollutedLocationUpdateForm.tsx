@@ -1,35 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { createPollutedLocation } from "../backEndClient";
+import { updatePollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
-import {
-  PollutedLocationCreateForm,
-  toPollutedLocationCreateRequest,
-} from "../types/backEnd/PollutedLocationCreateRequest";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
-import PollutedLocation, {
-  Coordinates,
-  severityLevels,
-} from "../types/PollutedLocation";
+import {
+  PollutedLocationUpdateForm,
+  toPollutedLocationUpdateRequest,
+} from "../types/backEnd/PollutedLocationUpdateRequest";
+import PollutedLocation, { severityLevels } from "../types/PollutedLocation";
 import { validate } from "../types/Validated";
 import { isInteger, isRequired, minNumber } from "../utils/validationFunctions";
 
-export interface PollutedLocationCreateFormProps {
-  coordinates: Coordinates;
-  setShowCenterMarker: (newValue: boolean) => void;
-  addCreatedPollutedLocation: (newLocation: PollutedLocation) => void;
+interface Props {
+  updatePage: (updatedPollutedLocation: PollutedLocation) => void;
+  pollutedLocation: PollutedLocation;
 }
 
-const usePollutedLocationCreateForm = ({
-  coordinates,
-  setShowCenterMarker,
-  addCreatedPollutedLocation,
-}: PollutedLocationCreateFormProps) => {
+const usePollutedLocationUpdateForm = (props: Props) => {
+  const { updatePage, pollutedLocation } = props;
   const { t } = useTranslation();
 
-  const [formData, setFormData] = useState<PollutedLocationCreateForm>({
+  const [formData, setFormData] = useState<PollutedLocationUpdateForm>({
+    id: pollutedLocation.id || "",
     radius: {
-      value: 5,
+      value: pollutedLocation.radius || 5,
       errors: [],
       validationFunctions: [
         (newValue, t) => isRequired(newValue, t),
@@ -39,13 +33,8 @@ const usePollutedLocationCreateForm = ({
           newValue !== undefined ? minNumber(newValue, t, 1) : undefined,
       ],
     },
-    severity: "low",
-    location: {
-      coordinates: {
-        latitude: coordinates.latitude || 0,
-        longitude: coordinates.longitude || 0,
-      },
-    },
+    severity: pollutedLocation.severity || "low",
+    notes: pollutedLocation.notes,
   });
 
   const isFormValid = () => {
@@ -58,29 +47,7 @@ const usePollutedLocationCreateForm = ({
 
   const resetRequest = () => {
     setRequest(undefined);
-    setShowCenterMarker(true);
   };
-
-  useEffect(() => {
-    setShowCenterMarker(true);
-
-    return () => {
-      setShowCenterMarker(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    setFormData((previousState) => ({
-      ...previousState,
-      location: {
-        ...previousState.location,
-        coordinates: {
-          latitude: coordinates.latitude || 0,
-          longitude: coordinates.longitude || 0,
-        },
-      },
-    }));
-  }, [coordinates]);
 
   const handleSeverityOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = severityLevels.find((l) => l === e.target.value);
@@ -115,17 +82,16 @@ const usePollutedLocationCreateForm = ({
     setRequest({
       status: "loading",
     });
-    setShowCenterMarker(false);
 
-    const requestData = toPollutedLocationCreateRequest(formData);
+    const requestData = toPollutedLocationUpdateRequest(formData);
 
-    createPollutedLocation(requestData)
+    updatePollutedLocation(requestData)
       .then((response) => {
-        const createdPollutedLocation = mapToPollutedLocation(response.data);
-        addCreatedPollutedLocation(createdPollutedLocation);
+        const updatedPollutedLocation = mapToPollutedLocation(response.data);
+        updatePage(updatedPollutedLocation);
         setRequest({
           status: "success",
-          data: createdPollutedLocation,
+          data: updatedPollutedLocation,
         });
       })
       .catch(() => {
@@ -147,4 +113,4 @@ const usePollutedLocationCreateForm = ({
   };
 };
 
-export default usePollutedLocationCreateForm;
+export default usePollutedLocationUpdateForm;
