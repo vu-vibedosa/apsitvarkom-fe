@@ -11,6 +11,7 @@
   "longitude": "Longitude",
   "meters": "meters",
   "notes": "Notes",
+  "notesInfo": "This value was entered by a user, so it might be in a different language",
   "optional": "Optional",
   "pleaseWait": "Please wait",
   "pollutedLocationCreate": "Report a new location",

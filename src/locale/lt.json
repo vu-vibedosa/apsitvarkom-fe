@@ -11,6 +11,7 @@
   "longitude": "Ilguma",
   "meters": "metrai",
   "notes": "Užrašai",
+  "notesInfo": "Šią reikšmę įvedė vartotojas, todėl ji gali būti kita kalba",
   "optional": "Neprivaloma",
   "pleaseWait": "Luktelėkite",
   "pollutedLocationCreate": "Pridėti naują užterštą vietą",

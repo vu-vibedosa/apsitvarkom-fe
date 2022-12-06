@@ -19,9 +19,9 @@ const PollutedLocationHeader: React.FC<PollutedLocation> = ({
     supportedLanguages[0];
 
   return (
-    <div className="my-2 md:my-8 flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 md:items-center justify-between">
+    <div className="my-4 md:my-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 md:items-center justify-between">
       <div className="flex flex-col">
-        <h1 className="text-lg md:text-2xl font-semibold md:font-bold leading-5">
+        <h1 className="text-xl md:text-2xl font-semibold md:font-bold leading-8">
           {location?.title?.[currentLanguage] ||
             t("titleMissing", "Title is missing")}
         </h1>
