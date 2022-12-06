@@ -33,7 +33,7 @@
     "build:development": "dotenv -e .env.development react-scripts build",
     "build:staging": "dotenv -e .env.staging react-scripts build",
     "test": "react-scripts test",
-    "pre-commit": "lint-staged && npm run extract-messages && git add -A",
+    "pre-commit": "lint-staged && npm run extract-messages -- --fail-on-update && git add -A",
     "prepare": "husky install",
     "extract-messages": "i18next 'src/**/*.{ts,tsx}'"
   },
