@@ -1,7 +1,7 @@
 import { severityLevels } from "../PollutedLocation";
 import Validated from "../Validated";
 
-export type PollutedLocationUpdateForm = {
+export type PollutedLocationUpdateFormData = {
   id: string;
   radius: Validated<number | undefined>;
   severity: typeof severityLevels[number];
@@ -16,7 +16,7 @@ type PollutedLocationUpdateRequest = {
 };
 
 export const toPollutedLocationUpdateRequest: (
-  form: PollutedLocationUpdateForm
+  form: PollutedLocationUpdateFormData
 ) => PollutedLocationUpdateRequest = (form) => {
   return {
     ...form,

@@ -4,7 +4,7 @@ import { updatePollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import {
-  PollutedLocationUpdateForm,
+  PollutedLocationUpdateFormData,
   toPollutedLocationUpdateRequest,
 } from "../types/backEnd/PollutedLocationUpdateRequest";
 import PollutedLocation, { severityLevels } from "../types/PollutedLocation";
@@ -20,22 +20,29 @@ const usePollutedLocationUpdateForm = (props: Props) => {
   const { updatePage, pollutedLocation } = props;
   const { t } = useTranslation();
 
-  const [formData, setFormData] = useState<PollutedLocationUpdateForm>({
-    id: pollutedLocation.id || "",
-    radius: {
-      value: pollutedLocation.radius || 5,
-      errors: [],
-      validationFunctions: [
-        (newValue, t) => isRequired(newValue, t),
-        (newValue, t) =>
-          newValue !== undefined ? isInteger(newValue, t) : undefined,
-        (newValue, t) =>
-          newValue !== undefined ? minNumber(newValue, t, 1) : undefined,
-      ],
-    },
-    severity: pollutedLocation.severity || "low",
-    notes: pollutedLocation.notes,
-  });
+  const getCurrentPollutedLocationFormData: () => PollutedLocationUpdateFormData =
+    () => {
+      return {
+        id: pollutedLocation.id || "",
+        radius: {
+          value: pollutedLocation.radius || 5,
+          errors: [],
+          validationFunctions: [
+            (newValue, t) => isRequired(newValue, t),
+            (newValue, t) =>
+              newValue !== undefined ? isInteger(newValue, t) : undefined,
+            (newValue, t) =>
+              newValue !== undefined ? minNumber(newValue, t, 1) : undefined,
+          ],
+        },
+        severity: pollutedLocation.severity || "low",
+        notes: pollutedLocation.notes,
+      };
+    };
+
+  const [formData, setFormData] = useState<PollutedLocationUpdateFormData>(
+    getCurrentPollutedLocationFormData()
+  );
 
   const isFormValid = () => {
     return formData.radius.errors.length === 0;
@@ -110,6 +117,7 @@ const usePollutedLocationUpdateForm = (props: Props) => {
     handleNotesOnChange,
     handleSubmit,
     isFormValid,
+    resetForm: () => setFormData(getCurrentPollutedLocationFormData()),
   };
 };
 

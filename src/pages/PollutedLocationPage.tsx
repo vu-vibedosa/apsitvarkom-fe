@@ -5,13 +5,9 @@ import { ApiRequest } from "../types/backEnd/ApiRequest";
 import PollutedLocation from "../types/PollutedLocation";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import NavBar from "../components/navBar/NavBar";
-import PollutedLocationHeader from "../components/pollutedLocationPage/PollutedLocationHeader";
-import PollutedLocationDetails from "../components/pollutedLocationPage/PollutedLocationDetails";
 import { MdErrorOutline, MdOutlineChangeCircle } from "react-icons/md";
 import { useTranslation } from "react-i18next";
-import PollutedLocationUpdateForm from "../components/pollutedLocationPage/PollutedLocationUpdateForm";
-
-export const pollutedLocationPageModes = ["view", "edit"] as const;
+import PollutedLocationEditor from "../components/pollutedLocationPage/PollutedLocationEditor";
 
 const PollutedLocationPage: React.FC = () => {
   const { t } = useTranslation();
@@ -19,8 +15,6 @@ const PollutedLocationPage: React.FC = () => {
   const [request, setRequest] = useState<ApiRequest<PollutedLocation>>({
     status: "loading",
   });
-  const [mode, setMode] =
-    useState<typeof pollutedLocationPageModes[number]>("view");
 
   useEffect(() => {
     if (!id) return;
@@ -40,40 +34,17 @@ const PollutedLocationPage: React.FC = () => {
   const content = () => {
     switch (request.status) {
       case "success":
-        switch (mode) {
-          case "edit":
-            return (
-              <>
-                <PollutedLocationHeader
-                  currentMode={mode}
-                  setMode={(newMode) => setMode(newMode)}
-                  {...request.data}
-                />
-                <PollutedLocationUpdateForm
-                  pollutedLocation={request.data}
-                  updatePage={(updatedPollutedLocation) =>
-                    setRequest({
-                      status: "success",
-                      data: updatedPollutedLocation,
-                    })
-                  }
-                />
-              </>
-            );
-
-          case "view":
-          default:
-            return (
-              <>
-                <PollutedLocationHeader
-                  currentMode={mode}
-                  setMode={(newMode) => setMode(newMode)}
-                  {...request.data}
-                />
-                <PollutedLocationDetails {...request.data} />
-              </>
-            );
-        }
+        return (
+          <PollutedLocationEditor
+            pollutedLocation={request.data}
+            updatePage={(updatedPollutedLocation) =>
+              setRequest({
+                status: "success",
+                data: updatedPollutedLocation,
+              })
+            }
+          />
+        );
       case "loading":
         return (
           <div className="flex justify-center items-center my-4">

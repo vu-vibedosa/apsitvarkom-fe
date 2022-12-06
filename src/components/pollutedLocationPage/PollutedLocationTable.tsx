@@ -22,17 +22,21 @@ const PollutedLocationTable: React.FC<Props> = ({
     <div className="shadow md:rounded-lg">
       <dl>
         <div className="bg-gray-50 px-4 py-5 md:grid md:grid-cols-3 md:gap-4 md:px-6">
-          <dt className="font-medium">
+          <dt className="font-medium flex items-center">
             {t("radius", "Radius") + " (" + t("meters", "meters") + ")"}
           </dt>
           <dd className="text-gray-900 md:col-span-2">{radius}</dd>
         </div>
         <div className="bg-white px-4 py-5 md:grid md:grid-cols-3 md:gap-4 md:px-6">
-          <dt className="font-medium">{t("severity", "Severity")}</dt>
+          <dt className="font-medium flex items-center">
+            {t("severity", "Severity")}
+          </dt>
           <dd className="text-gray-900 md:col-span-2">{severity}</dd>
         </div>
         <div className="bg-gray-50 px-4 py-5 md:grid md:grid-cols-3 md:gap-4 md:px-6">
-          <dt className="font-medium">{t("progress", "Progress")}</dt>
+          <dt className="font-medium flex items-center">
+            {t("progress", "Progress")}
+          </dt>
           <dd className="text-gray-900 md:col-span-2">{progress}</dd>
         </div>
         {notes && (

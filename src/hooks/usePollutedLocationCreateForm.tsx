@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { createPollutedLocation } from "../backEndClient";
 import { ApiRequest } from "../types/backEnd/ApiRequest";
 import {
-  PollutedLocationCreateForm,
+  PollutedLocationCreateFormData,
   toPollutedLocationCreateRequest,
 } from "../types/backEnd/PollutedLocationCreateRequest";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
@@ -27,7 +27,7 @@ const usePollutedLocationCreateForm = ({
 }: PollutedLocationCreateFormProps) => {
   const { t } = useTranslation();
 
-  const [formData, setFormData] = useState<PollutedLocationCreateForm>({
+  const [formData, setFormData] = useState<PollutedLocationCreateFormData>({
     radius: {
       value: 5,
       errors: [],

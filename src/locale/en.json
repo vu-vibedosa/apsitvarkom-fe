@@ -21,6 +21,8 @@
   "pollutedLocationDeleteError": "Failed to delete the polluted location",
   "pollutedLocationLoadError": "Failed to load polluted locations",
   "pollutedLocationLoadSingleError": "Failed to load the polluted location",
+  "pollutedLocationUpdateError": "Failed to update the polluted location",
+  "pollutedLocationUpdateSuccess": "Location successfully updated!",
   "progress": "Progress",
   "radius": "Radius",
   "reportNew": "Report new",

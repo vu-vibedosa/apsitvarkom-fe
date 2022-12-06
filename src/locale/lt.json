@@ -21,6 +21,8 @@
   "pollutedLocationDeleteError": "Nepavyko ištrinti užterštos vietos",
   "pollutedLocationLoadError": "Nepavyko užkrauti užterštų vietų",
   "pollutedLocationLoadSingleError": "Nepavyko užkrauti užterštos vietos",
+  "pollutedLocationUpdateError": "Nepavyko atnaujinti užterštos vietos",
+  "pollutedLocationUpdateSuccess": "Užteršta vieta atnaujinta sėkmingai!",
   "progress": "Progresas",
   "radius": "Spindulys",
   "reportNew": "Pridėkite naują",
