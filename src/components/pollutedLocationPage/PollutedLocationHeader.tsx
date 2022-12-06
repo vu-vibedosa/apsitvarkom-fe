@@ -92,7 +92,7 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
             {spotted?.toLocaleString(i18next.language)}
           </div>
         </div>
-        <div className="flex space-x-4 md:my-auto flex-wrap">
+        <div className="flex space-x-4 md:my-auto flex-wrap md:flex-nowrap">
           {currentMode === "view" && deleteRequest?.status !== "loading" && (
             <button
               type="button"
