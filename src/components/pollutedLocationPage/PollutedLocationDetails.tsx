@@ -55,10 +55,4 @@ const PollutedLocationDetails: React.FC<PollutedLocation> = ({
   );
 };
 
-export const PollutedLocationDetailsLoading: React.FC = () => {
-  return (
-    <div className="w-full h-[300px] bg-slate-200 rounded animate-pulse" />
-  );
-};
-
 export default PollutedLocationDetails;

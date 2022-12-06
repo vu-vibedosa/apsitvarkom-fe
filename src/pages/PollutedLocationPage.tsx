@@ -5,12 +5,8 @@ import { ApiRequest } from "../types/backEnd/ApiRequest";
 import PollutedLocation from "../types/PollutedLocation";
 import { mapToPollutedLocation } from "../types/backEnd/PollutedLocationResponse";
 import NavBar from "../components/navBar/NavBar";
-import PollutedLocationHeader, {
-  PollutedLocationHeaderLoading,
-} from "../components/pollutedLocationPage/PollutedLocationHeader";
-import PollutedLocationDetails, {
-  PollutedLocationDetailsLoading,
-} from "../components/pollutedLocationPage/PollutedLocationDetails";
+import PollutedLocationHeader from "../components/pollutedLocationPage/PollutedLocationHeader";
+import PollutedLocationDetails from "../components/pollutedLocationPage/PollutedLocationDetails";
 
 const PollutedLocationPage: React.FC = () => {
   const { id } = useParams();
@@ -43,12 +39,7 @@ const PollutedLocationPage: React.FC = () => {
           </>
         );
       case "loading":
-        return (
-          <>
-            <PollutedLocationHeaderLoading />
-            <PollutedLocationDetailsLoading />
-          </>
-        );
+        return null;
       case "error":
       default:
         return null;
