@@ -1,5 +1,6 @@
 {
   "backToList": "Back to the list",
+  "cancel": "Cancel",
   "delete": "Delete",
   "directions": "Directions",
   "edit": "Edit",
@@ -23,6 +24,7 @@
   "radius": "Radius",
   "reportNew": "Report new",
   "retry": "Retry",
+  "save": "Save",
   "severity": "Severity",
   "severityHigh": "High",
   "severityLow": "Low",

@@ -6,7 +6,7 @@ import PollutedLocation, {
 } from "../../types/PollutedLocation";
 import PollutedLocationTable from "./PollutedLocationTable";
 
-const PollutedLocationDetails: React.FC<PollutedLocation> = ({
+const PollutedLocationUpdateForm: React.FC<PollutedLocation> = ({
   radius,
   severity,
   progress,
@@ -16,7 +16,15 @@ const PollutedLocationDetails: React.FC<PollutedLocation> = ({
 
   return (
     <PollutedLocationTable
-      progress={progress}
+      progress={
+        <input
+          type={"text"}
+          readOnly
+          disabled
+          className="rounded-md border-gray-300 bg-gray-200 shadow-sm text-sm w-full"
+          value={progress}
+        />
+      }
       severity={severityLevelsLocalized(t)[severity || severityLevels[0]]}
       radius={radius}
       notes={notes}
@@ -24,4 +32,4 @@ const PollutedLocationDetails: React.FC<PollutedLocation> = ({
   );
 };
 
-export default PollutedLocationDetails;
+export default PollutedLocationUpdateForm;

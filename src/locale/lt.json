@@ -1,5 +1,6 @@
 {
   "backToList": "Atgal į sąrašą",
+  "cancel": "Atšaukti",
   "delete": "Ištrinti",
   "directions": "Nuorodos",
   "edit": "Keisti",
@@ -23,6 +24,7 @@
   "radius": "Spindulys",
   "reportNew": "Pridėkite naują",
   "retry": "Bandyti dar kartą",
+  "save": "Išsaugoti",
   "severity": "Užterštumas",
   "severityHigh": "Aukštas",
   "severityLow": "Žemas",

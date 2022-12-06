@@ -9,6 +9,9 @@ import PollutedLocationHeader from "../components/pollutedLocationPage/PollutedL
 import PollutedLocationDetails from "../components/pollutedLocationPage/PollutedLocationDetails";
 import { MdErrorOutline, MdOutlineChangeCircle } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import PollutedLocationUpdateForm from "../components/pollutedLocationPage/PollutedLocationUpdateForm";
+
+export const pollutedLocationPageModes = ["view", "edit"] as const;
 
 const PollutedLocationPage: React.FC = () => {
   const { t } = useTranslation();
@@ -16,6 +19,8 @@ const PollutedLocationPage: React.FC = () => {
   const [request, setRequest] = useState<ApiRequest<PollutedLocation>>({
     status: "loading",
   });
+  const [mode, setMode] =
+    useState<typeof pollutedLocationPageModes[number]>("view");
 
   useEffect(() => {
     if (!id) return;
@@ -35,12 +40,32 @@ const PollutedLocationPage: React.FC = () => {
   const content = () => {
     switch (request.status) {
       case "success":
-        return (
-          <>
-            <PollutedLocationHeader {...request.data} />
-            <PollutedLocationDetails {...request.data} />
-          </>
-        );
+        switch (mode) {
+          case "edit":
+            return (
+              <>
+                <PollutedLocationHeader
+                  currentMode={mode}
+                  setMode={(newMode) => setMode(newMode)}
+                  {...request.data}
+                />
+                <PollutedLocationUpdateForm {...request.data} />
+              </>
+            );
+
+          case "view":
+          default:
+            return (
+              <>
+                <PollutedLocationHeader
+                  currentMode={mode}
+                  setMode={(newMode) => setMode(newMode)}
+                  {...request.data}
+                />
+                <PollutedLocationDetails {...request.data} />
+              </>
+            );
+        }
       case "loading":
         return (
           <div className="flex justify-center items-center my-4">
