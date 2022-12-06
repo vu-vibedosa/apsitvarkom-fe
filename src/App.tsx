@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage";
+import NotFound from "./pages/NotFound";
 import MapPage from "./pages/MapPage";
 import PollutedLocationPage from "./pages/PollutedLocationPage";
 
@@ -7,12 +7,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MapPage />,
-    errorElement: <ErrorPage />,
   },
   {
     path: "location/:id",
     element: <PollutedLocationPage />,
-    errorElement: <ErrorPage />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
