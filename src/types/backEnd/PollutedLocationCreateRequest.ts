@@ -1,7 +1,7 @@
 import { severityLevels } from "../PollutedLocation";
 import Validated from "../Validated";
 
-export type PollutedLocationCreateForm = {
+export type PollutedLocationCreateFormData = {
   location: {
     coordinates: {
       longitude: number;
@@ -26,7 +26,7 @@ type PollutedLocationCreateRequest = {
 };
 
 export const toPollutedLocationCreateRequest: (
-  form: PollutedLocationCreateForm
+  form: PollutedLocationCreateFormData
 ) => PollutedLocationCreateRequest = (form) => {
   return {
     ...form,

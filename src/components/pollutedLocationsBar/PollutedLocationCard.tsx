@@ -29,6 +29,14 @@ const PollutedLocationCard: React.FC<Props> = ({
     supportedLanguages.find((x) => x === i18next.language) ||
     supportedLanguages[0];
 
+  const panToLocation = () => {
+    const lat = pollutedLocation.location?.coordinates?.latitude;
+    const lng = pollutedLocation.location?.coordinates?.longitude;
+    if (lat && lng) {
+      googleMap?.panTo({ lat, lng });
+    }
+  };
+
   return (
     <CardLayout
       title={
@@ -39,7 +47,7 @@ const PollutedLocationCard: React.FC<Props> = ({
       }
       progressText={<p className="text-sm text-blue-700">{progress || 0}%</p>}
       progressBar={
-        <div className=" bg-gray-200 rounded-full h-2.5 w-24">
+        <div className=" bg-gray-200 rounded-full h-2.5 w-16">
           <div
             className="bg-blue-600 h-full rounded-full"
             style={{ width: (progress || 0) + "%" }}
@@ -58,13 +66,7 @@ const PollutedLocationCard: React.FC<Props> = ({
       }
       radiusText={<p className="text-sm">{(radius || 0) + " m."}</p>}
       radiusIcon={<MdOutlineRadar size={defaultIconSize} />}
-      onClick={() => {
-        const lat = pollutedLocation.location?.coordinates?.latitude;
-        const lng = pollutedLocation.location?.coordinates?.longitude;
-        if (lat && lng) {
-          googleMap?.panTo({ lat, lng });
-        }
-      }}
+      onClick={panToLocation}
       className="md:hover:shadow-2xl md:hover:scale-105 md:duration-100"
     />
   );
@@ -93,7 +95,7 @@ export const PollutedLocationCardLoading: React.FC = () => {
         <div className="h-5 w-5 bg-slate-200 rounded animate-pulse" />
       }
       progressBar={
-        <div className="h-2.5 w-24 bg-slate-200 rounded animate-pulse" />
+        <div className="h-2.5 w-16 bg-slate-200 rounded animate-pulse" />
       }
       severity={
         <div
@@ -116,6 +118,7 @@ export const PollutedLocationCardLoading: React.FC = () => {
           }}
         />
       }
+      className="cursor-wait"
     />
   );
 };
@@ -141,7 +144,7 @@ const CardLayout: React.FC<{
 }) => {
   const content = (
     <div
-      className={`bg-white rounded-xl shadow-lg p-4 space-y-5 border border-gray-200 ${className}`}
+      className={`p-4 space-y-5 bg-white rounded-xl shadow-lg border border-gray-200 ${className}`}
     >
       <div className="flex justify-between items-center space-x-2">
         {title}

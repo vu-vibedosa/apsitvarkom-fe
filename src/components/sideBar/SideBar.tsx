@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PollutedLocationFormProps } from "../../hooks/usePollutedLocationForm";
-import PollutedLocationForm from "../pollutedLocations/PollutedLocationForm";
+import { PollutedLocationCreateFormProps } from "../../hooks/usePollutedLocationCreateForm";
+import PollutedLocationCreateForm from "../pollutedLocationsBar/PollutedLocationCreateForm";
 import PollutedLocationList, {
   PollutedLocationListProps,
-} from "../pollutedLocations/PollutedLocationList";
+} from "../pollutedLocationsBar/PollutedLocationList";
 
 interface Props {
   listProps: PollutedLocationListProps;
-  formProps: PollutedLocationFormProps;
+  formProps: PollutedLocationCreateFormProps;
 }
 
 const SideBar: React.FC<Props> = ({ formProps, listProps }) => {
@@ -21,7 +21,10 @@ const SideBar: React.FC<Props> = ({ formProps, listProps }) => {
       () => <PollutedLocationList {...listProps} />,
       [listProps.locationsRequest, listProps.googleMap]
     ),
-    form: useMemo(() => <PollutedLocationForm {...formProps} />, [formProps]),
+    form: useMemo(
+      () => <PollutedLocationCreateForm {...formProps} />,
+      [formProps]
+    ),
   };
 
   const controls = () => {
