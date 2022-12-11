@@ -8,6 +8,7 @@ import NavBar from "../components/navBar/NavBar";
 import { MdErrorOutline, MdOutlineChangeCircle } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import PollutedLocationEditor from "../components/pollutedLocationPage/PollutedLocationEditor";
+import CleaningEventsEditor from "../components/cleaningEventsEditor/CleaningEventsEditor";
 
 const PollutedLocationPage: React.FC = () => {
   const { t } = useTranslation();
@@ -35,15 +36,18 @@ const PollutedLocationPage: React.FC = () => {
     switch (request.status) {
       case "success":
         return (
-          <PollutedLocationEditor
-            pollutedLocation={request.data}
-            updatePage={(updatedPollutedLocation) =>
-              setRequest({
-                status: "success",
-                data: updatedPollutedLocation,
-              })
-            }
-          />
+          <>
+            <PollutedLocationEditor
+              pollutedLocation={request.data}
+              updatePage={(updatedPollutedLocation) =>
+                setRequest({
+                  status: "success",
+                  data: updatedPollutedLocation,
+                })
+              }
+            />
+            <CleaningEventsEditor events={request.data.events} />
+          </>
         );
       case "loading":
         return (

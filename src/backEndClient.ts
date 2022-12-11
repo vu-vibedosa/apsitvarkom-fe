@@ -6,7 +6,7 @@ import { Coordinates } from "./types/PollutedLocation";
 import PollutedLocationUpdateRequest from "./types/backEnd/PollutedLocationUpdateRequest";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.headers.patch["Content-Type"] = "application/json";
+axios.defaults.headers.put["Content-Type"] = "application/json";
 
 export const getAllPollutedLocations = (config?: AxiosRequestConfig) => {
   return axios.get<PollutedLocationResponse[]>(
@@ -41,7 +41,7 @@ export const createPollutedLocation = (
 export const updatePollutedLocation = (
   request: PollutedLocationUpdateRequest
 ) => {
-  return axios.patch<PollutedLocationResponse>(
+  return axios.put<PollutedLocationResponse>(
     process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/Update",
     JSON.stringify(request)
   );

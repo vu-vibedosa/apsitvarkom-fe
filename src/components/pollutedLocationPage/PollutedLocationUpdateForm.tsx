@@ -64,7 +64,7 @@ const PollutedLocationUpdateForm: React.FC<Props> = ({
           <textarea
             className="rounded-md border-gray-300 min-h-[100px] w-full"
             placeholder={t("optional", "Optional").toString()}
-            value={formData.notes}
+            value={formData.notes || ""}
             onChange={handleNotesOnChange}
           />
         }
