@@ -1,6 +1,10 @@
 {
   "backToList": "Back to the list",
   "cancel": "Cancel",
+  "cleaningEventsFinalizedTitle": "Past events",
+  "cleaningEventsFinishedTitle": "Finished event",
+  "cleaningEventsForeseenTitle": "Upcoming event",
+  "cleaningEventsTitle": "Cleaning events",
   "delete": "Delete",
   "directions": "Directions",
   "edit": "Edit",
@@ -32,6 +36,7 @@
   "severityHigh": "High",
   "severityLow": "Low",
   "severityModerate": "Moderate",
+  "startTime": "Start time",
   "titleMissing": "Title is missing",
   "validationIsInteger": "Value must be an integer",
   "validationIsNumber": "Value must be a number",

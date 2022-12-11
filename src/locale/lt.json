@@ -1,6 +1,10 @@
 {
   "backToList": "Atgal į sąrašą",
   "cancel": "Atšaukti",
+  "cleaningEventsFinalizedTitle": "Praeities įvykiai",
+  "cleaningEventsFinishedTitle": "Baigtas įvykis",
+  "cleaningEventsForeseenTitle": "Ateinantis įvykis",
+  "cleaningEventsTitle": "Tvarkymo įvykiai",
   "delete": "Ištrinti",
   "directions": "Nuorodos",
   "edit": "Keisti",
@@ -32,6 +36,7 @@
   "severityHigh": "Aukštas",
   "severityLow": "Žemas",
   "severityModerate": "Vidutinis",
+  "startTime": "Pradžios laikas",
   "titleMissing": "Nežinoma vieta",
   "validationIsInteger": "Reikšmė turi būti sveikasis skaičius",
   "validationIsNumber": "Reikšmė turi būti skaičius",
