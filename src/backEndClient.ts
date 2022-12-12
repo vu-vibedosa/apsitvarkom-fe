@@ -66,3 +66,9 @@ export const createCleaningEvent = (request: CleaningEventCreateRequest) => {
     JSON.stringify(request)
   );
 };
+
+export const deleteCleaningEvent = (id: string) => {
+  return axios.delete(
+    process.env.REACT_APP_BACK_END_URL + "/api/CleaningEvent/Delete?Id=" + id
+  );
+};

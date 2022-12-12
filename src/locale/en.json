@@ -1,7 +1,9 @@
 {
+  "back": "Back",
   "backToList": "Back to the list",
   "cancel": "Cancel",
   "cleaningEventCreateError": "Failed to create the cleaning event",
+  "cleaningEventDeleteError": "Failed to delete the cleaning event",
   "cleaningEventsCreateButton": "Click here to plan one",
   "cleaningEventsCreateMessage": "This polluted location does not have an upcoming event",
   "cleaningEventsFinalizedTitle": "Past events",

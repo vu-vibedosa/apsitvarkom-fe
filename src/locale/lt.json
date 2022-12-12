@@ -1,7 +1,9 @@
 {
+  "back": "Atgal",
   "backToList": "Atgal į sąrašą",
   "cancel": "Atšaukti",
   "cleaningEventCreateError": "Nepavyko pridėti tvarkymo įvykio",
+  "cleaningEventDeleteError": "Nepavyko ištrinti tvarkymo įvykio",
   "cleaningEventsCreateButton": "Spauskite čia, jei norite jį sukurti",
   "cleaningEventsCreateMessage": "Ši užteršta vieta neturi ateinančio įvykio",
   "cleaningEventsFinalizedTitle": "Praeities įvykiai",
