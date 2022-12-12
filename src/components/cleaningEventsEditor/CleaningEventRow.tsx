@@ -33,7 +33,13 @@ const CleaningEventRow: React.FC<Props> = ({
               {t("startTime", "Start time")}
             </dt>
             <dd className="text-gray-900 md:col-span-2">
-              {event.startTime?.toLocaleString(i18next.language)}
+              {event.startTime?.toLocaleString(i18next.language, {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </dd>
 
             {event.notes && (

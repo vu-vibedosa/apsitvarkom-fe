@@ -8,19 +8,19 @@ import {
   MdOutlineChangeCircle,
   MdOutlineSave,
 } from "react-icons/md";
-import useCleaningEventCreateForm from "../../hooks/useCleaningEventCreateForm";
+import useCleaningEventUpdateForm from "../../hooks/useCleaningEventUpdateForm";
 import CleaningEvent from "../../types/CleaningEvent";
 
 interface Props {
-  onCancelClick: () => void;
-  pollutedLocationId: string;
-  updateUpcomingEvent: (newEvent: CleaningEvent) => void;
+  closeForm: () => void;
+  event: CleaningEvent;
+  updateEvent: (newEvent: CleaningEvent) => void;
 }
 
-const CleaningEventCreateForm: React.FC<Props> = ({
-  onCancelClick,
-  pollutedLocationId,
-  updateUpcomingEvent,
+const CleaningEventUpdateForm: React.FC<Props> = ({
+  closeForm,
+  event,
+  updateEvent,
 }) => {
   const { t } = useTranslation();
   const {
@@ -31,8 +31,8 @@ const CleaningEventCreateForm: React.FC<Props> = ({
     isFormValid,
     request,
     resetRequest,
-  } = useCleaningEventCreateForm({
-    pollutedLocationId,
+  } = useCleaningEventUpdateForm({
+    event,
   });
 
   const timeZone = useMemo(
@@ -44,7 +44,9 @@ const CleaningEventCreateForm: React.FC<Props> = ({
     if (!request) return;
 
     if (request.status === "success") {
-      updateUpcomingEvent(request.data);
+      console.log("updating event to", request.data);
+      updateEvent(request.data);
+      closeForm();
     }
   }, [request, request?.status]);
 
@@ -53,7 +55,7 @@ const CleaningEventCreateForm: React.FC<Props> = ({
 
     switch (request.status) {
       case "success":
-        return null; // The create form will close automatically through useEffect
+        return null; // The update form will close automatically through useEffect
       case "loading":
         return (
           <div className="flex justify-center items-center my-4 w-full">
@@ -76,8 +78,8 @@ const CleaningEventCreateForm: React.FC<Props> = ({
               <div>{t("error", "Error")}</div>
               <div>
                 {t(
-                  "cleaningEventCreateError",
-                  "Failed to create the cleaning event"
+                  "cleaningEventUpdateError",
+                  "Failed to update the cleaning event"
                 )}
               </div>
               <div className="my-2">
@@ -153,7 +155,7 @@ const CleaningEventCreateForm: React.FC<Props> = ({
           <MdOutlineSave className="text-2xl text-center" />
         </button>
         <button
-          onClick={onCancelClick}
+          onClick={closeForm}
           className="w-full md:w-16 flex justify-center items-center m-2 rounded-md border border-red-300 bg-white text-red-700 shadow-sm md:hover:bg-red-50"
         >
           <MdOutlineCancel className="text-2xl" />
@@ -169,4 +171,4 @@ const CleaningEventCreateForm: React.FC<Props> = ({
   );
 };
 
-export default CleaningEventCreateForm;
+export default CleaningEventUpdateForm;

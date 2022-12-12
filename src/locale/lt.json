@@ -10,6 +10,7 @@
   "cleaningEventsFinishedTitle": "Baigtas įvykis",
   "cleaningEventsForeseenTitle": "Ateinantis įvykis",
   "cleaningEventsTitle": "Tvarkymo įvykiai",
+  "cleaningEventUpdateError": "Nepavyko atnaujinti tvarkymo įvykio",
   "delete": "Ištrinti",
   "directions": "Nuorodos",
   "edit": "Keisti",

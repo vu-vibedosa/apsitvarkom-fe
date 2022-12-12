@@ -20,7 +20,7 @@ const usePollutedLocationUpdateForm = (props: Props) => {
   const { updatePage, pollutedLocation } = props;
   const { t } = useTranslation();
 
-  const getCurrentPollutedLocationFormData: () => PollutedLocationUpdateFormData =
+  const getCurrentPollutedLocationUpdateFormData: () => PollutedLocationUpdateFormData =
     () => {
       return {
         id: pollutedLocation.id || "",
@@ -41,7 +41,7 @@ const usePollutedLocationUpdateForm = (props: Props) => {
     };
 
   const [formData, setFormData] = useState<PollutedLocationUpdateFormData>(
-    getCurrentPollutedLocationFormData()
+    getCurrentPollutedLocationUpdateFormData()
   );
 
   const isFormValid = () => {
@@ -117,7 +117,7 @@ const usePollutedLocationUpdateForm = (props: Props) => {
     handleNotesOnChange,
     handleSubmit,
     isFormValid,
-    resetForm: () => setFormData(getCurrentPollutedLocationFormData()),
+    resetForm: () => setFormData(getCurrentPollutedLocationUpdateFormData()),
   };
 };
 

@@ -10,6 +10,7 @@
   "cleaningEventsFinishedTitle": "Finished event",
   "cleaningEventsForeseenTitle": "Upcoming event",
   "cleaningEventsTitle": "Cleaning events",
+  "cleaningEventUpdateError": "Failed to update the cleaning event",
   "delete": "Delete",
   "directions": "Directions",
   "edit": "Edit",

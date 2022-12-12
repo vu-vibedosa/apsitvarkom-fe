@@ -10,20 +10,19 @@ import { deleteCleaningEvent } from "../../backEndClient";
 import { ApiRequest } from "../../types/backEnd/ApiRequest";
 import CleaningEvent from "../../types/CleaningEvent";
 import CleaningEventRow from "./CleaningEventRow";
+import CleaningEventUpdateForm from "./CleaningEventUpdateForm";
 
 interface Props {
   event: CleaningEvent;
-  updateUpcomingEvent: (newEvent: CleaningEvent | undefined) => void;
+  updateEvent: (newEvent: CleaningEvent | undefined) => void;
 }
 
-const CleaningEventUpdateRow: React.FC<Props> = ({
-  event,
-  updateUpcomingEvent,
-}) => {
+const CleaningEventUpdateRow: React.FC<Props> = ({ event, updateEvent }) => {
   const { t } = useTranslation();
   const [deleteRequest, setDeleteRequest] = useState<
     ApiRequest<undefined> | undefined
   >();
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   const renderDeleteRequest = () => {
     if (!deleteRequest) return null;
@@ -71,12 +70,19 @@ const CleaningEventUpdateRow: React.FC<Props> = ({
     }
   };
 
-  return (
+  return showForm ? (
+    <CleaningEventUpdateForm
+      closeForm={() => setShowForm(false)}
+      updateEvent={updateEvent}
+      event={event}
+    />
+  ) : (
     <CleaningEventRow event={event} overrideContent={renderDeleteRequest()}>
       <div className="flex flex-row h-16 md:h-auto">
         <button
           className="w-full md:w-16 flex justify-center items-center m-2 rounded-md border 
         border-green-600 bg-white text-green-700 shadow-sm md:hover:bg-green-50"
+          onClick={() => setShowForm(true)}
         >
           <MdOutlineEdit className="text-2xl text-center" />
         </button>
@@ -92,7 +98,7 @@ const CleaningEventUpdateRow: React.FC<Props> = ({
                   status: "success",
                   data: undefined,
                 });
-                updateUpcomingEvent(undefined);
+                updateEvent(undefined);
               })
               .catch(() => {
                 setDeleteRequest({ status: "error" });

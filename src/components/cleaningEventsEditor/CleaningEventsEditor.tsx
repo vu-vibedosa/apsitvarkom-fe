@@ -51,7 +51,7 @@ const CleaningEventsEditor: React.FC<Props> = ({
 
           <CleaningEventUpdateRow
             event={upcomingEvent}
-            updateUpcomingEvent={(newEvent) => setUpcomingEvent(newEvent)}
+            updateEvent={(newEvent) => setUpcomingEvent(newEvent)}
           />
         </div>
       )}
