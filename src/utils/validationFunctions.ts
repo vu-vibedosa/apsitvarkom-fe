@@ -1,4 +1,4 @@
-import { DefaultTFuncReturn, TFunction } from "i18next";
+import i18next, { DefaultTFuncReturn, TFunction } from "i18next";
 
 const minNumber: (
   newValue: number,
@@ -41,4 +41,13 @@ const isRequired: (
     : t("validationIsRequired", "Value is required");
 };
 
-export { minNumber, isNumber, isInteger, isRequired };
+const isInTheFuture: (
+  newValue: Date,
+  t: TFunction
+) => DefaultTFuncReturn | undefined = (newValue, t) => {
+  return newValue.getTime() > new Date().getTime()
+    ? undefined
+    : t("validationIsInTheFuture", "Date must be in the future");
+};
+
+export { minNumber, isNumber, isInteger, isRequired, isInTheFuture };

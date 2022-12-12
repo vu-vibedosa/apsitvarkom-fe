@@ -1,6 +1,8 @@
 {
   "backToList": "Back to the list",
   "cancel": "Cancel",
+  "cleaningEventsCreateButton": "Click here to plan one",
+  "cleaningEventsCreateMessage": "This polluted location does not have an upcoming event",
   "cleaningEventsFinalizedTitle": "Past events",
   "cleaningEventsFinishedTitle": "Finished event",
   "cleaningEventsForeseenTitle": "Upcoming event",
@@ -39,6 +41,7 @@
   "startTime": "Start time",
   "titleMissing": "Title is missing",
   "validationIsInteger": "Value must be an integer",
+  "validationIsInTheFuture": "Date must be in the future",
   "validationIsNumber": "Value must be a number",
   "validationIsRequired": "Value is required",
   "validationMinNumber": "Value must be higher or equal to {{minValue}}"

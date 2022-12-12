@@ -4,6 +4,7 @@ import PollutedLocationResponse from "./types/backEnd/PollutedLocationResponse";
 import CleaningEventResponse from "./types/backEnd/CleaningEventResponse";
 import { Coordinates } from "./types/PollutedLocation";
 import PollutedLocationUpdateRequest from "./types/backEnd/PollutedLocationUpdateRequest";
+import { CleaningEventCreateRequest } from "./types/backEnd/CleaningEventCreateRequest";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.put["Content-Type"] = "application/json";
@@ -56,5 +57,12 @@ export const deletePollutedLocation = (id: string) => {
 export const getAllCleaningEvents = () => {
   return axios.get<CleaningEventResponse[]>(
     process.env.REACT_APP_BACK_END_URL + "/api/CleaningEvent/All"
+  );
+};
+
+export const createCleaningEvent = (request: CleaningEventCreateRequest) => {
+  return axios.post<CleaningEventResponse>(
+    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/Create",
+    JSON.stringify(request)
   );
 };

@@ -46,7 +46,11 @@ const PollutedLocationPage: React.FC = () => {
                 })
               }
             />
-            <CleaningEventsEditor events={request.data.events} />
+            <CleaningEventsEditor
+              events={request.data.events}
+              pollutedLocationId={request.data.id || ""}
+              progress={request.data.progress || 0}
+            />
           </>
         );
       case "loading":

@@ -1,13 +1,20 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import CleaningEvent from "../../types/CleaningEvent";
+import CleaningEventCreateRow from "./CleaningEventCreateRow";
 import CleaningEventRow from "./CleaningEventRow";
 
 interface Props {
+  pollutedLocationId: string;
+  progress: number;
   events?: CleaningEvent[];
 }
 
-const CleaningEventsEditor: React.FC<Props> = ({ events = [] }) => {
+const CleaningEventsEditor: React.FC<Props> = ({
+  events = [],
+  progress,
+  pollutedLocationId,
+}) => {
   const { t } = useTranslation();
   const finalizedEvents = events.filter((e) => e.status === "finalized");
   const upcomingEvent: CleaningEvent | undefined = events.find(
@@ -17,12 +24,14 @@ const CleaningEventsEditor: React.FC<Props> = ({ events = [] }) => {
     (e) => e.status === "finished"
   );
 
+  const isFullyProgressed = progress === 100;
+
   return (
     <div className="my-4 md:my-8 space-y-4">
       <h2 className="text-lg md:text-xl font-semibold md:font-bold my-2">
         {t("cleaningEventsTitle", "Cleaning events")}
       </h2>
-      {finishedEvent && (
+      {!isFullyProgressed && finishedEvent && (
         <div>
           <h2 className="text-base md:text-lg font-medium md:font-semibold my-2">
             {t("cleaningEventsFinishedTitle", "Finished event")}
@@ -31,13 +40,22 @@ const CleaningEventsEditor: React.FC<Props> = ({ events = [] }) => {
           <CleaningEventRow event={finishedEvent} />
         </div>
       )}
-      {upcomingEvent && (
+      {!isFullyProgressed && upcomingEvent && (
         <div>
           <h2 className="text-base md:text-lg font-medium md:font-semibold my-2">
             {t("cleaningEventsForeseenTitle", "Upcoming event")}
           </h2>
 
           <CleaningEventRow event={upcomingEvent} />
+        </div>
+      )}
+      {!isFullyProgressed && !upcomingEvent && !finishedEvent && (
+        <div>
+          <h2 className="text-base md:text-lg font-medium md:font-semibold my-2">
+            {t("cleaningEventsForeseenTitle", "Upcoming event")}
+          </h2>
+
+          <CleaningEventCreateRow pollutedLocationId={pollutedLocationId} />
         </div>
       )}
       {finalizedEvents.length > 0 && (

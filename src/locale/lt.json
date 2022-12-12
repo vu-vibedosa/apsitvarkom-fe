@@ -1,6 +1,8 @@
 {
   "backToList": "Atgal į sąrašą",
   "cancel": "Atšaukti",
+  "cleaningEventsCreateButton": "Spauskite čia, jei norite jį sukurti",
+  "cleaningEventsCreateMessage": "Ši užteršta vieta neturi ateinančio įvykio",
   "cleaningEventsFinalizedTitle": "Praeities įvykiai",
   "cleaningEventsFinishedTitle": "Baigtas įvykis",
   "cleaningEventsForeseenTitle": "Ateinantis įvykis",
@@ -39,6 +41,7 @@
   "startTime": "Pradžios laikas",
   "titleMissing": "Nežinoma vieta",
   "validationIsInteger": "Reikšmė turi būti sveikasis skaičius",
+  "validationIsInTheFuture": "Data turi būti ateityje",
   "validationIsNumber": "Reikšmė turi būti skaičius",
   "validationIsRequired": "Reikšmė privaloma",
   "validationMinNumber": "Reikšmė turi būti didesnė arba lygi {{minValue}}"
