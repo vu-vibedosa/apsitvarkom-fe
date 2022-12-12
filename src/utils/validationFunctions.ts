@@ -1,4 +1,4 @@
-import i18next, { DefaultTFuncReturn, TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
 const minNumber: (
   newValue: number,

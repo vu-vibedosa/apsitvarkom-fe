@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import CleaningEvent from "../../types/CleaningEvent";
 import CleaningEventCreateForm from "./CleaningEventCreateForm";
 
 interface Props {
   pollutedLocationId: string;
+  updateUpcomingEvent: (newEvent: CleaningEvent) => void;
 }
 
-const CleaningEventCreateRow: React.FC<Props> = ({ pollutedLocationId }) => {
+const CleaningEventCreateRow: React.FC<Props> = ({
+  pollutedLocationId,
+  updateUpcomingEvent,
+}) => {
   const { t } = useTranslation();
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -14,6 +19,7 @@ const CleaningEventCreateRow: React.FC<Props> = ({ pollutedLocationId }) => {
     <CleaningEventCreateForm
       onCancelClick={() => setShowForm(false)}
       pollutedLocationId={pollutedLocationId}
+      updateUpcomingEvent={updateUpcomingEvent}
     />
   ) : (
     <button

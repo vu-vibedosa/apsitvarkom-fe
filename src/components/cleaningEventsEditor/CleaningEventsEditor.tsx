@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CleaningEvent from "../../types/CleaningEvent";
 import CleaningEventCreateRow from "./CleaningEventCreateRow";
@@ -17,9 +17,11 @@ const CleaningEventsEditor: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const finalizedEvents = events.filter((e) => e.status === "finalized");
-  const upcomingEvent: CleaningEvent | undefined = events.find(
-    (e) => e.status === "foreseen"
+
+  const [upcomingEvent, setUpcomingEvent] = useState<CleaningEvent | undefined>(
+    events.find((e) => e.status === "foreseen")
   );
+
   const finishedEvent: CleaningEvent | undefined = events.find(
     (e) => e.status === "finished"
   );
@@ -55,7 +57,10 @@ const CleaningEventsEditor: React.FC<Props> = ({
             {t("cleaningEventsForeseenTitle", "Upcoming event")}
           </h2>
 
-          <CleaningEventCreateRow pollutedLocationId={pollutedLocationId} />
+          <CleaningEventCreateRow
+            pollutedLocationId={pollutedLocationId}
+            updateUpcomingEvent={(newEvent) => setUpcomingEvent(newEvent)}
+          />
         </div>
       )}
       {finalizedEvents.length > 0 && (

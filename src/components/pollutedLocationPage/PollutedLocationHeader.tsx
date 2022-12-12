@@ -23,7 +23,7 @@ interface Props {
   setMode: (newMode: typeof pollutedLocationPageModes[number]) => void;
   updateData?: {
     isFormValid: () => boolean;
-    handleSumbit: () => void;
+    handleSubmit: () => void;
     request: ApiRequest<PollutedLocation> | undefined;
     resetRequest: () => void;
     resetForm: () => void;
@@ -206,7 +206,7 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
                   type="button"
                   className="px-2 md:px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-green-600 bg-white text-green-700 shadow-sm md:hover:bg-green-50"
                   onClick={() => {
-                    updateData.handleSumbit();
+                    updateData.handleSubmit();
                     setMode("view");
                   }}
                 >

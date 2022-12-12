@@ -62,7 +62,7 @@ export const getAllCleaningEvents = () => {
 
 export const createCleaningEvent = (request: CleaningEventCreateRequest) => {
   return axios.post<CleaningEventResponse>(
-    process.env.REACT_APP_BACK_END_URL + "/api/PollutedLocation/Create",
+    process.env.REACT_APP_BACK_END_URL + "/api/CleaningEvent/Create",
     JSON.stringify(request)
   );
 };
