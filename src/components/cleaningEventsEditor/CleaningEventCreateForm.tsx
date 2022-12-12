@@ -4,8 +4,8 @@ import DateTimePicker from "react-datetime-picker";
 import { useTranslation } from "react-i18next";
 import {
   MdErrorOutline,
+  MdOutlineCancel,
   MdOutlineChangeCircle,
-  MdOutlineDeleteForever,
   MdOutlineSave,
 } from "react-icons/md";
 import useCleaningEventCreateForm from "../../hooks/useCleaningEventCreateForm";
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const CleaningEventCreateForm: React.FC<Props> = ({
-  onCancelClick: onBackClick,
+  onCancelClick,
   pollutedLocationId,
   updateUpcomingEvent,
 }) => {
@@ -151,10 +151,10 @@ const CleaningEventCreateForm: React.FC<Props> = ({
           <MdOutlineSave className="text-2xl text-center" />
         </button>
         <button
-          onClick={onBackClick}
+          onClick={onCancelClick}
           className="w-full md:w-16 flex justify-center items-center m-2 rounded-md border border-red-300 bg-white text-red-700 shadow-sm md:hover:bg-red-50"
         >
-          <MdOutlineDeleteForever className="text-2xl" />
+          <MdOutlineCancel className="text-2xl" />
         </button>
       </div>
     </>
