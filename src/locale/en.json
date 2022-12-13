@@ -50,5 +50,6 @@
   "validationIsInTheFuture": "Date must be in the future",
   "validationIsNumber": "Value must be a number",
   "validationIsRequired": "Value is required",
+  "validationMaxNumber": "Value must be lower or equal to {{maxValue}}",
   "validationMinNumber": "Value must be higher or equal to {{minValue}}"
 }

@@ -50,5 +50,6 @@
   "validationIsInTheFuture": "Data turi būti ateityje",
   "validationIsNumber": "Reikšmė turi būti skaičius",
   "validationIsRequired": "Reikšmė privaloma",
+  "validationMaxNumber": "Reikšmė turi būti mažesnė arba lygi {{maxValue}}",
   "validationMinNumber": "Reikšmė turi būti didesnė arba lygi {{minValue}}"
 }

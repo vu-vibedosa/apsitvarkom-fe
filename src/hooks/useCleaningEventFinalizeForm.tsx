@@ -8,7 +8,12 @@ import {
 } from "../types/backEnd/CleaningEventFinalizeRequest";
 import CleaningEvent from "../types/CleaningEvent";
 import { validate } from "../types/Validated";
-import { isInteger, isRequired, minNumber } from "../utils/validationFunctions";
+import {
+  isInteger,
+  isRequired,
+  maxNumber,
+  minNumber,
+} from "../utils/validationFunctions";
 
 interface Props {
   event: CleaningEvent;
@@ -31,6 +36,8 @@ const useCleaningEventFinalizeForm = (props: Props) => {
           newValue !== undefined
             ? minNumber(newValue, t, currentProgress + 1)
             : undefined,
+        (newValue, t) =>
+          newValue !== undefined ? maxNumber(newValue, t, 100) : undefined,
       ],
       errors: [],
     },

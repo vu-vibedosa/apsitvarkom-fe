@@ -14,6 +14,18 @@ const minNumber: (
       );
 };
 
+const maxNumber: (
+  newValue: number,
+  t: TFunction,
+  maxValue: number
+) => DefaultTFuncReturn | undefined = (newValue, t, maxValue) => {
+  return newValue <= maxValue
+    ? undefined
+    : t("validationMaxNumber", "Value must be lower or equal to {{maxValue}}", {
+        maxValue,
+      });
+};
+
 const isNumber: (
   newValue: number,
   t: TFunction
@@ -50,4 +62,4 @@ const isInTheFuture: (
     : t("validationIsInTheFuture", "Date must be in the future");
 };
 
-export { minNumber, isNumber, isInteger, isRequired, isInTheFuture };
+export { minNumber, isNumber, isInteger, isRequired, isInTheFuture, maxNumber };
