@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CleaningEvent from "../../types/CleaningEvent";
 import CleaningEventCreateRow from "./CleaningEventCreateRow";
+import CleaningEventFinalizeRow from "./CleaningEventFinalizeRow";
 import CleaningEventRow from "./CleaningEventRow";
 import CleaningEventUpdateRow from "./CleaningEventUpdateRow";
 
 interface Props {
   pollutedLocationId: string;
   progress: number;
+  setNewProgress: (newProgress: number) => void;
   events?: CleaningEvent[];
 }
 
@@ -15,16 +17,22 @@ const CleaningEventsEditor: React.FC<Props> = ({
   events = [],
   progress,
   pollutedLocationId,
+  setNewProgress,
 }) => {
   const { t } = useTranslation();
-  const finalizedEvents = events.filter((e) => e.status === "finalized");
+  const [finalizedEvents, setFinalizedEvents] = useState<CleaningEvent[]>(
+    events
+      .filter((e) => e.status === "finalized")
+      .sort((e) => e.startTime?.getTime() || 0)
+      .reverse()
+  );
 
   const [upcomingEvent, setUpcomingEvent] = useState<CleaningEvent | undefined>(
     events.find((e) => e.status === "foreseen")
   );
 
-  const finishedEvent: CleaningEvent | undefined = events.find(
-    (e) => e.status === "finished"
+  const [finishedEvent, setFinishedEvent] = useState<CleaningEvent | undefined>(
+    events.find((e) => e.status === "finished")
   );
 
   const locationIsFullyProgressed = progress === 100;
@@ -40,7 +48,15 @@ const CleaningEventsEditor: React.FC<Props> = ({
             {t("cleaningEventsFinishedTitle", "Finished event")}
           </h2>
 
-          <CleaningEventRow event={finishedEvent} />
+          <CleaningEventFinalizeRow
+            event={finishedEvent}
+            currentProgress={progress}
+            updateEvent={(newProgress) => {
+              setFinalizedEvents((prevState) => [finishedEvent, ...prevState]);
+              setFinishedEvent(undefined);
+              setNewProgress(newProgress);
+            }}
+          />
         </div>
       )}
       {!locationIsFullyProgressed && upcomingEvent && (
@@ -73,9 +89,16 @@ const CleaningEventsEditor: React.FC<Props> = ({
             {t("cleaningEventsFinalizedTitle", "Past events")}
           </h2>
 
-          {finalizedEvents.map((e, i) => (
-            <CleaningEventRow event={e} key={e.id} index={i} />
-          ))}
+          <div className="md:rounded-lg">
+            {finalizedEvents.map((e, i) => (
+              <CleaningEventRow
+                event={e}
+                key={e.id}
+                index={i}
+                className="md:rounded-none"
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

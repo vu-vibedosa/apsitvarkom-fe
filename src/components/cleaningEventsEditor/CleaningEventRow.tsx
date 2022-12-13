@@ -8,6 +8,8 @@ interface Props {
   index?: number;
   children?: React.ReactNode;
   overrideContent?: React.ReactNode;
+  additionalTableRows?: React.ReactNode;
+  className?: string;
 }
 
 const CleaningEventRow: React.FC<Props> = ({
@@ -15,6 +17,8 @@ const CleaningEventRow: React.FC<Props> = ({
   index = 0,
   children,
   overrideContent,
+  additionalTableRows,
+  className,
 }) => {
   const { t } = useTranslation();
 
@@ -22,7 +26,7 @@ const CleaningEventRow: React.FC<Props> = ({
     <div
       className={`${
         index % 2 == 0 ? "bg-gray-50" : "bg-white"
-      } shadow md:rounded-lg`}
+      } shadow md:rounded-lg ${className}`}
     >
       {overrideContent ? (
         overrideContent
@@ -50,6 +54,8 @@ const CleaningEventRow: React.FC<Props> = ({
                 <dd className="text-gray-900 md:col-span-2">{event.notes}</dd>
               </>
             )}
+
+            {additionalTableRows}
           </div>
           {children}
         </dl>

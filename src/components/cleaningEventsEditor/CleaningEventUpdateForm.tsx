@@ -44,7 +44,6 @@ const CleaningEventUpdateForm: React.FC<Props> = ({
     if (!request) return;
 
     if (request.status === "success") {
-      console.log("updating event to", request.data);
       updateEvent(request.data);
       closeForm();
     }

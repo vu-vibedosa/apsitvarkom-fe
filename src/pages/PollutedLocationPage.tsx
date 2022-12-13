@@ -50,6 +50,19 @@ const PollutedLocationPage: React.FC = () => {
               events={request.data.events}
               pollutedLocationId={request.data.id || ""}
               progress={request.data.progress || 0}
+              setNewProgress={(newProgress) =>
+                setRequest((prevState) => {
+                  if (prevState.status !== "success") return prevState;
+
+                  return {
+                    ...prevState,
+                    data: {
+                      ...prevState.data,
+                      progress: newProgress,
+                    },
+                  };
+                })
+              }
             />
           </>
         );
