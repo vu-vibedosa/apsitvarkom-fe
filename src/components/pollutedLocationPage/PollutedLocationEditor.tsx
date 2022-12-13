@@ -58,7 +58,7 @@ const PollutedLocationEditor: React.FC<Props> = ({
         updateData={{
           request,
           resetRequest,
-          handleSumbit: handleSubmit,
+          handleSubmit,
           isFormValid,
           resetForm: resetForm,
         }}

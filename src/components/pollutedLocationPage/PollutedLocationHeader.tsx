@@ -23,7 +23,7 @@ interface Props {
   setMode: (newMode: typeof pollutedLocationPageModes[number]) => void;
   updateData?: {
     isFormValid: () => boolean;
-    handleSumbit: () => void;
+    handleSubmit: () => void;
     request: ApiRequest<PollutedLocation> | undefined;
     resetRequest: () => void;
     resetForm: () => void;
@@ -37,6 +37,7 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
   currentMode,
   setMode,
   updateData,
+  progress,
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -157,19 +158,46 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
         </div>
         <div className="flex space-x-4 md:my-auto flex-wrap md:flex-nowrap">
           {currentMode === "view" &&
+            progress !== 100 &&
             updateData?.request?.status !== "loading" &&
             deleteRequest?.status !== "loading" && (
-              <button
-                type="button"
-                className="px-2 md:px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-blue-300 bg-white text-blue-700 shadow-sm md:hover:bg-blue-50"
-                onClick={() => {
-                  updateData?.resetRequest();
-                  setMode("edit");
-                }}
-              >
-                <MdOutlineEdit className="text-xl mr-1" />
-                {t("edit", "Edit")}
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="px-2 md:px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-blue-300 bg-white text-blue-700 shadow-sm md:hover:bg-blue-50"
+                  onClick={() => {
+                    updateData?.resetRequest();
+                    setMode("edit");
+                  }}
+                >
+                  <MdOutlineEdit className="text-xl mr-1" />
+                  {t("edit", "Edit")}
+                </button>
+                <button
+                  type="button"
+                  className="px-2 md:px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-red-300 bg-white text-red-700 shadow-sm md:hover:bg-red-50"
+                  onClick={async () => {
+                    if (!id) return;
+                    updateData?.resetRequest();
+
+                    setDeleteRequest({ status: "loading" });
+                    deletePollutedLocation(id)
+                      .then(() => {
+                        setDeleteRequest({
+                          status: "success",
+                          data: undefined,
+                        });
+                        navigate("/");
+                      })
+                      .catch(() => {
+                        setDeleteRequest({ status: "error" });
+                      });
+                  }}
+                >
+                  <MdOutlineDeleteForever className="text-xl mr-1" />
+                  {t("delete", "Delete")}
+                </button>
+              </>
             )}
           {currentMode === "edit" && updateData && (
             <>
@@ -178,7 +206,7 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
                   type="button"
                   className="px-2 md:px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-green-600 bg-white text-green-700 shadow-sm md:hover:bg-green-50"
                   onClick={() => {
-                    updateData.handleSumbit();
+                    updateData.handleSubmit();
                     setMode("view");
                   }}
                 >
@@ -196,31 +224,6 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
               </button>
             </>
           )}
-          {currentMode === "view" &&
-            updateData?.request?.status !== "loading" &&
-            deleteRequest?.status !== "loading" && (
-              <button
-                type="button"
-                className="px-2 md:px-4 py-2 flex text-sm md:text-base items-center rounded-md border border-red-300 bg-white text-red-700 shadow-sm md:hover:bg-red-50"
-                onClick={async () => {
-                  if (!id) return;
-                  updateData?.resetRequest();
-
-                  setDeleteRequest({ status: "loading" });
-                  deletePollutedLocation(id)
-                    .then(() => {
-                      setDeleteRequest({ status: "success", data: undefined });
-                      navigate("/");
-                    })
-                    .catch(() => {
-                      setDeleteRequest({ status: "error" });
-                    });
-                }}
-              >
-                <MdOutlineDeleteForever className="text-xl mr-1" />
-                {t("delete", "Delete")}
-              </button>
-            )}
           <a
             href={`https://www.google.com/maps/dir/?api=1&destination=${location?.coordinates?.latitude},${location?.coordinates?.longitude}`}
             type="button"
