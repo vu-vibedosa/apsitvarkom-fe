@@ -1,4 +1,3 @@
-import i18next from "i18next";
 import React, { useEffect, useMemo } from "react";
 import DateTimePicker from "react-datetime-picker";
 import { useTranslation } from "react-i18next";
@@ -9,6 +8,7 @@ import {
   MdOutlineSave,
 } from "react-icons/md";
 import useCleaningEventCreateForm from "../../hooks/useCleaningEventCreateForm";
+import { defaultTimeLocale } from "../../languages";
 import CleaningEvent from "../../types/CleaningEvent";
 
 interface Props {
@@ -106,7 +106,7 @@ const CleaningEventCreateForm: React.FC<Props> = ({
         <dd className="text-gray-900 md:col-span-2">
           <div className="flex items-center space-x-2">
             <DateTimePicker
-              locale={i18next.language}
+              locale={defaultTimeLocale}
               clearIcon={null}
               disableClock
               value={formData.startTime.value || new Date()}

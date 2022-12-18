@@ -1,6 +1,6 @@
-import i18next from "i18next";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { defaultTimeLocale } from "../../languages";
 import CleaningEvent from "../../types/CleaningEvent";
 
 interface Props {
@@ -37,7 +37,7 @@ const CleaningEventRow: React.FC<Props> = ({
               {t("startTime", "Start time")}
             </dt>
             <dd className="text-gray-900 md:col-span-2">
-              {event.startTime?.toLocaleString(i18next.language, {
+              {event.startTime?.toLocaleString(defaultTimeLocale, {
                 year: "numeric",
                 month: "numeric",
                 day: "numeric",
