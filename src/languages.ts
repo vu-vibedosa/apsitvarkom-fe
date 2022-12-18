@@ -8,6 +8,7 @@ interface LanguageData {
 }
 
 const supportedLanguages = ["en", "lt"] as const;
+export const defaultTimeLocale = supportedLanguages[1];
 
 const languageData: Record<typeof supportedLanguages[number], LanguageData> &
   Resource = {

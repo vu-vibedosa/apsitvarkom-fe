@@ -1,7 +1,7 @@
 import i18next from "i18next";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import supportedLanguages from "../../languages";
+import supportedLanguages, { defaultTimeLocale } from "../../languages";
 import PollutedLocation from "../../types/PollutedLocation";
 import {
   MdOutlineDeleteForever,
@@ -153,7 +153,7 @@ const PollutedLocationHeader: React.FC<Props & PollutedLocation> = ({
               t("titleMissing", "Title is missing")}
           </h1>
           <div className="text-sm text-gray-400">
-            {spotted?.toLocaleString(i18next.language)}
+            {spotted?.toLocaleString(defaultTimeLocale)}
           </div>
         </div>
         <div className="flex space-x-4 md:my-auto flex-wrap md:flex-nowrap">
