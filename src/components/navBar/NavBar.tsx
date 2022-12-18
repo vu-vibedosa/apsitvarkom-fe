@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import React, { useState } from "react";
-import { MdOutlineCleaningServices } from "react-icons/md";
+import logo from "../../assets/apsitvarkom-logo.svg";
 import { Link } from "react-router-dom";
 import supportedLanguages, { languageData } from "../../languages";
 
@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
           to={"/"}
           className="flex flex-row items-center space-x-1 md:space-x-4"
         >
-          <MdOutlineCleaningServices className="h-8 md:h-12 w-auto text-gray-800" />
+          <img src={logo} className="h-8 md:h-12 w-auto text-gray-800" />
           <h1 className="font-semibold text-lg md:text-2xl text-gray-800">
             Apsitvarkom
           </h1>
